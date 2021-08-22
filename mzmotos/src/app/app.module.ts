@@ -15,6 +15,8 @@ import { CatalogueComponent } from './components/catalogue/catalogue.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { AgendaCardComponent } from './components/agenda-card/agenda-card.component';
 import { ClockComponent } from './components/clock/clock.component';
+import { CatalogueItemComponent } from './components/catalogue-item/catalogue-item.component';
+import { FloatButtonComponent } from './components/float-button/float-button.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { ClockComponent } from './components/clock/clock.component';
     CatalogueComponent,
     CalendarComponent,
     AgendaCardComponent,
-    ClockComponent
+    ClockComponent,
+    CatalogueItemComponent,
+    FloatButtonComponent
   ],
   imports: [
     BrowserModule,

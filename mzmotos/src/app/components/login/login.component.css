@@ -1,0 +1,25 @@
+p {
+    color: var(--primary-white);
+}
+
+a {
+    color: var(--primary-white);
+}
+
+.underlineHover:after {
+    background: var(--primary-white);
+}
+
+.logo-container {
+    max-width: 300px;
+    padding: 1rem;
+    margin: 1rem;
+}
+
+img {
+    width: 100%;
+}
+
+.login-container {
+    background-color: var(--primary-color);
+}

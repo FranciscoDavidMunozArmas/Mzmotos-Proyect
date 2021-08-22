@@ -1,0 +1,32 @@
+.navbar {
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+}
+
+.navbar-brand:hover {
+    transform: scale(110%, 110%);
+}
+
+.nav-item a {
+    color: var(--text-base-color);
+    transition: all .3s ease;
+}
+
+.nav-item:hover>a {
+    color: var(--primary-color);
+}
+
+.nav-link {
+    text-transform: capitalize;
+}
+
+.navbar-light .navbar-nav .active>.nav-link,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .show>.nav-link {
+    color: var(--primary-color);
+    font-weight: bold;
+}

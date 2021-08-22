@@ -1,0 +1,11 @@
+.appointment-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+.agenda-card {
+    display: flex;
+    justify-content: center;
+}

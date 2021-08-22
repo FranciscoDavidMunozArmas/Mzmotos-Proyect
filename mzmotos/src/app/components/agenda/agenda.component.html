@@ -1,0 +1,15 @@
+<div class="container-fluid p-4">
+    <div class="row">
+        <div class="col-xl-8 fadeIn">
+            <app-calendar></app-calendar>
+        </div>
+        <div class="col-md">
+            <div class="appointment-container fadeIn">
+                <app-clock></app-clock>
+                <div class="agenda-card mt-3" *ngFor="let a of [1,2,3,4,5]">
+                    <app-agenda-card></app-agenda-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

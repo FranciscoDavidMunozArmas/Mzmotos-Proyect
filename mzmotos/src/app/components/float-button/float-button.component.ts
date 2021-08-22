@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-float-button',
@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FloatButtonComponent implements OnInit {
 
+  @Input() icon: string = "fa fa-plus";
+  @Output() eventFunction = new EventEmitter<any>();
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  clickFloating(){
+    this.eventFunction.emit();
   }
 
 }

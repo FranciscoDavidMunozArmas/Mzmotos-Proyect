@@ -20,6 +20,8 @@ import { CatalogueItemComponent } from './components/catalogue-item/catalogue-it
 import { FloatButtonComponent } from './components/float-button/float-button.component';
 import { AppointmentFormComponent } from './components/appointment-form/appointment-form.component';
 import { AgreementComponent } from './components/agreement/agreement.component';
+import { SearchComponent } from './components/search/search.component';
+import { NotifyComponent } from './components/notify/notify.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { AgreementComponent } from './components/agreement/agreement.component';
     CatalogueItemComponent,
     FloatButtonComponent,
     AppointmentFormComponent,
-    AgreementComponent
+    AgreementComponent,
+    SearchComponent,
+    NotifyComponent
   ],
   imports: [
     BrowserModule,

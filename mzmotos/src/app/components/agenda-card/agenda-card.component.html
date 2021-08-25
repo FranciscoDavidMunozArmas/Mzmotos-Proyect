@@ -13,9 +13,31 @@
         </div>
         <div class="btn-group">
             <button class="btn btn-light" style="box-shadow: none; background: none; border: none;"><span class="fa fa-check" style="color: #000;"></span></button>
-            <button class="btn btn-success"><span class="fa fa-bell"></span></button>
-            <button class="btn btn-primary"><span class="fa fa-trash"></span></button>
+            <button class="btn btn-success" (click)="showNotifyForm()"><span class="fa fa-bell"></span></button>
+            <button class="btn btn-primary" (click)="showAgreeForm()"><span class="fa fa-trash"></span></button>
         </div>
     </div>
-
 </div>
+
+
+<ng-template #agreeForm let-modal>
+    <div class="card">
+        <div class="d-flex mb-3">
+            <a class="btn close-btn" (click)="modalClose()"><span class="fa fa-times"></span></a>
+        </div>
+        <div class="card-body">
+            <app-agreement text="¿Esta seguro que desea eliminar?" (agreeEvent)="deleteCard()" (dismissEvent)="modalClose()"></app-agreement>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #notifyForm let-modal>
+    <div class="card">
+        <div class="d-flex mb-3">
+            <a class="btn close-btn" (click)="modalClose()"><span class="fa fa-times"></span></a>
+        </div>
+        <div class="card-body">
+            <app-notify text="¿Esta seguro que desea eliminar?" (notifyEvent)="notify($event)" (cancelEvent)="modalClose()"></app-notify>
+        </div>
+    </div>
+</ng-template>

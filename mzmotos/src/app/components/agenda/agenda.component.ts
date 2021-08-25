@@ -17,6 +17,7 @@ export class AgendaComponent implements OnInit {
   date: Date;
 
   @ViewChild("setAppointment") setAppointment: ElementRef;
+  @ViewChild("searchBox") searchBox: ElementRef;
 
   constructor(private modalService: NgbModal) { }
 
@@ -39,8 +40,16 @@ export class AgendaComponent implements OnInit {
     console.log(date);
   }
 
+  search(text: string) {
+    this.modalClose();
+  }
+
   showSetAppointmentModal() {
     this.triggerModal(this.setAppointment);
+  }
+
+  showSearchBox() {
+    this.triggerModal(this.searchBox);
   }
 
   triggerModal(content: any) {

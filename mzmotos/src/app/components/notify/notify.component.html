@@ -1,0 +1,17 @@
+<div class="container">
+    <form>
+        <div class="form-group">
+            <select name="notificate" id="" class="form-control">
+                <option value=""> -- Seleccion una opcion -- </option>
+                <option value="1"><span class="fa fa-whatsapp"></span> Whatsapp</option>
+                <option value="2"><span class="fa fa-sms"></span> SMS</option>
+                <option value="2"><span class="fa fa-at"></span> Correo Electronico</option>
+            </select>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-outline-primary" (click)="notify()"><span class="fa fa-bell"></span> Aceptar</button>
+            <button class="btn btn-outline-danger" (click)="cancel()"><span class="fa fa-times"></span> Cancelar</button>
+        </div>
+    </form>
+</div>

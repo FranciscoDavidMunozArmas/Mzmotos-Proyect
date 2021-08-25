@@ -4,7 +4,9 @@ import cors from 'cors';
 
 import config from './config/config';
 
-import indexRouter from './app/routes/index.routes';
+import userRouter from './app/routes/user.routes';
+import clientRouter from './app/routes/client.routes';
+import salemanRouter from './app/routes/salesman.routes';
 
 const app = express();
 
@@ -18,6 +20,8 @@ app.use(express.urlencoded({ extended:false }));
 app.use(express.json());
 
 //routes
-app.use("/", indexRouter);
+app.use("/user", userRouter);
+app.use("/client", clientRouter);
+app.use("/salesman", salemanRouter);
 
 export default app;

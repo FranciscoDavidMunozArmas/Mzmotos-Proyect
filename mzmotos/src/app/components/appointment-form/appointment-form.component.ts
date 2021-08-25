@@ -1,0 +1,63 @@
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import * as moment from 'moment';
+import { Appointment } from 'src/app/interfaces/Appointment';
+import { Client } from 'src/app/interfaces/Client';
+
+import { clients } from '../../data/clients.data';
+
+@Component({
+  selector: 'app-appointment-form',
+  templateUrl: './appointment-form.component.html',
+  styleUrls: ['./appointment-form.component.css']
+})
+export class AppointmentFormComponent implements OnInit {
+
+  @Input() appointment: Appointment;
+  @Input() date: Date;
+
+  @Output() saveEvent = new EventEmitter<any>();
+  @Output() cancelEvent = new EventEmitter<any>();
+
+  input = {
+    clientId: "",
+    date: ""
+  }
+
+  clients: Client[] = []
+  constructor() { }
+
+  ngOnInit(): void {
+    this.clients = clients;
+    this.input.clientId = this.clients[0]._id;
+    if(this.appointment) {
+      this.input.clientId = this.appointment.client._id;
+      this.input.date = moment(this.appointment.date).format("YYYY-MM-DDTHH:MM");
+    }
+    if(this.date) {
+      this.input.date = moment(this.date).format("YYYY-MM-DDTHH:MM");
+    }
+  }
+
+  onChange(value: any) {
+  }
+
+  submitForm(appointmentForm: NgForm) {
+    console.log(this.clients);
+    console.log(this.clients.find((element: Client) => {
+      console.log(`${element._id} === ${appointmentForm.value.client} ==> ${element._id === appointmentForm.value.client}`);
+      return element;
+    }));
+    const appointment: Appointment = {
+      client: this.clients.find((element: Client) => element._id === appointmentForm.value.client),
+      date: appointmentForm.value.date,
+      state: false
+    };
+    this.saveEvent.emit(appointment);
+  }
+
+  cancelForm() {
+    this.cancelEvent.emit();
+  }
+
+}

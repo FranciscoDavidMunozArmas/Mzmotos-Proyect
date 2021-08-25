@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -17,6 +18,8 @@ import { AgendaCardComponent } from './components/agenda-card/agenda-card.compon
 import { ClockComponent } from './components/clock/clock.component';
 import { CatalogueItemComponent } from './components/catalogue-item/catalogue-item.component';
 import { FloatButtonComponent } from './components/float-button/float-button.component';
+import { AppointmentFormComponent } from './components/appointment-form/appointment-form.component';
+import { AgreementComponent } from './components/agreement/agreement.component';
 
 @NgModule({
   declarations: [
@@ -32,13 +35,16 @@ import { FloatButtonComponent } from './components/float-button/float-button.com
     AgendaCardComponent,
     ClockComponent,
     CatalogueItemComponent,
-    FloatButtonComponent
+    FloatButtonComponent,
+    AppointmentFormComponent,
+    AgreementComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
-    NgbModule
+    NgbModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

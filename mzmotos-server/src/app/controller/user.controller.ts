@@ -72,10 +72,10 @@ export const deleteUser = async (req: Request, res: Response) => {
 
 export const allowAccess = async (req: Request, res: Response) => {
     try {
-        const { name, password } = req.body;
+        const { username, password } = req.body;
         let result: boolean = false;
         let token: string = "";
-        const user = await userSchema.findOne({name});
+        const user = await userSchema.findOne({username});
         if (user) {
             result = bcryptjs.compareSync(password, user?.password as string);
             if(result){

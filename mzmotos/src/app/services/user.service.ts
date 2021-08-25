@@ -1,9 +1,18 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Service } from './service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserService extends Service {
 
-  constructor() { }
+  constructor(private http: HttpClient) {
+    super();
+    super.expandURI("/user");
+  }
+
+  async allowAccess(username: string, password: string) {
+    return await this.http.post(`${super.getURI()}/access`, {username, password});
+  }
 }

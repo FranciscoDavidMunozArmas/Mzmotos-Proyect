@@ -22,6 +22,6 @@ app.use(express.json());
 //routes
 app.use("/user", userRouter);
 app.use("/client", clientRouter);
-app.use("/salesman", salemanRouter);
+app.use("/salesmen", salemanRouter);
 
 export default app;

@@ -46,14 +46,11 @@ export class LoginComponent implements OnInit {
     }
     let date = new Date();
     date.setHours(date.getHours() + 2);
+    this.cookie.deleteAll();
     this.cookie.set(this.cookieName, value.token, date);
     this.cookie.set(this.cookieRole, value.role, date);
-    if(value.role == "manager") {
-      this.router.navigate(["/manager"]);
-    } else if(value.role == "warehouse") {
-      this.router.navigate(["/warehouse"]);
-    } else if(value.role == "salesman") {
-      this.router.navigate(["/sales"]);
+    if(value.role == "manager" || value.role == "warehouse" || value.role == "sales") {
+      this.router.navigate([`/${value.role}`]);
     }
   }
 

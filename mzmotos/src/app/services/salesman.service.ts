@@ -21,6 +21,10 @@ export class SalesmanService extends Service {
     return this.http.get(`${super.getURI()}/${id}`);
   }
 
+  getSalesmanbyName(username: string) {
+    return this.http.get<Salesman>(`${super.getURI()}/username/${username}`);
+  }
+
   postSalesman(salesman: Salesman) {
     return this.http.post(super.getURI(), salesman);
   }

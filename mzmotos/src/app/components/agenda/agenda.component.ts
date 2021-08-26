@@ -3,7 +3,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Appointment } from 'src/app/interfaces/Appointment';
 import { Salesman } from 'src/app/interfaces/Salesman';
 
-import { salesman } from 'src/app/data/salesman';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+import { SalesmanService } from 'src/app/services/salesman.service';
 
 @Component({
   selector: 'app-agenda',
@@ -19,15 +21,31 @@ export class AgendaComponent implements OnInit {
   @ViewChild("setAppointment") setAppointment: ElementRef;
   @ViewChild("searchBox") searchBox: ElementRef;
 
-  constructor(private modalService: NgbModal) { }
+
+  private cookieName: string = "logged-user";
+  private cookieRole: string = "role";
+
+  constructor(private modalService: NgbModal,
+    private cookie: CookieService,
+    private router: Router,
+    private salesmanService: SalesmanService) { }
 
   ngOnInit(): void {
-    this.getSalesman();
+    const name = this.cookie.get(this.cookieName);
+    const role = this.cookie.get(this.cookieRole);
+    if (!name || !role) {
+      this.router.navigate(["/login"]);
+    }
+
+    this.getSalesman(name);
   }
 
-  getSalesman() {
-    this.salesman = salesman;
-    this.appointments = this.salesman.appointments;
+  getSalesman(name: string) {
+    this.salesmanService.getSalesmanbyName(name)
+    .subscribe(res => {
+      this.salesman = res;
+      this.appointments = res.appointments;
+    });
   }
 
   addAppointment(appointment: Appointment) {

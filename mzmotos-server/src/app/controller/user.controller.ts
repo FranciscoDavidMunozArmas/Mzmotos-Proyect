@@ -79,7 +79,7 @@ export const allowAccess = async (req: Request, res: Response) => {
         if (user) {
             result = bcryptjs.compareSync(password, user?.password as string);
             if(result){
-                token = user._id as string;
+                token = user.username as string;
             }
         }
         return res.status(200).json({ token: token, role: user?.role });

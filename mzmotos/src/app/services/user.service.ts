@@ -12,7 +12,7 @@ export class UserService extends Service {
     super.expandURI("/user");
   }
 
-  async allowAccess(username: string, password: string) {
-    return await this.http.post(`${super.getURI()}/access`, {username, password});
+  allowAccess(username: string, password: string) {
+    return this.http.post(`${super.getURI()}/access`, {username, password});
   }
 }

@@ -7,16 +7,16 @@
         <div class="card login-container fadeInUp second">
             <div class="card-body">
                 <p>Inicio Sesión</p>
-                <form action="">
+                <form #loginForm="ngForm" (ngSubmit)="submitUser(loginForm)">
                     <div class="form-group">
-                        <input type="text" name="user" class="form-control" placeholder="Usuario" required>
+                        <input [(ngModel)]="input.username" (ngModelChange)="onChange(username)" type="text" name="username" class="form-control" placeholder="Usuario" #username required>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="password" class="form-control" placeholder="Contraseña" required>
+                        <input [(ngModel)]="input.password" (ngModelChange)="onChange(password)" type="password" name="password" class="form-control" placeholder="Contraseña" #password required>
                     </div>
                     <div class="right">
                         <div class="btn-group">
-                            <button type="submit" routerLink="/sales" class="btn btn-light">Iniciar Sesión</button>
+                            <button type="submit" class="btn btn-light">Iniciar Sesión</button>
                         </div>
                     </div>
                 </form>

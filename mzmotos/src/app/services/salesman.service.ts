@@ -13,27 +13,27 @@ export class SalesmanService extends Service {
     super.expandURI("/salesmen")
   }
 
-  async getSalesmen() {
-    return await this.http.get(super.getURI());
+  getSalesmen() {
+    return this.http.get(super.getURI());
   }
 
-  async getSalesman(id: string) {
-    return await this.http.get(`${super.getURI()}/${id}`);
+  getSalesman(id: string) {
+    return this.http.get(`${super.getURI()}/${id}`);
   }
 
-  async postSalesman(salesman: Salesman) {
-    return await this.http.post(super.getURI(), salesman);
+  postSalesman(salesman: Salesman) {
+    return this.http.post(super.getURI(), salesman);
   }
 
-  async putSalesman(id: string, salesman: Salesman) {
-    return await this.http.put(`${super.getURI()}/${id}`, salesman);
+  putSalesman(id: string, salesman: Salesman) {
+    return this.http.put(`${super.getURI()}/${id}`, salesman);
   }
 
-  async deleteSalesman(id: string) {
-    return await this.http.delete(`${super.getURI()}/${id}`);
+  deleteSalesman(id: string) {
+    return this.http.delete(`${super.getURI()}/${id}`);
   }
 
-  async deleteSalesmen() { 
-    return await this.http.delete(super.getURI());
+  deleteSalesmen() { 
+    return this.http.delete(super.getURI());
   }
 }

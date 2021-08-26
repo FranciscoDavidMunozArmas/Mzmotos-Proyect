@@ -12,7 +12,7 @@ export class ClientService extends Service {
     super.expandURI("/client");
   }
 
-  async getClients() {
-    return await this.http.get(super.getURI());
+  getClients() {
+    return this.http.get(super.getURI());
   }
 }

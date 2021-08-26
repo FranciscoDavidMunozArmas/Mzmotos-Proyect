@@ -13,28 +13,28 @@ export class AppointmentService extends Service {
     super.expandURI("/user/appointments");
   }
 
-  async getClients(salesmanid: string) {
-    return await this.http.get(`${super.getURI()}/${salesmanid}`);
+  getClients(salesmanid: string) {
+    return this.http.get(`${super.getURI()}/${salesmanid}`);
   }
 
-  async getAppointment(salesmanid: string, appointmentid: string) {
-    return await this.http.get(`${super.getURI()}/${salesmanid}/${appointmentid}`);
+  getAppointment(salesmanid: string, appointmentid: string) {
+    return this.http.get(`${super.getURI()}/${salesmanid}/${appointmentid}`);
   }
 
-  async postAppointment(salesmanid: string, appointment: Appointment) {
-    return await this.http.post(`${super.getURI()}/${salesmanid}`, appointment);
+  postAppointment(salesmanid: string, appointment: Appointment) {
+    return this.http.post(`${super.getURI()}/${salesmanid}`, appointment);
   }
 
-  async putAppointment(salesmanid: string, appointmentid: string, appointment: Appointment) {
-    return await this.http.put(`${super.getURI()}/${salesmanid}/${appointmentid}`, appointment);
+  putAppointment(salesmanid: string, appointmentid: string, appointment: Appointment) {
+    return this.http.put(`${super.getURI()}/${salesmanid}/${appointmentid}`, appointment);
   }
 
-  async deleteAppointment(salesmanid: string, appointmentid: string) {
-    return await this.http.delete(`${super.getURI()}/${salesmanid}/${appointmentid}`);
+  deleteAppointment(salesmanid: string, appointmentid: string) {
+    return this.http.delete(`${super.getURI()}/${salesmanid}/${appointmentid}`);
   }
 
-  async deleteClients(salesmanid: string) { 
-    return await this.http.delete(`${super.getURI()}/${salesmanid}`);
+  deleteClients(salesmanid: string) { 
+    return this.http.delete(`${super.getURI()}/${salesmanid}`);
   }
 
 }

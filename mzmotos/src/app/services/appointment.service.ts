@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Appointment } from '../interfaces/Appointment';
+import { Salesman } from '../interfaces/Salesman';
 import { Service } from './service';
 
 @Injectable({
@@ -10,10 +11,10 @@ export class AppointmentService extends Service {
 
   constructor(private http: HttpClient) {
     super();
-    super.expandURI("/user/appointments");
+    super.expandURI("/salesmen/appointments");
   }
 
-  getClients(salesmanid: string) {
+  getAppointments(salesmanid: string) {
     return this.http.get(`${super.getURI()}/${salesmanid}`);
   }
 
@@ -22,7 +23,7 @@ export class AppointmentService extends Service {
   }
 
   postAppointment(salesmanid: string, appointment: Appointment) {
-    return this.http.post(`${super.getURI()}/${salesmanid}`, appointment);
+    return this.http.post<Salesman>(`${super.getURI()}/${salesmanid}`, appointment);
   }
 
   putAppointment(salesmanid: string, appointmentid: string, appointment: Appointment) {

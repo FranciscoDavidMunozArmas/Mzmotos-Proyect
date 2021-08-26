@@ -6,6 +6,7 @@ import { Salesman } from 'src/app/interfaces/Salesman';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { SalesmanService } from 'src/app/services/salesman.service';
+import { AppointmentService } from 'src/app/services/appointment.service';
 
 @Component({
   selector: 'app-agenda',
@@ -29,7 +30,8 @@ export class AgendaComponent implements OnInit {
   constructor(private modalService: NgbModal,
     private cookie: CookieService,
     private router: Router,
-    private salesmanService: SalesmanService) { }
+    private salesmanService: SalesmanService,
+    private appointmentService: AppointmentService) { }
 
   ngOnInit(): void {
     const name = this.cookie.get(this.cookieName);
@@ -50,8 +52,12 @@ export class AgendaComponent implements OnInit {
   }
 
   addAppointment(appointment: Appointment) {
-    this.appointments.push(appointment);
-    this.modalClose();
+    this.appointmentService.postAppointment(this.salesman._id, appointment)
+    .subscribe(res => {
+      this.salesman = res;
+      this.appointments = this.salesman.appointments;
+      this.modalClose();
+    });
   }
 
   setShowMore() {

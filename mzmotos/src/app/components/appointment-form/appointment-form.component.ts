@@ -30,6 +30,7 @@ export class AppointmentFormComponent implements OnInit {
   ngOnInit(): void {
     this.clients = clients;
     this.input.clientId = this.clients[0]._id;
+    this.input.date = moment(new Date).format("YYYY-MM-DDTHH:MM");
     if(this.appointment) {
       this.input.clientId = this.appointment.client._id;
       this.input.date = moment(this.appointment.date).format("YYYY-MM-DDTHH:MM");
@@ -43,11 +44,6 @@ export class AppointmentFormComponent implements OnInit {
   }
 
   submitForm(appointmentForm: NgForm) {
-    console.log(this.clients);
-    console.log(this.clients.find((element: Client) => {
-      console.log(`${element._id} === ${appointmentForm.value.client} ==> ${element._id === appointmentForm.value.client}`);
-      return element;
-    }));
     const appointment: Appointment = {
       client: this.clients.find((element: Client) => element._id === appointmentForm.value.client),
       date: appointmentForm.value.date,

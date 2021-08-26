@@ -17,6 +17,7 @@ export class AgendaComponent implements OnInit {
   salesman: Salesman;
   appointments: Appointment[];
   date: Date;
+  showMore: Boolean = false;
 
   @ViewChild("setAppointment") setAppointment: ElementRef;
   @ViewChild("searchBox") searchBox: ElementRef;
@@ -51,6 +52,10 @@ export class AgendaComponent implements OnInit {
   addAppointment(appointment: Appointment) {
     this.appointments.push(appointment);
     this.modalClose();
+  }
+
+  setShowMore() {
+    this.showMore = !this.showMore;
   }
 
   setDate(date: Date) {

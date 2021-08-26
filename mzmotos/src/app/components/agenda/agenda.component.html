@@ -6,9 +6,16 @@
         <div class="col-md">
             <div class="appointment-container fadeIn">
                 <app-clock></app-clock>
-                <div *ngIf="appointments">
-                    <div class="agenda-card mt-3" *ngFor="let appointment of appointments">
-                        <app-agenda-card></app-agenda-card>
+                <div *ngIf="showMore; else lessButton">
+                    <a (click)="setShowMore()"><span class="fa fa-plus"></span> Mas</a>
+                </div>
+                <ng-template #lessButton>
+                    <a (click)="setShowMore()"><span class=" fa fa-minus "></span> Menos</a>
+                </ng-template>
+                <hr>
+                <div *ngIf="appointments ">
+                    <div class="agenda-card mt-3 " *ngFor="let appointment of appointments ">
+                        <app-agenda-card [appointment]="appointment"></app-agenda-card>
                     </div>
                 </div>
             </div>
@@ -16,33 +23,33 @@
     </div>
 </div>
 
-<div class="float-right-bottom">
-    <div class="d-flex flex-column">
-        <app-float-button (eventFunction)="showSearchBox()" icon="fa fa-search"></app-float-button>
-        <app-float-button icon="fas fa-clipboard-list"></app-float-button>
-        <app-float-button (eventFunction)="showSetAppointmentModal()"></app-float-button>
+<div class="float-right-bottom ">
+    <div class="d-flex flex-column ">
+        <app-float-button (eventFunction)="showSearchBox() " icon="fa fa-search "></app-float-button>
+        <app-float-button icon="fas fa-clipboard-list "></app-float-button>
+        <app-float-button (eventFunction)="showSetAppointmentModal() "></app-float-button>
     </div>
 </div>
 
 
 <ng-template #setAppointment let-modal>
-    <div class="card">
-        <div class="d-flex mb-3">
-            <a class="btn close-btn" (click)="modalClose()"><span class="fa fa-times"></span></a>
+    <div class="card ">
+        <div class="d-flex mb-3 ">
+            <a class="btn close-btn " (click)="modalClose() "><span class="fa fa-times "></span></a>
         </div>
-        <div class="card-body">
-            <app-appointment-form (saveEvent)="addAppointment($event)" (cancelEvent)="modalClose()"></app-appointment-form>
+        <div class="card-body ">
+            <app-appointment-form (saveEvent)="addAppointment($event) " (cancelEvent)="modalClose() "></app-appointment-form>
         </div>
     </div>
 </ng-template>
 
 <ng-template #searchBox let-modal>
-    <div class="card">
-        <div class="d-flex mb-3">
-            <a class="btn close-btn" (click)="modalClose()"><span class="fa fa-times"></span></a>
+    <div class="card ">
+        <div class="d-flex mb-3 ">
+            <a class="btn close-btn " (click)="modalClose() "><span class="fa fa-times "></span></a>
         </div>
-        <div class="card-body">
-            <app-search (searchEvent)="search($event)" (cancelEvent)="modalClose()"></app-search>
+        <div class="card-body ">
+            <app-search (searchEvent)="search($event) " (cancelEvent)="modalClose() "></app-search>
         </div>
     </div>
 </ng-template>

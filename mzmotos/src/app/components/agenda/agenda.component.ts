@@ -17,6 +17,8 @@ export class AgendaComponent implements OnInit {
 
   salesman: Salesman;
   appointments: Appointment[];
+  todayappointments: Appointment[];
+  appointmentDays: Date[];
   date: Date;
   showMore: Boolean = false;
 
@@ -48,6 +50,8 @@ export class AgendaComponent implements OnInit {
     .subscribe(res => {
       this.salesman = res;
       this.appointments = res.appointments;
+      this.setAppointmentDays();
+      this.setTodayAppointment(new Date());
     });
   }
 
@@ -56,17 +60,52 @@ export class AgendaComponent implements OnInit {
     .subscribe(res => {
       this.salesman = res;
       this.appointments = this.salesman.appointments;
+      this.setAppointmentDays();
+      this.setTodayAppointment(this.date);
       this.modalClose();
     });
   }
 
-  setShowMore() {
-    this.showMore = !this.showMore;
+  removeAppointment(appointment: Appointment) {
+    this.appointmentService.deleteAppointment(this.salesman._id, appointment._id)
+    .subscribe(res => {
+      this.appointments = this.salesman.appointments.filter((element: Appointment) => element._id !== appointment._id);
+      this.setAppointmentDays();
+      this.setTodayAppointment(this.date);
+      this.modalClose();
+    });
   }
 
-  setDate(date: Date) {
+  updateAppointement(appointment: Appointment) {
+    this.appointmentService.putAppointment(this.salesman._id, appointment._id, appointment)
+    .subscribe(
+      res => {
+        this.appointments = res;
+        this.setAppointmentDays();
+        this.setTodayAppointment(this.date);
+      }
+    );
+  }
+
+  setTodayAppointment(date: Date){
+    this.todayappointments = [];
     this.date = date;
-    console.log(date);
+    this.appointments.forEach((element: Appointment) => {
+      const elementDate = new Date(element.date);
+      if(elementDate.getFullYear() === date.getFullYear() &&
+      elementDate.getMonth() === date.getMonth() &&
+      elementDate.getDate() === date.getDate()){
+        this.todayappointments.push(element)
+      }
+    })
+  }
+
+  setAppointmentDays() {
+    this.appointmentDays = this.appointments.map((element: Appointment) => new Date(element.date));
+  }
+
+  setShowMore() {
+    this.showMore = !this.showMore;
   }
 
   search(text: string) {

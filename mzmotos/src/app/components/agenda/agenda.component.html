@@ -1,12 +1,12 @@
 <div class="container-fluid p-4">
     <div class="row">
         <div class="col-xl-8 fadeIn">
-            <app-calendar (dateOutput)="setDate($event)"></app-calendar>
+            <app-calendar (dateOutput)="setTodayAppointment($event)" [appointments]="appointmentDays"></app-calendar>
         </div>
         <div class="col-md">
             <div class="appointment-container fadeIn">
                 <app-clock></app-clock>
-                <div *ngIf="showMore; else lessButton">
+                <div *ngIf="!showMore; else lessButton">
                     <a (click)="setShowMore()"><span class="fa fa-plus"></span> Mas</a>
                 </div>
                 <ng-template #lessButton>
@@ -14,8 +14,10 @@
                 </ng-template>
                 <hr>
                 <div *ngIf="appointments ">
-                    <div class="agenda-card mt-3 " *ngFor="let appointment of appointments ">
-                        <app-agenda-card [appointment]="appointment"></app-agenda-card>
+                    <div class="agenda-card mt-3 " *ngFor="let appointment of todayappointments ">
+                        <div *ngIf="!appointment.state || showMore">
+                            <app-agenda-card [appointment]="appointment" (deleteEvent)="removeAppointment($event)" (checkEvent)="updateAppointement($event)"></app-agenda-card>
+                        </div>
                     </div>
                 </div>
             </div>

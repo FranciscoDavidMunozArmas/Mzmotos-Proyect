@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Client } from '../interfaces/Client';
 import { Service } from './service';
 
 @Injectable({
@@ -13,6 +14,6 @@ export class ClientService extends Service {
   }
 
   getClients() {
-    return this.http.get(super.getURI());
+    return this.http.get<Client[]>(super.getURI());
   }
 }

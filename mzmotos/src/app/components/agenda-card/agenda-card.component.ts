@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Appointment } from 'src/app/interfaces/Appointment';
 
@@ -10,6 +10,10 @@ import { Appointment } from 'src/app/interfaces/Appointment';
 export class AgendaCardComponent implements OnInit {
 
   @Input() appointment: Appointment;
+  @Output() notificationEvent = new EventEmitter<any>();
+  @Output() deleteEvent = new EventEmitter<any>();
+  @Output() checkEvent = new EventEmitter<any>();
+
   date: string;
 
   @ViewChild("agreeForm") agreeForm: ElementRef;
@@ -50,10 +54,18 @@ export class AgendaCardComponent implements OnInit {
   }
 
   notify(application: string) {
+    this.notificationEvent.emit();
     this.modalClose();
   }
 
+  checkCard() {
+    this.appointment.state = !this.appointment.state;
+    console.log(this.appointment)
+    this.checkEvent.emit(this.appointment)
+  }
+
   deleteCard() {
+    this.deleteEvent.emit(this.appointment);
     this.modalClose();
   }
 

@@ -3,8 +3,7 @@ import { NgForm } from '@angular/forms';
 import * as moment from 'moment';
 import { Appointment } from 'src/app/interfaces/Appointment';
 import { Client } from 'src/app/interfaces/Client';
-
-import { clients } from '../../data/clients.data';
+import { ClientService } from 'src/app/services/client.service';
 
 @Component({
   selector: 'app-appointment-form',
@@ -25,11 +24,11 @@ export class AppointmentFormComponent implements OnInit {
   }
 
   clients: Client[] = []
-  constructor() { }
+  constructor(private clientService: ClientService) { }
 
   ngOnInit(): void {
-    this.clients = clients;
-    this.input.clientId = this.clients[0]._id;
+    this.getClients();
+    // this.input.clientId = this.clients[0]._id;
     this.input.date = moment(new Date).format("YYYY-MM-DDTHH:MM");
     if(this.appointment) {
       this.input.clientId = this.appointment.client._id;
@@ -41,6 +40,16 @@ export class AppointmentFormComponent implements OnInit {
   }
 
   onChange(value: any) {
+  }
+
+  getClients() {
+    this.clientService.getClients()
+    .subscribe(
+      res => {
+        this.clients = res;
+        this.input.clientId = this.clients[0]._id;
+      }
+    )
   }
 
   submitForm(appointmentForm: NgForm) {

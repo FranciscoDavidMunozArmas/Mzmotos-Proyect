@@ -27,7 +27,7 @@ export class AppointmentService extends Service {
   }
 
   putAppointment(salesmanid: string, appointmentid: string, appointment: Appointment) {
-    return this.http.put(`${super.getURI()}/${salesmanid}/${appointmentid}`, appointment);
+    return this.http.put<Appointment[]>(`${super.getURI()}/${salesmanid}/${appointmentid}`, appointment);
   }
 
   deleteAppointment(salesmanid: string, appointmentid: string) {

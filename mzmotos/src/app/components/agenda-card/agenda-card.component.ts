@@ -12,12 +12,13 @@ export class AgendaCardComponent implements OnInit {
   @Input() appointment: Appointment;
   @Output() notificationEvent = new EventEmitter<any>();
   @Output() deleteEvent = new EventEmitter<any>();
-  @Output() checkEvent = new EventEmitter<any>();
+  @Output() updateEvent = new EventEmitter<any>();
 
   date: string;
 
   @ViewChild("agreeForm") agreeForm: ElementRef;
   @ViewChild("notifyForm") notifyForm: ElementRef;
+  @ViewChild("appointmentForm") appointmentForm: ElementRef;
 
   constructor(private modalService: NgbModal) { }
 
@@ -49,6 +50,10 @@ export class AgendaCardComponent implements OnInit {
     this.triggerModal(this.notifyForm);
   }
 
+  showAppointmentForm(){
+    this.triggerModal(this.appointmentForm);
+  }
+
   triggerModal(content: any) {
     this.modalService.open(content).result;
   }
@@ -58,10 +63,15 @@ export class AgendaCardComponent implements OnInit {
     this.modalClose();
   }
 
+  updateAppointment(appointment: Appointment) {
+    this.appointment = appointment;
+    this.updateEvent.emit(this.appointment);
+    this.modalClose();
+  }
+
   checkCard() {
     this.appointment.state = !this.appointment.state;
-    console.log(this.appointment)
-    this.checkEvent.emit(this.appointment)
+    this.updateEvent.emit(this.appointment)
   }
 
   deleteCard() {

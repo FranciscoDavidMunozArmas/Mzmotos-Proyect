@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
@@ -6,6 +7,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
+
+  text: string = "";
 
   @Output() searchEvent= new EventEmitter<string>();
   @Output() cancelEvent= new EventEmitter<any>();
@@ -15,8 +18,8 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  search() {
-    this.searchEvent.emit();
+  search(searchBox: NgForm) {
+    this.searchEvent.emit(searchBox.value.search);
   }
 
   cancel() {

@@ -14,9 +14,10 @@
                 </ng-template>
                 <hr>
                 <div *ngIf="appointments ">
-                    <div class="agenda-card mt-3 " *ngFor="let appointment of todayappointments ">
+                    <div>{{selectedDay}}</div>
+                    <div class="agenda-card mt-3 " *ngFor="let appointment of todayappointments">
                         <div *ngIf="!appointment.state || showMore">
-                            <app-agenda-card [appointment]="appointment" (deleteEvent)="removeAppointment($event)" (checkEvent)="updateAppointement($event)"></app-agenda-card>
+                            <app-agenda-card [appointment]="appointment" (deleteEvent)="removeAppointment($event)" (updateEvent)="updateAppointement($event)"></app-agenda-card>
                         </div>
                     </div>
                 </div>
@@ -28,7 +29,7 @@
 <div class="float-right-bottom ">
     <div class="d-flex flex-column ">
         <app-float-button (eventFunction)="showSearchBox() " icon="fa fa-search "></app-float-button>
-        <app-float-button icon="fas fa-clipboard-list "></app-float-button>
+        <app-float-button (eventFunction)="showAllAppointmentsModal() " icon="fas fa-clipboard-list"></app-float-button>
         <app-float-button (eventFunction)="showSetAppointmentModal() "></app-float-button>
     </div>
 </div>
@@ -52,6 +53,26 @@
         </div>
         <div class="card-body ">
             <app-search (searchEvent)="search($event) " (cancelEvent)="modalClose() "></app-search>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #allAppointmentsModal let-modal>
+    <div class="card ">
+        <div class="d-flex mb-3 ">
+            <a class="btn close-btn " (click)="modalClose() "><span class="fa fa-times "></span></a>
+        </div>
+        <div class="card-body">
+            <div *ngIf="resultAppointments.length !== 0; else allAppointments">
+                <div class="agenda-card mt-3 " *ngFor="let appointment of resultAppointments">
+                    <app-agenda-card [appointment]="appointment" (deleteEvent)="removeAppointment($event)" (updateEvent)="updateAppointement($event)"></app-agenda-card>
+                </div>
+            </div>
+            <ng-template #allAppointments>
+                <div class="agenda-card mt-3 " *ngFor="let appointment of appointments">
+                    <app-agenda-card [appointment]="appointment" (deleteEvent)="removeAppointment($event)" (updateEvent)="updateAppointement($event)"></app-agenda-card>
+                </div>
+            </ng-template>
         </div>
     </div>
 </ng-template>

@@ -17,13 +17,16 @@ export class AgendaComponent implements OnInit {
 
   salesman: Salesman;
   appointments: Appointment[];
+  resultAppointments: Appointment[];
   todayappointments: Appointment[];
   appointmentDays: Date[];
   date: Date;
   showMore: Boolean = false;
+  selectedDay: string;
 
   @ViewChild("setAppointment") setAppointment: ElementRef;
   @ViewChild("searchBox") searchBox: ElementRef;
+  @ViewChild("allAppointmentsModal") allAppointmentsModal: ElementRef;
 
 
   private cookieName: string = "logged-user";
@@ -89,6 +92,7 @@ export class AgendaComponent implements OnInit {
 
   setTodayAppointment(date: Date){
     this.todayappointments = [];
+    this.selectedDay = this.dateToString(date);
     this.date = date;
     this.appointments.forEach((element: Appointment) => {
       const elementDate = new Date(element.date);
@@ -100,6 +104,14 @@ export class AgendaComponent implements OnInit {
     })
   }
 
+  dateToString(date: Date): string {
+    let day = (date.getDate() < 10)? "0" + date.getDate().toString():date.getDate().toString();
+    let month = (date.getMonth() < 10)? "0" + date.getMonth().toString():date.getMonth().toString();
+    let year = (date.getFullYear() < 10)? "0" + date.getFullYear().toString():date.getFullYear().toString();
+
+    return `${year}/${month}/${day}`
+  }
+
   setAppointmentDays() {
     this.appointmentDays = this.appointments.map((element: Appointment) => new Date(element.date));
   }
@@ -109,11 +121,43 @@ export class AgendaComponent implements OnInit {
   }
 
   search(text: string) {
+    this.resultAppointments = [];
+    const regexRUC = /^[0-9]{13}$/;
+    const regexDate = /^(?:[0-9]{2})?[0-9]{2}[-/][0-3]?[0-9][-/][0-3]?[0-9][\s*-\s*](?:[0-9]{2})?[0-9]{2}[-/][0-3]?[0-9][-/][0-3]?[0-9]$/;
+    if(text.match(regexRUC)) {
+      this.appointments.forEach((element: Appointment) => {
+        if(element.client.RUC === text){
+          this.resultAppointments.push(element);
+        }
+      });
+    } else if (text.match(regexDate)) {
+      let [lower, upper] = text.split('-').sort();
+      const lowerDate = new Date(lower);
+      const upperDate = new Date(upper);
+      this.appointments.forEach((element: Appointment) => {
+        console.log(element)
+        const elementDate = new Date(element.date);
+        if(
+          (lowerDate.getFullYear() <= elementDate.getFullYear() && elementDate.getFullYear() <= upperDate.getFullYear()) &&
+          (lowerDate.getMonth() <= elementDate.getMonth() && elementDate.getMonth() <= upperDate.getMonth()) &&
+          (lowerDate.getDate() <= elementDate.getDate() && elementDate.getDate() <= upperDate.getDate())
+        ){
+          this.resultAppointments.push(element);
+        }
+      });
+    }
     this.modalClose();
+    if(this.resultAppointments.length !== 0) {
+      this.triggerModal(this.allAppointmentsModal);
+    }
   }
 
   showSetAppointmentModal() {
     this.triggerModal(this.setAppointment);
+  }
+
+  showAllAppointmentsModal() {
+    this.triggerModal(this.allAppointmentsModal);
   }
 
   showSearchBox() {

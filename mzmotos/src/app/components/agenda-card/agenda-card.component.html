@@ -1,6 +1,6 @@
 <div class="card">
     <div class="d-flex">
-        <div class="card-body">
+        <div class="card-body" (click)="showAppointmentForm()">
             <div class="container">
                 <div class="row">
                     <div class="col">
@@ -39,6 +39,17 @@
         </div>
         <div class="card-body">
             <app-notify text="¿Esta seguro que desea eliminar?" (notifyEvent)="notify($event)" (cancelEvent)="modalClose()"></app-notify>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #appointmentForm let-modal>
+    <div class="card ">
+        <div class="d-flex mb-3 ">
+            <a class="btn close-btn " (click)="modalClose() "><span class="fa fa-times "></span></a>
+        </div>
+        <div class="card-body ">
+            <app-appointment-form [appointment]="appointment" (saveEvent)="updateAppointment($event)" (cancelEvent)="modalClose() "></app-appointment-form>
         </div>
     </div>
 </ng-template>

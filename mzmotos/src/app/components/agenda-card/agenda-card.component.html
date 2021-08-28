@@ -15,7 +15,7 @@
         <div class="btn-group">
             <button class="btn btn-outline-light" (click)="checkCard()" [style]="!appointment.state ? 'color: #000;' : 'color: var(--primary-color);'" style="box-shadow: none; background: none; border: none;"><span class="fa fa-check"></span></button>
             <button class="btn btn-outline-success" (click)="showNotifyForm()"><span class="fa fa-bell"></span></button>
-            <button class="btn btn-outline-danger" (click)="showAgreeForm()"><span class="fa fa-trash"></span></button>
+            <button *ngIf="!disableDelete" class="btn btn-outline-danger" (click)="showAgreeForm()"><span class="fa fa-trash"></span></button>
         </div>
     </div>
 </div>

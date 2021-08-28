@@ -27,6 +27,7 @@ export class AgendaComponent implements OnInit {
   @ViewChild("setAppointment") setAppointment: ElementRef;
   @ViewChild("searchBox") searchBox: ElementRef;
   @ViewChild("allAppointmentsModal") allAppointmentsModal: ElementRef;
+  @ViewChild("resultAppointment") resultAppointmentModal: ElementRef;
 
 
   private cookieName: string = "logged-user";
@@ -44,7 +45,7 @@ export class AgendaComponent implements OnInit {
     if (!name || !role) {
       this.router.navigate(["/login"]);
     }
-
+    
     this.getSalesman(name);
   }
 
@@ -147,9 +148,13 @@ export class AgendaComponent implements OnInit {
       });
     }
     this.modalClose();
-    if(this.resultAppointments.length !== 0) {
-      this.triggerModal(this.allAppointmentsModal);
-    }
+    this.showResultAppointment();
+    console.log(this.resultAppointments.length);
+    console.log(this.resultAppointments);
+  }
+
+  showResultAppointment(){
+    this.triggerModal(this.resultAppointmentModal);
   }
 
   showSetAppointmentModal() {

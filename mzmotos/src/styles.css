@@ -83,9 +83,10 @@ a:hover {
     max-width: 600px;
     position: relative;
     padding: 0px;
-    -webkit-box-shadow: 0 0 60px 0 rgba(0, 0, 0, 0.1);
-    box-shadow: 0 0 60px 0 rgb(0 0 0 / 50%);
+    -webkit-box-shadow: 0 0 10px 0 rgb(0 0 0 / 30%);
+    box-shadow: 0 0 10px 0 rgb(0 0 0 / 30%);
     text-align: center;
+    transition: all .3s ease;
 }
 
 .card,

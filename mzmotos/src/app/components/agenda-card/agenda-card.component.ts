@@ -10,6 +10,7 @@ import { Appointment } from 'src/app/interfaces/Appointment';
 export class AgendaCardComponent implements OnInit {
 
   @Input() appointment: Appointment;
+  @Input() disableDelete: any;
   @Output() notificationEvent = new EventEmitter<any>();
   @Output() deleteEvent = new EventEmitter<any>();
   @Output() updateEvent = new EventEmitter<any>();
@@ -24,6 +25,7 @@ export class AgendaCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.setDate();
+    console.log(this.disableDelete)
   }
 
   ngOnChange() {

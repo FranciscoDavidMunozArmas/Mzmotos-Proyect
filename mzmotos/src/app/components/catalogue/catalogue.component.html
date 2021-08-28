@@ -1,7 +1,7 @@
 <div class="container-fluid pt-4">
     <div class="item-container">
-        <div class="fadeIn" *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]">
-            <app-catalogue-item></app-catalogue-item>
+        <div class="fadeIn" *ngFor="let product of products">
+            <app-catalogue-item [product]="product"></app-catalogue-item>
         </div>
     </div>
 </div>

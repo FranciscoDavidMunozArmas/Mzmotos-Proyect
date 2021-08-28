@@ -11,6 +11,7 @@ export class AgendaCardComponent implements OnInit {
 
   @Input() appointment: Appointment;
   @Input() disableDelete: any;
+  @Input() style: string;
   @Output() notificationEvent = new EventEmitter<any>();
   @Output() deleteEvent = new EventEmitter<any>();
   @Output() updateEvent = new EventEmitter<any>();

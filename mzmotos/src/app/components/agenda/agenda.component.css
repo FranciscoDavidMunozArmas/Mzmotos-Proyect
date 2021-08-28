@@ -8,4 +8,24 @@
 .agenda-card {
     display: flex;
     justify-content: center;
+    transition: all .3s ease;
+}
+
+.agenda-card div {
+    transition: all .3s ease;
+}
+
+.agenda-card div:hover {
+    transform: translate3d(1rem, 0, 0);
+}
+
+.appointment-btn-badge {
+    position: relative;
+}
+
+.appointment-btn-badge .badge {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0.25rem;
 }

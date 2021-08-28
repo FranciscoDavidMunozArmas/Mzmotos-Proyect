@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -10,6 +10,8 @@ export class SearchComponent implements OnInit {
 
   text: string = "";
 
+  @Input() placeholder: string;
+  @Input() tooltip: string;
   @Output() searchEvent= new EventEmitter<string>();
   @Output() cancelEvent= new EventEmitter<any>();
 

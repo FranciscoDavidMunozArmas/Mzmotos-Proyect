@@ -1,17 +1,36 @@
-<div class="product-container my-4 mx-2">
+<div class="product-container my-4 mx-2" (click)="showItem()">
     <div class="product-image">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png" alt="">
+        <img [src]="product.image" alt="">
     </div>
     <div class="product-detail">
         <div class="product-name my-2">
-            <span>Product</span>
-        </div>
-        <div class="product-description my-4">
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <span>{{product.name}}</span>
         </div>
         <div class="product-footer">
-            <span class="price">$0.00</span>
-            <!-- <button class="btn btn-primary"></button> -->
+            <span class="price">$ {{formatNumber()}}</span>
         </div>
     </div>
 </div>
+
+
+<ng-template #item let-modal>
+    <div class="d-flex">
+        <a class="btn close-btn " (click)="modalClose() "><span class="fa fa-times "></span></a>
+    </div>
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col-md">
+                <div class="product-image">
+                    <img [src]="product.image" alt="">
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="container">
+                    <span>{{product.name}}</span>
+                    <br>
+                    <span>$ {{formatNumber()}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -199,8 +199,19 @@ a:hover {
     transition: all .3s ease;
 }
 
-.btn-float:hover {
+.btn-float:hover,
+.btn-float:focus,
+.btn-float:active {
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    background-color: var(--primary-white) !important;
     border-radius: 100%;
+    box-shadow: 0px 0px 0.25rem #000;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
     box-shadow: 0px 0px 0.25rem #000;
 }
 

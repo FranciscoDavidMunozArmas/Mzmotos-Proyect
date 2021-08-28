@@ -1,13 +1,13 @@
-<div class="container">
-    <form #appointmentForm="ngForm" (ngSubmit)="submitForm(appointmentForm)">
+<div class="container mb-4">
+    <form #appointmentForm="ngForm" (ngSubmit)="submitForm(appointmentForm)" class="d-flex flex-column align-center">
         <div class="form-group">
-            <select [(ngModel)]="input.clientId" (ngModelChange)="onChange(client)" name="client" #client required>
+            <select class="form-control" [(ngModel)]="input.clientId" (ngModelChange)="onChange(client)" name="client" #client required>
                 <option *ngFor="let client of clients" value={{client._id}}> {{client.name}} - {{client.address}} - {{client.city}} </option>
             </select>
         </div>
 
         <div class="form-group">
-            <input [(ngModel)]="input.date" (ngModelChange)="onChange(date)" type="datetime-local" name="date" #date required>
+            <input class="form-control" [(ngModel)]="input.date" (ngModelChange)="onChange(date)" type="datetime-local" name="date" #date required>
         </div>
 
         <div class="btn-group">

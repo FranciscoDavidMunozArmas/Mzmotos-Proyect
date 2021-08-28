@@ -136,7 +136,6 @@ export class AgendaComponent implements OnInit {
       const lowerDate = new Date(lower);
       const upperDate = new Date(upper);
       this.appointments.forEach((element: Appointment) => {
-        console.log(element)
         const elementDate = new Date(element.date);
         if(
           (lowerDate.getFullYear() <= elementDate.getFullYear() && elementDate.getFullYear() <= upperDate.getFullYear()) &&
@@ -146,6 +145,8 @@ export class AgendaComponent implements OnInit {
           this.resultAppointments.push(element);
         }
       });
+    } else {
+      this.resultAppointments = this.appointments.filter((element: Appointment) => element.client.name === text)
     }
     this.modalClose();
     this.showResultAppointment();

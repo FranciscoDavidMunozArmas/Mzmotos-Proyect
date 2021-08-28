@@ -1,5 +1,15 @@
+button {
+    border: none !important;
+}
+
 .card {
     width: 490px;
+    box-shadow: none;
+    transition: all .3s ease-in-out;
+}
+
+.card:hover {
+    filter: brightness(90%);
 }
 
 .card-body {

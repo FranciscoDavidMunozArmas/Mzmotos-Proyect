@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container mb-4">
     <form (ngSubmit)="search(searchBox)" #searchBox="ngForm">
         <div class="form-group d-flex">
-            <label for="search" style="font-size: 1.5rem; margin: 0 0.25rem 0 0;"><span class="fa fa-search" placeholder="Busqueda"></span></label>
-            <input [(ngModel)]="text" placeholder="Ingrese la cadena de busqueda" type="text" name="search" id="" class="form-control" placement="top" ngbTooltip="Buscar por RUC o fecha (yyyy/mm/dd-yyyy/mm/dd)" triggers="focus">
+            <label for="search" style="font-size: 1.5rem; margin: 0 0.25rem 0 0;"><span class="fa fa-search"></span></label>
+            <input class="form-control" [(ngModel)]="text" [placeholder]="placeholder" type="text" name="search" id="" class="form-control" placement="top" [ngbTooltip]="tooltip" triggers="focus">
         </div>
 
         <div class="btn-group">

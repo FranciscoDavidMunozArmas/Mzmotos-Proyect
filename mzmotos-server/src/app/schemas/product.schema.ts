@@ -15,4 +15,4 @@ const schema = new Schema({
     versionKey: false
 });
 
-export default model<Product>('client', schema)
+export default model<Product>('product', schema)

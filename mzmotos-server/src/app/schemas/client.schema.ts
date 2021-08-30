@@ -8,7 +8,16 @@ const schema = new Schema({
     },
     name: String,
     address: String,
-    city: String
+    city: String,
+    products: [
+        {
+            productid: String,
+            name: String,
+            image: String,
+            price: Number,
+            qty: Number
+        }
+    ]
 },
 {
     timestamps: false,

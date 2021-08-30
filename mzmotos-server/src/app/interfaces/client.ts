@@ -7,5 +7,9 @@ export interface Client extends Document{
     name: string,
     address:string,
     city: string,
-    products: Product[]
+    products: [{
+        _id?: string,
+        product: Product,
+        qty: number
+    }]
 }

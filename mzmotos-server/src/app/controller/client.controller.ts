@@ -139,7 +139,7 @@ export const getProduct = async (req: Request, res: Response) => {
         const { clientid, productid } = req.params;
         const client = await clientSchema.findById(clientid);
         if (client) {
-            const product = client.products.find((element: Product) => element._id === productid);
+            const product = client.products.find((element: any) => element._id === productid);
             return res.status(200).json(product);
         }
         return res.status(200).json({ message: "Data not found" });

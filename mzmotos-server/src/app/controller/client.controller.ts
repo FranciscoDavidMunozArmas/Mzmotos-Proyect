@@ -104,10 +104,11 @@ export const getProducts = async (req: Request, res: Response) => {
 export const postProduct = async (req: Request, res: Response) => {
     try {
         const { clientid } = req.params;
-        const product: Product = req.body;
+        const { product, qty } = req.body;
+        console.log(product);
         const updateClient = await clientSchema.findByIdAndUpdate(clientid, {
             $push: {
-                products: [product]
+                products: [{product, qty}]
             }
         }, { new: true });
         return res.status(200).json(updateClient);
@@ -155,9 +156,10 @@ export const putProduct = async (req: Request, res: Response) => {
     try {
         const { clientid, productid } = req.params;
         const product: Product = req.body;
+        const { qty } = req.body;
         const client = await clientSchema.findOneAndUpdate(
             { _id: clientid, "products._id": productid },
-            { $set: { "products.$": product } },
+            { $set: { "products.$": {product, qty} } },
             { new: true });
         return res.status(200).json(client?.products);
     } catch (error: any) {

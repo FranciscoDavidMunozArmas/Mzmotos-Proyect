@@ -11,17 +11,19 @@ const schema = new Schema({
     city: String,
     products: [
         {
-            productid: String,
-            name: String,
-            image: String,
-            price: Number,
+            product: {
+                productid: String,
+                name: String,
+                image: String,
+                price: Number
+            },
             qty: Number
         }
     ]
 },
-{
-    timestamps: false,
-    versionKey: false
-});
+    {
+        timestamps: false,
+        versionKey: false
+    });
 
 export default model<Client>('client', schema)

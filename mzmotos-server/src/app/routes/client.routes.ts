@@ -15,7 +15,7 @@ router.route("/:id")
 
 router.route("/products/:clientid")
 .get(Controller.getProducts)
-.put(Controller.postProduct)
+.post(Controller.postProduct)
 .delete(Controller.deleteProducts);
 
 router.route("/products/:clientid/:productid")

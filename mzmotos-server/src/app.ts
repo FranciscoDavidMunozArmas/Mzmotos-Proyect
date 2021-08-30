@@ -7,6 +7,7 @@ import config from './config/config';
 import userRouter from './app/routes/user.routes';
 import clientRouter from './app/routes/client.routes';
 import salemanRouter from './app/routes/salesman.routes';
+import productRouter from './app/routes/product.routes';
 
 const app = express();
 
@@ -23,5 +24,6 @@ app.use(express.json());
 app.use("/user", userRouter);
 app.use("/client", clientRouter);
 app.use("/salesmen", salemanRouter);
+app.use("/products", productRouter);
 
 export default app;

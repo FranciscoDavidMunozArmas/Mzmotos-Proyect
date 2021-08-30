@@ -1,4 +1,5 @@
 import { Document } from "mongoose";
+import { Product } from "./product";
 
 export interface Client extends Document{
     _id?:string,
@@ -6,4 +7,5 @@ export interface Client extends Document{
     name: string,
     address:string,
     city: string,
+    products: Product[]
 }

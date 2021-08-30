@@ -13,4 +13,14 @@ router.route("/:id")
 .put(Controller.put)
 .delete(Controller.deleteByID);
 
+router.route("/:clientid")
+.get(Controller.getByID)
+.put(Controller.put)
+.delete(Controller.deleteByID);
+
+router.route("/:clientid/:productid")
+.get(Controller.getByID)
+.put(Controller.put)
+.delete(Controller.deleteByID);
+
 export default router;

@@ -45,8 +45,9 @@ export class LoginComponent implements OnInit {
       return;
     }
     let date = new Date();
+    this.cookie.delete(this.cookieName);
+    this.cookie.delete(this.cookieRole);
     date.setHours(date.getHours() + 2);
-    this.cookie.deleteAll();
     this.cookie.set(this.cookieName, value.token, date);
     this.cookie.set(this.cookieRole, value.role, date);
     if(value.role == "manager" || value.role == "warehouse" || value.role == "sales") {

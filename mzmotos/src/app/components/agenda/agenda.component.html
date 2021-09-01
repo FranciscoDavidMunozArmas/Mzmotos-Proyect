@@ -52,7 +52,7 @@
         <a class="btn close-btn " (click)="modalClose() "><span class="fa fa-times "></span></a>
     </div>
     <div class="d-flex justify-content-center">
-        <app-search (searchEvent)="search($event)" [placeholder]="'Nombre/RUC/Fecha'" [tooltip]="'Fecha (yyyy/mm/dd-yyyy/mm/dd)'" (cancelEvent)="modalClose() "></app-search>
+        <app-search (searchEvent)="search($event)" [placeholder]="'Nombre/RUC/Fecha'" [tooltip]="'Fecha (yyyy/mm/dd-yyyy/mm/dd)'" (cancelEvent)="modalClose()"></app-search>
     </div>
 </ng-template>
 

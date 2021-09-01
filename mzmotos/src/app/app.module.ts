@@ -23,6 +23,8 @@ import { AppointmentFormComponent } from './components/appointment-form/appointm
 import { AgreementComponent } from './components/agreement/agreement.component';
 import { SearchComponent } from './components/search/search.component';
 import { NotifyComponent } from './components/notify/notify.component';
+import { ClientproductComponent } from './components/clientproduct/clientproduct.component';
+import { ClientsComponent } from './components/clients/clients.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { NotifyComponent } from './components/notify/notify.component';
     AppointmentFormComponent,
     AgreementComponent,
     SearchComponent,
-    NotifyComponent
+    NotifyComponent,
+    ClientproductComponent,
+    ClientsComponent
   ],
   imports: [
     BrowserModule,

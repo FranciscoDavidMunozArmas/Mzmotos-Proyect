@@ -6,6 +6,7 @@ import { ManagerComponent } from './components/manager/manager.component';
 import { SalesmanComponent } from './components/salesman/salesman.component';
 import { AgendaComponent } from './components/agenda/agenda.component';
 import { CatalogueComponent } from './components/catalogue/catalogue.component';
+import { ClientsComponent } from './components/clients/clients.component';
 import { WarehouseComponent } from './components/warehouse/warehouse.component';
 
 const routes: Routes = [
@@ -24,6 +25,10 @@ const routes: Routes = [
       {
         path: 'catalogo',
         component: CatalogueComponent
+      },
+      {
+        path: 'clientes',
+        component: ClientsComponent
       },
       {
         path: '',

@@ -3,8 +3,7 @@ import { Product } from "../interface/product.interface";
 
 const schema = new Schema({
     productid: {
-        type: String,
-        unique: true
+        type: String
     },
     name: String,
     image: String,

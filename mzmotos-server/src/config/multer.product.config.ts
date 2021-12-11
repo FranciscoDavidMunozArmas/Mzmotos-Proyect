@@ -9,4 +9,4 @@ const typesStorage = multer.diskStorage({
     }
 });
 
-export const multerRecipe = multer({ storage: typesStorage });
+export const multerPart = multer({ storage: typesStorage });

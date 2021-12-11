@@ -17,7 +17,6 @@ export const salesmanConverter = {
         return {
             _id: json._id,
             userid: json.userid,
-            username: json.username,
             name: json.name,
             surname: json.surname,
             address: json.address,

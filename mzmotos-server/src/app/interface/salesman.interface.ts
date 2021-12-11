@@ -2,6 +2,7 @@ import { Document } from "mongoose"
 import { Appointment } from "./appointment.interface"
 
 export interface Salesman extends Document {
+    _id?: string,
     userid:string,
     username:string,
     name: string,
@@ -10,4 +11,20 @@ export interface Salesman extends Document {
     phone: string,
     email: string,
     appointments: Appointment[]
+}
+
+export const salesmanConverter = {
+    convertJSON: (json: any) => {
+        return {
+            _id: json._id,
+            userid: json.userid,
+            username: json.username,
+            name: json.name,
+            surname: json.surname,
+            address: json.address,
+            phone: json.phone,
+            email: json.email,
+            appointments: json.appointments
+        }
+    }
 }

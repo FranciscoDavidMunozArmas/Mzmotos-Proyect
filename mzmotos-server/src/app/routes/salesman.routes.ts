@@ -1,33 +1,34 @@
 import { Router } from 'express';
 import * as Controller from '../controller/salesman.controller';
 import * as AppointmentController from '../controller/appointment.controller';
+import { authUser } from '../../config/auth.config';
 
 const router = Router();
 
 router.route("/")
-.get(Controller.getSalesmen)
+.get(authUser, Controller.getSalesmen)
 .post(Controller.createSalesman)
-.delete(Controller.deleteSalesmen);
+.delete(authUser, Controller.deleteSalesmen);
 
 router.route("/id/:id")
-.get(Controller.getSalesmanByID)
-.put(Controller.updateSalesman)
-.delete(Controller.deleteSalesmanByID);
+.get(authUser, Controller.getSalesmanByID)
+.put(authUser, Controller.updateSalesman)
+.delete(authUser, Controller.deleteSalesmanByID);
 
 router.route("/password/:username")
-.put(Controller.updatePassword)
+.put(authUser, Controller.updatePassword)
 
 router.route("/username/:username")
-.get(Controller.getSalesmanByUsername)
+.get(authUser, Controller.getSalesmanByUsername)
 
 router.route("/appointments/:salesmanid")
-    .get(AppointmentController.getAppointments)
-    .post(AppointmentController.postAppointment)
-    .delete(AppointmentController.deleteAppointments);
+    .get(authUser, AppointmentController.getAppointments)
+    .post(authUser, AppointmentController.postAppointment)
+    .delete(authUser, AppointmentController.deleteAppointments);
 
 router.route("/appointments/:salesmanid/:appointmentid")
-    .get(AppointmentController.getAppointment)
-    .put(AppointmentController.putAppointments)
-    .delete(AppointmentController.deleteAppointment);
+    .get(authUser, AppointmentController.getAppointment)
+    .put(authUser, AppointmentController.putAppointments)
+    .delete(authUser, AppointmentController.deleteAppointment);
 
 export default router;

@@ -6,6 +6,7 @@ const schema = new Schema({
         type: String,
         unique: true
     },
+    userid: String,
     name: String,
     surname: String,
     address: String,
@@ -18,12 +19,7 @@ const schema = new Schema({
                 type: Boolean,
                 default: false
             },
-            client: {
-                RUC: String,
-                name: String,
-                address: String,
-                city: String
-            }
+            client: String
         }
     ]
 },

@@ -24,11 +24,11 @@ export const createUser = async (username: string, password: string, role: strin
 
 export const updateUser = async (_id: string, username: string, password: string, role: string) => {
     try {
-        const data = userConverter.convertJSON({
+        const data = {
             username,
             password: bcryptjs.hashSync(password, saltRounds),
             role
-        })        
+        }      
         const mongoData = await userSchema.findByIdAndUpdate(_id, data, { new: true });
         const user = userConverter.convertJSON(mongoData);
         return user._id;
@@ -96,15 +96,16 @@ export const signin = async (req: Request, res: Response) => {
     try {
         const { username, password } = req.body;
         let result: boolean = false;
-        let token: string = "";
+        let token: any = {};
         const user = await userSchema.findOne({username});
         if (user) {
             result = bcryptjs.compareSync(password, user?.password as string);
             if(result){
-                token = user.username as string;
+                token = {token: user._id, role: user.role};
+                return res.status(200).json(tokenize(token));
             }
         }
-        return res.status(200).json(tokenize(token));
+        return res.status(200).json(null);
     } catch (error: any) {
         return res.status(500).json({ message: "error", error: error });
     }

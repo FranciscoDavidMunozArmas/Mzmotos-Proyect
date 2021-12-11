@@ -1,17 +1,18 @@
 import { Router } from 'express';
+import { authUser } from '../../config/auth.config';
 import * as UserController from '../controller/user.controller';
 
 const router = Router();
 
 router.route("/")
-    .get(UserController.getUsers)
-    .delete(UserController.deleteUsers);
+    .get(authUser, UserController.getUsers)
+    .delete(authUser, UserController.deleteUsers);
 
 router.route("/signin")
     .post(UserController.signin);
 
 router.route("/:id")
-    .get(UserController.getUserById)
-    .delete(UserController.deleteUserById);
+    .get(authUser, UserController.getUserById)
+    .delete(authUser, UserController.deleteUserById);
 
 export default router;

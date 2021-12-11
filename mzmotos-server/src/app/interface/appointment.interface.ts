@@ -1,11 +1,11 @@
 import { Document } from "mongoose"
-import { Client } from "./client.interface";
+import { Client, clientConverter } from "./client.interface";
 
 export interface Appointment extends Document {
     _id?: string,
     date: Date,
     state: boolean,
-    client: Client,
+    client: string,
 }
 
 export const appointmentConverter = {

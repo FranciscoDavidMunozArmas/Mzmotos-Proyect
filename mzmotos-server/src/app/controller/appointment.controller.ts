@@ -19,6 +19,7 @@ export const postAppointment = async (req: Request, res: Response) => {
     try {
         const { salesmanid } = req.params;
         const appointment = appointmentConverter.convertJSON(req.body);
+        appointment.state = false;
         const updateSalesman = await salesmanSchema.findByIdAndUpdate(salesmanid, {
             $push: {
                 appointments: [appointment]

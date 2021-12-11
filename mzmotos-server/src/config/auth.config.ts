@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import userSchema from "../app/schemas/user.schema";
 import { decode } from "../lib/token";
 
 const veriftyToken = (auth: any) => {
@@ -15,27 +16,25 @@ const veriftyToken = (auth: any) => {
   }
   return payload;
 };
-/*
+
 const verifyExistance = async (payload: any) => {
   try {
-    const docResult = await getDoc(doc(database, 'users', payload));
-    if (docResult.data()) {
+    const docResult = await userSchema.findById(payload);
+    if (docResult) {
       return true;
     }
   } catch (error: any) {
     return null;
   }
   return null;
-
 }
-*/
+
 export const authUser = (req: Request | any, res: Response, next: NextFunction) => {
   const payload = veriftyToken(req.headers.authorization);
   if (!payload) {
     return res.status(401).json({ status: false, authorization: "Denied" });
   }
-  next();
-  /*verifyExistance(payload)
+  verifyExistance(payload.token)
     .then((result) => {
       if (result) {
         req.payload = payload;
@@ -45,5 +44,5 @@ export const authUser = (req: Request | any, res: Response, next: NextFunction) 
       }
     }).catch(() => {
       return res.status(401).json({ status: false, authorization: "Denied" });
-    });*/
+    });
 };

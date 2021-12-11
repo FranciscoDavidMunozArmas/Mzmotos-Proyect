@@ -1,12 +1,11 @@
 import { model, Schema } from "mongoose";
-import { Salesman } from "../interfaces/salesman";
+import { Salesman } from "./mongoose.interface";
 
 const schema = new Schema({
     username: {
         type: String,
         unique: true
     },
-    id: String,
     name: String,
     surname: String,
     address: String,
@@ -23,18 +22,7 @@ const schema = new Schema({
                 RUC: String,
                 name: String,
                 address: String,
-                city: String,
-                products: [
-                    {
-                        product: {
-                            productid: String,
-                            name: String,
-                            image: String,
-                            price: Number
-                        },
-                        qty: Number
-                    }
-                ]
+                city: String
             }
         }
     ]

@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { Client } from "../interfaces/client";
+import { Client } from "./mongoose.interface";
 
 const schema = new Schema({
     RUC: {

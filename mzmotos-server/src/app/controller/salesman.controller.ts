@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Salesman } from '../interfaces/salesman';
+import { Salesman } from '../model/salesman';
 import salesmanSchema from '../schemas/salesman.schema';
 
 export const getAll = async (req: Request, res: Response) => {

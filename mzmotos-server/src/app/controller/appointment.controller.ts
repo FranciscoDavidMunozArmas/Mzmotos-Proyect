@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
-import { Appointment } from "../interfaces/appointment";
+import { Appointment, appointmentConverter } from "../model/appointment";
+import { salesmanConverter } from "../model/salesman";
 import salesmanSchema from "../schemas/salesman.schema";
 
 export const getAppointments = async (req: Request, res: Response) => {
     try {
         const { salesmanid } = req.params;
-        const salesman = await salesmanSchema.findById(salesmanid);
-        const appointments = salesman?.appointments;
+        const mongoData = await salesmanSchema.findById(salesmanid);
+        const appointments = salesmanConverter.fromJSON(mongoData)
+            .appointments.map(appointment => appointmentConverter.toJSON(appointment));
         return res.status(200).json(appointments);
     } catch (error: any) {
         return res.status(500).json({ message: "error", error: error });
@@ -25,7 +27,7 @@ export const deleteAppointments = async (req: Request, res: Response) => {
 export const postAppointment = async (req: Request, res: Response) => {
     try {
         const { salesmanid } = req.params;
-        const appointment: Appointment = req.body;
+        const appointment: Appointment = appointmentConverter.toJSON(appointmentConverter.fromJSON(req.body));
         const updateSalesman = await salesmanSchema.findByIdAndUpdate(salesmanid, {
             $push: {
                 appointments: [appointment]
@@ -72,7 +74,7 @@ export const deleteAppointment = async (req: Request, res: Response) => {
             { _id: salesmanid },
             { $pull: { appointments: { _id: appointmentid } } },
             { new: true });
-        return res.status(200).json({ message: "Appointment deleted", itemID: appointmentid});
+        return res.status(200).json({ message: "Appointment deleted", itemID: appointmentid });
     } catch (error: any) {
         return res.status(500).json({ message: "error", error: error });
     }

@@ -5,22 +5,12 @@ const router = Router();
 
 router.route("/")
 .get(Controller.getAll)
-.post(Controller.post)
+.post(Controller.postClient)
 .delete(Controller.deleteAll);
 
 router.route("/:id")
 .get(Controller.getByID)
-.put(Controller.put)
+.put(Controller.putClient)
 .delete(Controller.deleteByID);
-
-router.route("/products/:clientid")
-.get(Controller.getProducts)
-.post(Controller.postProduct)
-.delete(Controller.deleteProducts);
-
-router.route("/products/:clientid/:productid")
-.get(Controller.getProduct)
-.put(Controller.putProduct)
-.delete(Controller.deleteProduct);
 
 export default router;

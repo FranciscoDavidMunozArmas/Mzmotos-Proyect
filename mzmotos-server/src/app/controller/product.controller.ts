@@ -1,10 +1,8 @@
 import { Request, Response } from "express";
-import { Product } from "../interfaces/product";
 import productSchema from "../schemas/product.schema";
 
 export const getProducts = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
         const products = await productSchema.find();
         return res.status(200).json(products);
     } catch (error: any) {
@@ -22,7 +20,6 @@ export const deleteProducts = async (req: Request, res: Response) => {
 
 export const postProduct = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
         const product = await productSchema.create(req.body);
         return res.status(200).json(product);
     } catch (error: any) {

@@ -8,6 +8,8 @@ import userRouter from './app/routes/user.routes';
 import clientRouter from './app/routes/client.routes';
 import salemanRouter from './app/routes/salesman.routes';
 import productRouter from './app/routes/product.routes';
+import managerRouter from './app/routes/manager.routes';
+import warehouseRouter from './app/routes/warehouse.routes';
 
 const app = express();
 
@@ -21,9 +23,11 @@ app.use(express.urlencoded({ extended:false }));
 app.use(express.json());
 
 //routes
-app.use("/user", userRouter);
-app.use("/client", clientRouter);
-app.use("/salesmen", salemanRouter);
+app.use("/users", userRouter);
+app.use("/clients", clientRouter);
 app.use("/products", productRouter);
+app.use("/salesmen", salemanRouter);
+app.use("/manager", managerRouter);
+app.use("/warehouse", warehouseRouter);
 
 export default app;

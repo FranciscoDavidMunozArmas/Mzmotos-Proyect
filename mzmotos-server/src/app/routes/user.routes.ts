@@ -8,7 +8,7 @@ router.route("/")
     .delete(UserController.deleteUsers);
 
 router.route("/signin")
-    .post(UserController.allowAccess);
+    .post(UserController.signup);
 
 router.route("/:id")
     .get(UserController.getUser)

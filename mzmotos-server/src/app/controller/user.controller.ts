@@ -1,15 +1,31 @@
 import { Request, Response } from 'express';
 import userSchema from '../schemas/user.schema';
 import bcryptjs from 'bcryptjs';
-import { userConverter } from '../model/user';
+import { userConverter } from '../interface/user.interface';
+import { tokenize } from '../../lib/token';
 
 const saltRounds = 10;
+
+export const createUser = async (username: string, password: string, role: string) => {
+    try {
+        const data = userConverter.convertJSON({
+            username,
+            password: bcryptjs.hashSync(password, saltRounds),
+            role
+        })        
+        const mongoData = await userSchema.create(data);
+        const user = userConverter.convertJSON(mongoData);
+        return user._id;
+    } catch (error) {
+        return null;
+    }
+}
 
 export const getUsers = async (req: Request, res: Response) => {
     try {
         const mongoData: any[] = await userSchema.find();
         const users: any[] = mongoData.map((data: any) => {
-            return userConverter.toJSON(userConverter.fromJSON(data));;
+            return userConverter.convertJSON(data);
         });
         return res.status(200).json(users);
     } catch (error) {
@@ -27,50 +43,30 @@ export const deleteUsers = async (req: Request, res: Response) => {
         return res.status(500).json({ message: "error", error: error });
     }
 }
-export const postUser = async (req: Request, res: Response) => {
-    try {
-        let { password } = req.body;
-        const user = userConverter.fromJSON(req.body);
-        password = bcryptjs.hashSync(password, bcryptjs.genSaltSync(saltRounds));
-        user.password = password;
-        const newUser = await userSchema.create(userConverter.toJSON(user));
-        return res.status(200).json(newUser);
-    } catch (error) {
-        return res.status(500).json({ message: "error", error: error });
-    }
-}
 
 export const getUser = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const mongoData = await userSchema.findById(id);
-        const user = userConverter.toJSON(userConverter.fromJSON(mongoData));
+        const user = userConverter.convertJSON(mongoData);
         return res.status(200).json(user);
     } catch (error) {
         return res.status(500).json({ message: "error", error: error });
     }
 }
-export const putUser = async (req: Request, res: Response) => {
-    try {
-        const { id } = req.params;
-        const user = userConverter.fromJSON(req.body);
-        const mongoData = await userSchema.findByIdAndUpdate(id, userConverter.toJSON(user), { new: true });
-        return res.status(200).json(mongoData);
-    } catch (error) {
-        return res.status(500).json({ message: "error", error: error });
-    }
-}
+
 export const deleteUser = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const mongoData = await userSchema.findByIdAndDelete(id);
-        return res.status(200).json(mongoData);
+        const user = userConverter.convertJSON(mongoData);
+        return res.status(200).json(user);
     } catch (error) {
         return res.status(500).json({ message: "error", error: error });
     }
 }
 
-export const allowAccess = async (req: Request, res: Response) => {
+export const signin = async (req: Request, res: Response) => {
     try {
         const { username, password } = req.body;
         let result: boolean = false;
@@ -82,7 +78,7 @@ export const allowAccess = async (req: Request, res: Response) => {
                 token = user.username as string;
             }
         }
-        return res.status(200).json({ token: token, role: user?.role });
+        return res.status(200).json(tokenize(token));
     } catch (error: any) {
         return res.status(500).json({ message: "error", error: error });
     }

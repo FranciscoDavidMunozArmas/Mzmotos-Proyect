@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { User } from "../interface/user.interface";
+import { Manager } from "../interface/manager.interface";
 
 const schema = new Schema({
     username: {
@@ -14,4 +14,4 @@ const schema = new Schema({
     versionKey: false
 });
 
-export default model<User>('user', schema)
+export default model<Manager>('user', schema)

@@ -4,7 +4,6 @@ import { Appointment } from "./appointment.interface"
 export interface Salesman extends Document {
     _id?: string,
     userid:string,
-    username:string,
     name: string,
     surname: string,
     address: string,

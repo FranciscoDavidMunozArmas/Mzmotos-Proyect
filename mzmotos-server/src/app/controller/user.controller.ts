@@ -16,19 +16,45 @@ export const createUser = async (username: string, password: string, role: strin
         const mongoData = await userSchema.create(data);
         const user = userConverter.convertJSON(mongoData);
         return user._id;
-    } catch (error) {
+    } catch (error: any) {
+        console.log(error.message);
         return null;
     }
 }
 
+export const updateUser = async (_id: string, username: string, password: string, role: string) => {
+    try {
+        const data = userConverter.convertJSON({
+            username,
+            password: bcryptjs.hashSync(password, saltRounds),
+            role
+        })        
+        const mongoData = await userSchema.findByIdAndUpdate(_id, data, { new: true });
+        const user = userConverter.convertJSON(mongoData);
+        return user._id;
+    } catch (error: any) {
+        console.log(error.message);
+        return null;
+    }
+}
+
+export const deleteUser = async (id: string) => {
+    try {
+        await userSchema.findByIdAndDelete(id);
+        return true;
+    } catch (error: any) {
+        console.log(error.message);
+        return false;
+    }
+}
+
+
 export const getUsers = async (req: Request, res: Response) => {
     try {
         const mongoData: any[] = await userSchema.find();
-        const users: any[] = mongoData.map((data: any) => {
-            return userConverter.convertJSON(data);
-        });
+        const users: any[] = mongoData.map((data: any) => userConverter.convertJSON(data));
         return res.status(200).json(users);
-    } catch (error) {
+    } catch (error: any) {
         return res.status(500).json({ message: "error", error: error });
     }
 }
@@ -39,29 +65,29 @@ export const deleteUsers = async (req: Request, res: Response) => {
             return res.status(200).json({ message: "All users have been deleted" });
         }
         return res.status(200).json({ message: "Something went wrong" });
-    } catch (error) {
+    } catch (error: any) {
         return res.status(500).json({ message: "error", error: error });
     }
 }
 
-export const getUser = async (req: Request, res: Response) => {
+export const getUserById = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const mongoData = await userSchema.findById(id);
         const user = userConverter.convertJSON(mongoData);
         return res.status(200).json(user);
-    } catch (error) {
+    } catch (error: any) {
         return res.status(500).json({ message: "error", error: error });
     }
 }
 
-export const deleteUser = async (req: Request, res: Response) => {
+export const deleteUserById = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const mongoData = await userSchema.findByIdAndDelete(id);
         const user = userConverter.convertJSON(mongoData);
         return res.status(200).json(user);
-    } catch (error) {
+    } catch (error: any) {
         return res.status(500).json({ message: "error", error: error });
     }
 }

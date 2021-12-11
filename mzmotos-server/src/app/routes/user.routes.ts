@@ -11,7 +11,7 @@ router.route("/signin")
     .post(UserController.signin);
 
 router.route("/:id")
-    .get(UserController.getUser)
-    .delete(UserController.deleteUser);
+    .get(UserController.getUserById)
+    .delete(UserController.deleteUserById);
 
 export default router;

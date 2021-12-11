@@ -5,17 +5,20 @@ import * as AppointmentController from '../controller/appointment.controller';
 const router = Router();
 
 router.route("/")
-.get(Controller.getAll)
-.post(Controller.post)
-.delete(Controller.deleteAll);
+.get(Controller.getSalesmen)
+.post(Controller.createSalesman)
+.delete(Controller.deleteSalesmen);
+
+router.route("/id/:id")
+.get(Controller.getSalesmanByID)
+.put(Controller.updateSalesman)
+.delete(Controller.deleteSalesmanByID);
+
+router.route("/password/:id")
+.put(Controller.updatePassword)
 
 router.route("/username/:username")
-.get(Controller.getByUsername)
-
-router.route("/:id")
-.get(Controller.getByID)
-.put(Controller.put)
-.delete(Controller.deleteByID);
+.get(Controller.getSalesmanByUsername)
 
 router.route("/appointments/:salesmanid")
     .get(AppointmentController.getAppointments)

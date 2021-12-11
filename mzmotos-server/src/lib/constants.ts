@@ -9,4 +9,5 @@ export default {
     MONGO_NAME: process.env.MONGO_NAME,
     PORT: process.env.PORT || 3000,
     SECRET_KEY: process.env.SECRET_KEY,
+    ROLES: ['admin', 'salesman', 'warehouse']
 }

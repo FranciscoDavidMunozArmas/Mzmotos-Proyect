@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import config from "./config";
+import config from "../lib/constants";
 
 export const initConnection = async () => {
     const URI: string = `mongodb+srv://${config.MONGO_USER}:${config.MONGO_PASSWORD}@${config.MONGO_HOST}/${config.MONGO_NAME}?retryWrites=true&w=majority`;

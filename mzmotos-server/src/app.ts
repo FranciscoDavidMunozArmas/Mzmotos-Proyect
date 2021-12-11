@@ -2,7 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 
-import config from './config/config';
+import config from './lib/constants';
 
 import userRouter from './app/routes/user.routes';
 import clientRouter from './app/routes/client.routes';

@@ -5,15 +5,13 @@ const router = Router();
 
 router.route("/")
     .get(UserController.getUsers)
-    .post(UserController.postUser)
     .delete(UserController.deleteUsers);
 
-router.route("/access")
+router.route("/signin")
     .post(UserController.allowAccess);
 
 router.route("/:id")
     .get(UserController.getUser)
-    .put(UserController.putUser)
     .delete(UserController.deleteUser);
 
 export default router;

@@ -13,11 +13,11 @@ router.route("/orders/order/:id")
 .put(authUser, Controller.updateReportOrderById);
 
 router.route("/inventories")
-.get(authUser, Controller.getReportOrders)
-.post(authUser, Controller.createReportOrder)
+.get(authUser, Controller.getReportInventories)
+.post(authUser, Controller.createReportInventory)
 
 router.route("/inventories/inventory/:id")
-.get(authUser, Controller.getReportOrderById)
-.put(authUser, Controller.updateReportOrderById);
+.get(authUser, Controller.getReportInventoryById)
+.put(authUser, Controller.updateReportInventoryById);
 
 export default router;

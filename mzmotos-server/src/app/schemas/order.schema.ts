@@ -1,4 +1,6 @@
 import { Schema, model } from "mongoose";
+import constants from "../../lib/constants";
+import { getSequenceValue } from "../../lib/sequence/sequenceMongo";
 import { Order } from "../interface/order.interface";
 
 const schema = new Schema({
@@ -38,5 +40,20 @@ const schema = new Schema({
         timestamps: false,
         versionKey: false
     });
+
+schema.pre<Order>('save', async function(next) {
+    const data: any = this;
+    const sequence = await getSequenceValue("order_sequence");
+    data.orderId = formatUID(sequence);
+    next();
+});
+
+const formatUID = (value: number) => {
+    let uid = "";
+    for (let i = value.toString().length; i <= constants.UID_LENGTH; i++) {
+        uid += '0';
+    }
+    return `${uid}${value}`;
+}
 
 export default model<Order>('order', schema)

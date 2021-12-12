@@ -6,7 +6,7 @@ const router = Router();
 
 router.route("/")
 .get(authUser, Controller.getWarehouses)
-.post(Controller.createWarehouse)
+.post(authUser, Controller.createWarehouse)
 .delete(authUser, Controller.deleteWarehouses);
 
 router.route("/one/:id")

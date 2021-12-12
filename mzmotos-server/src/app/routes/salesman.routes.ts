@@ -7,7 +7,7 @@ const router = Router();
 
 router.route("/")
 .get(authUser, Controller.getSalesmen)
-.post(Controller.createSalesman)
+.post(authUser, Controller.createSalesman)
 .delete(authUser, Controller.deleteSalesmen);
 
 router.route("/salesman/:id")

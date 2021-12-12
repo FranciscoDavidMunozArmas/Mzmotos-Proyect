@@ -24,7 +24,7 @@ app.use(express.json());
 
 //routes
 app.use("/users", userRouter);
-// app.use("/clients", clientRouter);
+app.use("/clients", clientRouter);
 app.use("/products", productRouter);
 app.use("/salesmen", salemanRouter);
 // app.use("/manager", managerRouter);

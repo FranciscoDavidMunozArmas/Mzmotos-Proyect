@@ -4,13 +4,13 @@ import * as Controller from '../controller/client.controller';
 const router = Router();
 
 router.route("/")
-.get(Controller.getAll)
-.post(Controller.postClient)
-.delete(Controller.deleteAll);
+.get(Controller.getClients)
+.post(Controller.createClient)
+.delete(Controller.deleteClients);
 
-router.route("/:id")
-.get(Controller.getByID)
-.put(Controller.putClient)
-.delete(Controller.deleteByID);
+router.route("/client/:id")
+.get(Controller.getClientByID)
+.put(Controller.updateClient)
+.delete(Controller.deleteClientByID);
 
 export default router;

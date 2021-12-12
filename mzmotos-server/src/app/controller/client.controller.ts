@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
-import { clientConverter } from '../model/client';
+import { clientConverter } from '../interface/client.interface';
 import clientSchema from '../schemas/client.schema';
 
-export const getAll = async (req: Request, res: Response) => {
+export const getClients = async (req: Request, res: Response) => {
     try {
         const mongoData: any[] = await clientSchema.find();
         const clients: any[] = mongoData.map((client: any) => {
-            return clientConverter.toJSON(clientConverter.fromJSON(client));
+            return clientConverter.convertJSON(client);
         });
         return res.status(200).json(clients);
     } catch (error: any) {
@@ -17,10 +17,10 @@ export const getAll = async (req: Request, res: Response) => {
     }
 }
 
-export const postClient = async (req: Request, res: Response) => {
+export const createClient = async (req: Request, res: Response) => {
     try {
-        const client: any = clientConverter.fromJSON(req.body);
-        const mongoData: any = await clientSchema.create(client.toJSON(client));
+        const client: any = clientConverter.convertJSON(req.body);
+        const mongoData: any = await clientSchema.create(client);
         return res.status(200).json(mongoData);
     } catch (error: any) {
         return res.status(500).json({
@@ -30,7 +30,7 @@ export const postClient = async (req: Request, res: Response) => {
     }
 }
 
-export const deleteAll = async (req: Request, res: Response) => {
+export const deleteClients = async (req: Request, res: Response) => {
     try {
         await clientSchema.deleteMany({});
         return res.status(200).json({ message: "All items have been delete" });
@@ -42,11 +42,12 @@ export const deleteAll = async (req: Request, res: Response) => {
     }
 }
 
-export const getByID = async (req: Request, res: Response) => {
+export const getClientByID = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const client = await clientSchema.findById(id);
-        if (client) {
+        const mongoData = await clientSchema.findById(id);
+        if (mongoData) {
+            const client: any = clientConverter.convertJSON(mongoData);
             return res.status(200).json(client);
         }
         return res.status(200).json({ message: "Item not found" });
@@ -58,11 +59,12 @@ export const getByID = async (req: Request, res: Response) => {
     }
 }
 
-export const putClient = async (req: Request, res: Response) => {
+export const updateClient = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const client: any = clientConverter.fromJSON(req.body);
-        const mongoData = await clientSchema.findByIdAndUpdate(id, clientConverter.toJSON(client), { new: true });
+        const client: any = clientConverter.convertJSON(req.body);
+        client._id = id;
+        const mongoData = await clientSchema.findByIdAndUpdate(id, client, { new: true });
         if (mongoData) {
             return res.status(200).json(mongoData);
         }
@@ -75,7 +77,7 @@ export const putClient = async (req: Request, res: Response) => {
     }
 }
 
-export const deleteByID = async (req: Request, res: Response) => {
+export const deleteClientByID = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const client = await clientSchema.findByIdAndDelete(id)

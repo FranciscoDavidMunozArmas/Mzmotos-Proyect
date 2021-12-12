@@ -47,4 +47,4 @@ const formatUID = (value: number) => {
     return `${uid}${value}`;
 }
 
-export default model<ReportInventory>('reportorder', schema)
+export default model<ReportInventory>('reportinventory', schema)

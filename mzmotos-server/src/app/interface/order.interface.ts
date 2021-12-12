@@ -18,7 +18,7 @@ const productOrderConverter = {
 
 export interface Order extends Document {
     _id?: string,
-    id: number,
+    orderId: number,
     date: Date,
     client: Client,
     list: ProductOrder[],
@@ -29,7 +29,7 @@ export const orderConverter = {
     convertJSON: (json: any) => {
         return {
             _id: json._id,
-            id: json.id,
+            orderId: json.orderId,
             date: json.date,
             client: clientConverter.convertJSON(json.client),
             list: json.list.map(productOrderConverter.convertJSON),

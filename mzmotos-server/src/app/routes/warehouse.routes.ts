@@ -1,16 +1,17 @@
 import { Router } from 'express';
-import * as Controller from '../controller/client.controller';
+import { authUser } from '../../config/auth.config';
+import * as Controller from '../controller/warehouse.controller';
 
 const router = Router();
 
 router.route("/")
-.get(authUser, Controller.getSalesmen)
-.post(Controller.createSalesman)
-.delete(authUser, Controller.deleteSalesmen);
+.get(authUser, Controller.getWarehouses)
+.post(Controller.createWarehouse)
+.delete(authUser, Controller.deleteWarehouses);
 
 router.route("/one/:id")
-.get(authUser, Controller.getSalesmanByID)
-.put(authUser, Controller.updateSalesman)
-.delete(authUser, Controller.deleteSalesmanByID);
+.get(authUser, Controller.getWarehouseByID)
+.put(authUser, Controller.updateWarehouse)
+.delete(authUser, Controller.deleteWarehouseByID);
 
 export default router;

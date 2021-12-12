@@ -15,8 +15,8 @@ router.route("/salesman/:id")
 .put(authUser, Controller.updateSalesman)
 .delete(authUser, Controller.deleteSalesmanByID);
 
-router.route("/password/:username")
-.put(authUser, Controller.updatePassword)
+// router.route("/password/:username")
+// .put(authUser, Controller.updatePassword)
 
 router.route("/username/:username")
 .get(authUser, Controller.getSalesmanByUsername)

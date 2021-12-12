@@ -100,7 +100,7 @@ export const getManyClients = async (req: Request, res: Response) => {
         if(mongoData) {
             const clients: any[] = [];
             mongoData.forEach(mongoElement => {
-                many.array.forEach((element: any) => {
+                many.forEach((element: any) => {
                     if(mongoElement._id?.toString() === element.toString()) {
                         clients.push(clientConverter.convertJSON(mongoElement));
                     }

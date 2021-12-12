@@ -2,12 +2,12 @@ import { Schema, model } from "mongoose";
 import { Warehouse } from "../interface/warehouse.interface";
 
 const schema = new Schema({
-    username: {
-        type: String,
-        unique: true
-    },
-    password: String,
-    role: String
+    userid: String,
+    name: String,
+    surname: String,
+    address: String,
+    phone: String,
+    email: String
 },
 {
     timestamps: false,

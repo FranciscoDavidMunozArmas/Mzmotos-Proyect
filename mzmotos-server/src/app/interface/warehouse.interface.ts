@@ -3,7 +3,6 @@ import { Document } from "mongoose"
 export interface Warehouse extends Document {
     _id?: string,
     userid:string,
-    username:string,
     name: string,
     surname: string,
     address: string,

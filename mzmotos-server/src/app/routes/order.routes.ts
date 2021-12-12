@@ -14,7 +14,7 @@ router.route("/order/:id")
 .put(authUser, Controller.updateOrder)
 .delete(authUser, Controller.deleteOrdersById);
 
-router.route("/salesman/:id")
+router.route("/salesman/:salesman")
 .get(authUser, Controller.getOrdersBySalesman)
 .delete(authUser, Controller.deleteOrdersBySalesman);
 

@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import constants from '../../lib/constants';
 import { orderConverter } from '../interface/order.interface';
 import orderSchema from '../schemas/order.schema';
 
@@ -19,6 +18,11 @@ export const getOrders = async (req: Request, res: Response) => {
 export const createOrder = async (req: Request, res: Response) => {
     try {
         const data = orderConverter.convertJSON(req.body);
+        data.total = data.list
+            .map((item: any) => {
+                return item.product.price * item.quantity;
+            })
+            .reduce((acc: any, curr: any) => acc + curr, 0);
         const mongoData = await orderSchema.create(data);
         if (mongoData) {
             return res.status(200).json(mongoData);
@@ -38,8 +42,8 @@ export const deleteOrders = async (req: Request, res: Response) => {
     try {
         await orderSchema.deleteMany({});
         return res.status(200).json({
-                message: "Orders deleted"
-            });
+            message: "Orders deleted"
+        });
     } catch (error: any) {
         return res.status(500).json({
             message: "Error",
@@ -70,10 +74,19 @@ export const updateOrder = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const data = orderConverter.convertJSON(req.body);
-        data._id = id;
-        const mongoData = await orderSchema.findByIdAndUpdate(id, data, { new: true });
+        const mongoData = await orderSchema.findById(id);
         if (mongoData) {
-            return res.status(200).json(orderConverter.convertJSON(mongoData));
+            data._id = id;
+            data.orderId = mongoData.orderId;
+            data.total = data.list
+                .map((item: any) => {
+                    return item.product.price * item.quantity;
+                })
+                .reduce((acc: any, curr: any) => acc + curr, 0);
+            const oldData = await orderSchema.findByIdAndUpdate(id, data, { new: true });
+            if (oldData) {
+                return res.status(200).json(orderConverter.convertJSON(oldData));
+            }
         }
         return res.status(400).json({
             message: "Order not found"

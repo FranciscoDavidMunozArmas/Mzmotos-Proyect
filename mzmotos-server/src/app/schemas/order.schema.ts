@@ -34,7 +34,11 @@ const schema = new Schema({
         }],
         required: true
     },
-    total: Number
+    total: Number,
+    state: {
+        type: Boolean,
+        default: false
+    }
 },
     {
         timestamps: false,

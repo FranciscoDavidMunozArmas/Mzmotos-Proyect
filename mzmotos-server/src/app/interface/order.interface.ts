@@ -23,7 +23,8 @@ export interface Order extends Document {
     date: Date,
     client: Client,
     list: ProductOrder[],
-    total: number
+    total: number,
+    state: boolean
 }
 
 export const orderConverter = {
@@ -35,7 +36,8 @@ export const orderConverter = {
             date: json.date,
             client: clientConverter.convertJSON(json.client),
             list: json.list.map(productOrderConverter.convertJSON),
-            total: json.total
+            total: json.total,
+            state: json.state
         }
     }
 }

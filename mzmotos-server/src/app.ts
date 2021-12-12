@@ -10,6 +10,7 @@ import salemanRouter from './app/routes/salesman.routes';
 import productRouter from './app/routes/product.routes';
 import managerRouter from './app/routes/manager.routes';
 import warehouseRouter from './app/routes/warehouse.routes';
+import orderRouter from './app/routes/order.routes';
 
 const app = express();
 
@@ -29,5 +30,6 @@ app.use("/products", productRouter);
 app.use("/salesmen", salemanRouter);
 app.use("/managers", managerRouter);
 app.use("/warehouses", warehouseRouter);
+app.use("/orders", orderRouter);
 
 export default app;

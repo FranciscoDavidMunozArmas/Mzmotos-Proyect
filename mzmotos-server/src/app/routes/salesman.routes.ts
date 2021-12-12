@@ -10,7 +10,7 @@ router.route("/")
 .post(Controller.createSalesman)
 .delete(authUser, Controller.deleteSalesmen);
 
-router.route("/id/:id")
+router.route("/salesman/:id")
 .get(authUser, Controller.getSalesmanByID)
 .put(authUser, Controller.updateSalesman)
 .delete(authUser, Controller.deleteSalesmanByID);

@@ -13,4 +13,7 @@ router.route("/client/:id")
 .put(Controller.updateClient)
 .delete(Controller.deleteClientByID);
 
+router.route("/many")
+.post(Controller.getManyClients)
+
 export default router;

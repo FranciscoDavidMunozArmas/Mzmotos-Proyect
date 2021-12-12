@@ -92,3 +92,27 @@ export const deleteClientByID = async (req: Request, res: Response) => {
         });
     }
 }
+
+export const getManyClients = async (req: Request, res: Response) => {
+    try {
+        const { many }: any = req.body;
+        const mongoData = await clientSchema.find();
+        if(mongoData) {
+            const clients: any[] = [];
+            mongoData.forEach(mongoElement => {
+                many.array.forEach((element: any) => {
+                    if(mongoElement._id?.toString() === element.toString()) {
+                        clients.push(clientConverter.convertJSON(mongoElement));
+                    }
+                });
+            })
+            return res.status(200).json(clients);
+        }
+        return res.status(200).json([]);
+    } catch (error: any) {
+        return res.status(500).json({
+            message: "Error",
+            error: error.message
+        });
+    }
+}

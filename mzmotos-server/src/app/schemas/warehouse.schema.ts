@@ -14,4 +14,4 @@ const schema = new Schema({
     versionKey: false
 });
 
-export default model<Warehouse>('user', schema)
+export default model<Warehouse>('warehouse', schema)

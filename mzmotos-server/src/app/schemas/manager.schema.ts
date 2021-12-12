@@ -14,4 +14,4 @@ const schema = new Schema({
     versionKey: false
 });
 
-export default model<Manager>('user', schema)
+export default model<Manager>('manager', schema)

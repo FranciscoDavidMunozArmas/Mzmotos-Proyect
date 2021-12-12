@@ -4,7 +4,7 @@ import { salesmanConverter } from '../interface/salesman.interface';
 import { userConverter } from '../interface/user.interface';
 import salesmanSchema from '../schemas/salesman.schema';
 import userSchema from '../schemas/user.schema';
-import { createUser, deleteUser, updateUser } from './user.controller';
+import { createUser, deleteUser } from './user.controller';
 
 const ROLE_SALESMAN = constants.ROLES[1];
 
@@ -92,63 +92,41 @@ export const updateSalesman = async (req: Request, res: Response) => {
     }
 }
 
-export const updatePassword = async (req: Request, res: Response) => {
-    try {
-        const { username } = req.params
-        const data = userConverter.convertJSON(req.body);
-        const mongoData = await userSchema.findOne({ username: username });
-        if (mongoData) {
-            if (mongoData._id) {
-                    const userID = await updateUser(mongoData._id, data.username, data.password, ROLE_SALESMAN);
-                    if (userID) {
-                        return res.status(200).json({ message: "Password has been updated" });
-                    }
-                }
-            }
-            return res.status(200).json({ message: "Item not found" });
-        } catch (error: any) {
-            return res.status(500).json({
-                message: "Error",
-                error: error.message
-            });
-        }
-    }
-
 export const deleteSalesmanByID = async (req: Request, res: Response) => {
-        try {
-            const { id } = req.params;
-            const mongoData = await salesmanSchema.findById(id);
-            const salesman = salesmanConverter.convertJSON(mongoData);
-            const data = await deleteUser(salesman.userid);
-            if (data) {
-                await salesmanSchema.findByIdAndDelete(id);
-                return res.status(200).json({ message: "Item has been deleted" });
-            }
-            return res.status(400).json({ message: "Something went wrong", });
-        } catch (error: any) {
-            return res.status(500).json({
-                message: "Error",
-                error: error.message
-            });
+    try {
+        const { id } = req.params;
+        const mongoData = await salesmanSchema.findById(id);
+        const salesman = salesmanConverter.convertJSON(mongoData);
+        const data = await deleteUser(salesman.userid);
+        if (data) {
+            await salesmanSchema.findByIdAndDelete(id);
+            return res.status(200).json({ message: "Item has been deleted" });
         }
+        return res.status(400).json({ message: "Something went wrong", });
+    } catch (error: any) {
+        return res.status(500).json({
+            message: "Error",
+            error: error.message
+        });
     }
+}
 
-    export const getSalesmanByUsername = async (req: Request, res: Response) => {
-        try {
-            const { username } = req.params;
-            const userData = await userSchema.findOne({ username: username });
-            if (userData) {
-                const mongoData = await salesmanSchema.findOne({ userid: userData._id });
-                if (mongoData) {
-                    const salesman = salesmanConverter.convertJSON(mongoData);
-                    return res.status(200).json(salesman);
-                }
+export const getSalesmanByUsername = async (req: Request, res: Response) => {
+    try {
+        const { username } = req.params;
+        const userData = await userSchema.findOne({ username: username });
+        if (userData) {
+            const mongoData = await salesmanSchema.findOne({ userid: userData._id });
+            if (mongoData) {
+                const salesman = salesmanConverter.convertJSON(mongoData);
+                return res.status(200).json(salesman);
             }
-            return res.status(200).json({ message: "Item not found" });
-        } catch (error: any) {
-            return res.status(500).json({
-                message: "Error",
-                error: error.message
-            });
         }
+        return res.status(200).json({ message: "Item not found" });
+    } catch (error: any) {
+        return res.status(500).json({
+            message: "Error",
+            error: error.message
+        });
     }
+}

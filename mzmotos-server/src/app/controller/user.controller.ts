@@ -48,7 +48,6 @@ export const deleteUser = async (id: string) => {
     }
 }
 
-
 export const getUsers = async (req: Request, res: Response) => {
     try {
         const mongoData: any[] = await userSchema.find();
@@ -110,3 +109,25 @@ export const signin = async (req: Request, res: Response) => {
         return res.status(500).json({ message: "error", error: error });
     }
 }
+
+export const updatePassword = async (req: Request, res: Response) => {
+    try {
+        const { username } = req.params
+        const data = userConverter.convertJSON(req.body);
+        const mongoData = await userSchema.findOne({ username: username });
+        if (mongoData) {
+            if (mongoData._id) {
+                    const userID = await updateUser(mongoData._id, data.username, data.password, mongoData.role);
+                    if (userID) {
+                        return res.status(200).json({ message: "Password has been updated" });
+                    }
+                }
+            }
+            return res.status(200).json({ message: "Item not found" });
+        } catch (error: any) {
+            return res.status(500).json({
+                message: "Error",
+                error: error.message
+            });
+        }
+    }

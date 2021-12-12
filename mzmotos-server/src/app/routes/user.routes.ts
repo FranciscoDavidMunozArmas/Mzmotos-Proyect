@@ -11,6 +11,9 @@ router.route("/")
 router.route("/signin")
     .post(UserController.signin);
 
+router.route("/password/:username")
+    .post(UserController.updatePassword);
+
 router.route("/:id")
     .get(authUser, UserController.getUserById)
     .delete(authUser, UserController.deleteUserById);

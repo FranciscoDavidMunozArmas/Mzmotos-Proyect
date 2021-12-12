@@ -3,6 +3,7 @@ import { Report, reportConverter } from "./report.interface";
 
 export interface ReportOrder extends Report {
     salesman: string,
+    customer: string,
     orderId: number
 }
 
@@ -11,6 +12,7 @@ export const reportOrderConverter = {
         return {
             ...reportConverter.convertJSON(json),
             salesman: json.salesman,
+            customer: json.customer,
             orderId: json.orderId
         }
     },

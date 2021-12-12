@@ -7,7 +7,11 @@ const schema = new Schema({
     },
     name: String,
     image: String,
-    price: Number
+    price: Number,
+    stock: {
+        type: Number,
+        default: 0
+    },
 },
 {
     timestamps: false,

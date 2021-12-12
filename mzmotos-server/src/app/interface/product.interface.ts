@@ -5,7 +5,8 @@ export interface Product extends Document{
     productid?: string,
     name: string,
     image: string,
-    price: number
+    price: number,
+    stock: number,
 }
 
 export const productConverter = {
@@ -15,7 +16,8 @@ export const productConverter = {
             productid: json.productid,
             name: json.name,
             image: json.image,
-            price: json.price
+            price: json.price,
+            stock: json.stock,
         }
     }
 }

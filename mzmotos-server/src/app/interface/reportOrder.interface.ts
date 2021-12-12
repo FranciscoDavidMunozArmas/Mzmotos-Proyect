@@ -6,7 +6,7 @@ export interface ReportOrder extends Report {
     orderId: number
 }
 
-export const reportOrder = {
+export const reportOrderConverter = {
     convertJSON: (json: any) => {
         return {
             ...reportConverter.convertJSON(json),

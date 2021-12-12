@@ -22,9 +22,7 @@ const schema = new Schema({
     list: {
         type: [{
             product: {
-                productid: {
-                    type: String
-                },
+                productid: String,
                 name: String,
                 image: String,
                 price: Number,

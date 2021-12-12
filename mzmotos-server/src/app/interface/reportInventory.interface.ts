@@ -19,7 +19,7 @@ const productItemConverter = {
 }
 
 export interface ReportInventory extends Report {
-    items: any[]
+    items: ProductItem[]
 }
 
 export const reportInventoryConverter = {

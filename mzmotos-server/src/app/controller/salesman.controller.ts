@@ -78,10 +78,15 @@ export const getSalesmanByID = async (req: Request, res: Response) => {
 export const updateSalesman = async (req: Request, res: Response) => {
     try {
         const { id } = req.params
-        const salesman = salesmanConverter.convertJSON(req.body);
-        const mongoData = await salesmanSchema.findByIdAndUpdate(id, salesman, { new: true });
-        if (mongoData) {
-            return res.status(200).json(mongoData);
+        const data = await salesmanSchema.findById(id);
+        if (data) {
+            const salesman = salesmanConverter.convertJSON(req.body);
+            salesman._id = id;
+            salesman.userid = data.userid;
+            const mongoData = await salesmanSchema.findByIdAndUpdate(id, salesman, { new: true });
+            if (mongoData) {
+                return res.status(200).json(mongoData);
+            }
         }
         return res.status(200).json({ message: "Item not found" });
     } catch (error: any) {

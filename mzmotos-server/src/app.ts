@@ -27,7 +27,7 @@ app.use("/users", userRouter);
 app.use("/clients", clientRouter);
 app.use("/products", productRouter);
 app.use("/salesmen", salemanRouter);
-app.use("/manager", managerRouter);
-app.use("/warehouse", warehouseRouter);
+app.use("/managers", managerRouter);
+app.use("/warehouses", warehouseRouter);
 
 export default app;

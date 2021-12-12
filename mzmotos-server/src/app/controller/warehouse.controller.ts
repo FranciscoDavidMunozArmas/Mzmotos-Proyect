@@ -77,10 +77,15 @@ export const getWarehouseByID = async (req: Request, res: Response) => {
 export const updateWarehouse = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const warehouse = warehouseConverter.convertJSON(req.body);
-        const mongoData = await warehouseSchema.findByIdAndUpdate(id, warehouse, { new: true });
-        if (mongoData) {
-            return res.status(200).json(warehouseConverter.convertJSON(mongoData));
+        const data = await warehouseSchema.findById(id);
+        if (data) {
+            const warehouse = warehouseConverter.convertJSON(req.body);
+            warehouse._id = id;
+            warehouse.userid = data.userid;
+            const mongoData = await warehouseSchema.findByIdAndUpdate(id, warehouse, { new: true });
+            if (mongoData) {
+                return res.status(200).json(warehouseConverter.convertJSON(mongoData));
+            }
         }
         return res.status(400).json({
             message: "Warehouse not updated"

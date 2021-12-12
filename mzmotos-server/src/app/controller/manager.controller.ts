@@ -6,7 +6,7 @@ import managerSchema from '../schemas/manager.schema';
 import userSchema from '../schemas/user.schema';
 import { createUser, deleteUser } from './user.controller';
 
-const ROLE_MANAGER = constants.ROLES[2];
+const ROLE_MANAGER = constants.ROLES[0];
 
 export const getManagers = async (req: Request, res: Response) => {
     try {
@@ -77,10 +77,15 @@ export const getManagerByID = async (req: Request, res: Response) => {
 export const updateManager = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const warehouse = managerConverter.convertJSON(req.body);
-        const mongoData = await managerSchema.findByIdAndUpdate(id, warehouse, { new: true });
-        if (mongoData) {
-            return res.status(200).json(managerConverter.convertJSON(mongoData));
+        const data = await managerSchema.findById(id);
+        if (data) {
+            const warehouse = managerConverter.convertJSON(req.body);
+            warehouse._id = id;
+            warehouse.userid = data.userid;
+            const mongoData = await managerSchema.findByIdAndUpdate(id, warehouse, { new: true });
+            if (mongoData) {
+                return res.status(200).json(managerConverter.convertJSON(mongoData));
+            }
         }
         return res.status(400).json({
             message: "Manager not updated"

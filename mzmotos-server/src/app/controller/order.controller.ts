@@ -1,10 +1,13 @@
 import { Request, Response } from 'express';
 import constants from '../../lib/constants';
+import { orderConverter } from '../interface/order.interface';
+import orderSchema from '../schemas/order.schema';
 
 export const getOrders = async (req: Request, res: Response) => {
     try {
-        const data = {}
-        return res.status(200).json(data);
+        const mongoData = await orderSchema.find({});
+        const orders = mongoData.map(orderConverter.convertJSON);
+        return res.status(200).json(orders);
     } catch (error: any) {
         return res.status(500).json({
             message: "Error",
@@ -15,8 +18,14 @@ export const getOrders = async (req: Request, res: Response) => {
 
 export const createOrder = async (req: Request, res: Response) => {
     try {
-        const data = {}
-        return res.status(200).json(data);
+        const data = orderConverter.convertJSON(req.body);
+        const mongoData = await orderSchema.create(data);
+        if (mongoData) {
+            return res.status(200).json(mongoData);
+        }
+        return res.status(400).json({
+            message: "Order not created"
+        });
     } catch (error: any) {
         return res.status(500).json({
             message: "Error",
@@ -27,8 +36,10 @@ export const createOrder = async (req: Request, res: Response) => {
 
 export const deleteOrders = async (req: Request, res: Response) => {
     try {
-        const data = {}
-        return res.status(200).json(data);
+        await orderSchema.deleteMany({});
+        return res.status(200).json({
+                message: "Orders deleted"
+            });
     } catch (error: any) {
         return res.status(500).json({
             message: "Error",
@@ -39,8 +50,14 @@ export const deleteOrders = async (req: Request, res: Response) => {
 
 export const getOrderById = async (req: Request, res: Response) => {
     try {
-        const data = {}
-        return res.status(200).json(data);
+        const { id } = req.params;
+        const mongoData = await orderSchema.findById(id);
+        if (mongoData) {
+            return res.status(200).json(orderConverter.convertJSON(mongoData));
+        }
+        return res.status(400).json({
+            message: "Order not found"
+        });
     } catch (error: any) {
         return res.status(500).json({
             message: "Error",
@@ -51,8 +68,16 @@ export const getOrderById = async (req: Request, res: Response) => {
 
 export const updateOrder = async (req: Request, res: Response) => {
     try {
-        const data = {}
-        return res.status(200).json(data);
+        const { id } = req.params;
+        const data = orderConverter.convertJSON(req.body);
+        data._id = id;
+        const mongoData = await orderSchema.findByIdAndUpdate(id, data, { new: true });
+        if (mongoData) {
+            return res.status(200).json(orderConverter.convertJSON(mongoData));
+        }
+        return res.status(400).json({
+            message: "Order not found"
+        });
     } catch (error: any) {
         return res.status(500).json({
             message: "Error",
@@ -63,8 +88,16 @@ export const updateOrder = async (req: Request, res: Response) => {
 
 export const deleteOrdersById = async (req: Request, res: Response) => {
     try {
-        const data = {}
-        return res.status(200).json(data);
+        const { id } = req.params;
+        const mongoData = await orderSchema.findByIdAndDelete(id);
+        if (mongoData) {
+            return res.status(200).json({
+                message: "Order deleted"
+            });
+        }
+        return res.status(400).json({
+            message: "Order not found"
+        });
     } catch (error: any) {
         return res.status(500).json({
             message: "Error",
@@ -75,8 +108,10 @@ export const deleteOrdersById = async (req: Request, res: Response) => {
 
 export const getOrdersBySalesman = async (req: Request, res: Response) => {
     try {
-        const data = {}
-        return res.status(200).json(data);
+        const { salesman } = req.params;
+        const mongoData = await orderSchema.find({ salesman });
+        const salesmen = mongoData.map(orderConverter.convertJSON);
+        return res.status(200).json(salesmen);
     } catch (error: any) {
         return res.status(500).json({
             message: "Error",
@@ -87,8 +122,11 @@ export const getOrdersBySalesman = async (req: Request, res: Response) => {
 
 export const deleteOrdersBySalesman = async (req: Request, res: Response) => {
     try {
-        const data = {}
-        return res.status(200).json(data);
+        const { salesman } = req.params;
+        await orderSchema.deleteMany({ salesman });
+        return res.status(200).json({
+            message: "Orders deleted"
+        });
     } catch (error: any) {
         return res.status(500).json({
             message: "Error",

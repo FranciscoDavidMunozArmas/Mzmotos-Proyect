@@ -14,4 +14,7 @@ router.route("/one/:id")
 .put(authUser, Controller.updateWarehouse)
 .delete(authUser, Controller.deleteWarehouseByID);
 
+router.route("/username/:username")
+.get(authUser, Controller.getWarehouseByUsername)
+
 export default router;

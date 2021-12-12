@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import constants from '../../lib/constants';
 import { userConverter } from '../interface/user.interface';
 import { warehouseConverter } from '../interface/warehouse.interface';
+import userSchema from '../schemas/user.schema';
 import warehouseSchema from '../schemas/warehouse.schema';
 import { createUser, deleteUser } from './user.controller';
 
@@ -75,10 +76,10 @@ export const getWarehouseByID = async (req: Request, res: Response) => {
 
 export const updateWarehouse = async (req: Request, res: Response) => {
     try {
-        const  { id } = req.params;
+        const { id } = req.params;
         const warehouse = warehouseConverter.convertJSON(req.body);
         const mongoData = await warehouseSchema.findByIdAndUpdate(id, warehouse, { new: true });
-        if(mongoData) {
+        if (mongoData) {
             return res.status(200).json(warehouseConverter.convertJSON(mongoData));
         }
         return res.status(400).json({
@@ -98,7 +99,7 @@ export const deleteWarehouseByID = async (req: Request, res: Response) => {
         const mongoData = await warehouseSchema.findById(id);
         const warehouse = warehouseConverter.convertJSON(mongoData);
         const data = await deleteUser(warehouse.userid);
-        if(data) {
+        if (data) {
             await warehouseSchema.findByIdAndDelete(id);
             return res.status(200).json({
                 message: "Warehouse deleted"
@@ -106,6 +107,28 @@ export const deleteWarehouseByID = async (req: Request, res: Response) => {
         }
         return res.status(400).json({
             message: "Warehouse not deleted"
+        });
+    } catch (error: any) {
+        return res.status(500).json({
+            message: "Error",
+            error: error.message
+        });
+    }
+}
+
+export const getWarehouseByUsername = async (req: Request, res: Response) => {
+    try {
+        const { username } = req.params;
+        const userData = await userSchema.findOne({ username: username });
+        if (userData) {
+            const mongoData = await warehouseSchema.findOne({ userid: userData._id });
+            if (mongoData) {
+                const warehouse = warehouseConverter.convertJSON(mongoData);
+                return res.status(200).json(warehouse);
+            }
+        }
+        return res.status(400).json({
+            message: "Warehouse not found"
         });
     } catch (error: any) {
         return res.status(500).json({

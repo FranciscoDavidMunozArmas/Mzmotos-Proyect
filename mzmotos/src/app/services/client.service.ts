@@ -11,6 +11,6 @@ export class ClientService {
   constructor(private http: HttpClient) {}
 
   getClients() {
-    return this.http.get<Client[]>(`${CONSTANTS.URI_PATH}/clients`);
+    return this.http.get<Client[]>(`${CONSTANTS.API_URL}/clients`);
   }
 }

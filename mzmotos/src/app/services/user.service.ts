@@ -9,7 +9,15 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  allowAccess(username: string, password: string) {
-    return this.http.post(`${CONSTANTS.URI_PATH}/signin`, {username, password});
+  getUsers() {
+    return this.http.get(`${CONSTANTS.API_URL}/users`);
+  }
+
+  deleteUsers() {
+    return this.http.delete(`${CONSTANTS.API_URL}/users`);
+  }
+
+  sigin(username: string, password: string) {
+    return this.http.post(`${CONSTANTS.API_URL}/users/signin`, {username, password});
   }
 }

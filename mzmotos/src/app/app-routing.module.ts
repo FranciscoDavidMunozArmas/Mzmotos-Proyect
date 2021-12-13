@@ -14,10 +14,11 @@ import { WarehouseComponent } from './pages/warehouse/warehouse.component';
 const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path: 'sales',
+    path: 'salesman',
     component: SalesmanComponent,
     canActivate: [AuthGuard],
     children: [
@@ -46,7 +47,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'manager',
+    path: 'admin',
     component: ManagerComponent,
     canActivate: [AuthGuard]
   },

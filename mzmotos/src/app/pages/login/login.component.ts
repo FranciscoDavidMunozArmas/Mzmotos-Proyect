@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
+import { decode } from 'src/lib/token';
 
 @Component({
   selector: 'app-login',
@@ -36,6 +37,8 @@ export class LoginComponent implements OnInit {
     this.userService.sigin(loginForm.value.username, loginForm.value.password)
       .subscribe((res: any) => {
         this.authService.signin(res, true);
+        const token = decode(res);
+        this.router.navigate([`/${token.role}`]);
       })
   }
 

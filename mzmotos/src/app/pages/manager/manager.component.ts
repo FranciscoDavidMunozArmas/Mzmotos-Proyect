@@ -15,14 +15,6 @@ export class ManagerComponent implements OnInit {
   constructor(private cookie: CookieService, private router: Router) { }
 
   ngOnInit(): void {
-    const cookieName = this.cookie.get(this.cookieName);
-    const cookieRole = this.cookie.get(this.cookieRole);
-    if (!cookieName && !cookieRole) {
-      this.router.navigate(["/login"]);
-    }
-    if(cookieRole !== "manager") {
-      this.router.navigate(["/login"]);
-    }
   }
 
 }

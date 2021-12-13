@@ -20,14 +20,6 @@ export class SalesmanComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const cookieName = this.cookie.get(this.cookieName);
-    const cookieRole = this.cookie.get(this.cookieRole);
-    if (!cookieName && !cookieRole) {
-      this.router.navigate(["/login"]);
-    }
-    if(cookieRole !== "sales") {
-      this.router.navigate(["/login"]);
-    }
   }
 
 }

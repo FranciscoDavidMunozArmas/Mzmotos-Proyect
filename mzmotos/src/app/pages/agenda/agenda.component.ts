@@ -40,13 +40,13 @@ export class AgendaComponent implements OnInit {
     private appointmentService: AppointmentService) { }
 
   ngOnInit(): void {
-    const name = this.cookie.get(this.cookieName);
-    const role = this.cookie.get(this.cookieRole);
-    if (!name || !role) {
-      this.router.navigate(["/login"]);
-    }
+    // const name = this.cookie.get(this.cookieName);
+    // const role = this.cookie.get(this.cookieRole);
+    // if (!name || !role) {
+    //   this.router.navigate(["/login"]);
+    // }
     
-    this.getSalesman(name);
+    // this.getSalesman(name);
   }
 
   getSalesman(name: string) {

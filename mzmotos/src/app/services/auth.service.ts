@@ -1,5 +1,9 @@
+import { Injectable } from "@angular/core";
 import { CookieService } from "ngx-cookie-service";
 
+@Injectable({
+    providedIn: 'root'
+})
 export class AuthService {
 
     private tokenName = "token";
@@ -7,10 +11,13 @@ export class AuthService {
     constructor(private cookieService: CookieService) { }
 
     signin(token: string, flag: boolean) {
+        this.signout();
         if (flag) {
             localStorage.setItem(this.tokenName, token);
         } else {
-            this.cookieService.set(this.tokenName, token);
+            const date = new Date();
+            date.setHours(date.getHours() + 2);
+            this.cookieService.set(this.tokenName, token, date);
         }
     }
 

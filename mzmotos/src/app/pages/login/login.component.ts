@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -19,14 +20,12 @@ export class LoginComponent implements OnInit {
   private cookieName: string = "logged-user";
   private cookieRole: string = "role";
 
-  constructor(private userService: UserService, private cookie: CookieService, private router: Router) { }
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
-    const cookieName = this.cookie.get(this.cookieName);
-    const cookieRole = this.cookie.get(this.cookieRole);
-    if(cookieName && cookieRole) {
-      this.letUserIn({ token: cookieName, role: cookieRole});
-    }
   }
 
   onChange(value: any) {
@@ -34,25 +33,10 @@ export class LoginComponent implements OnInit {
   }
 
   submitUser(loginForm: NgForm) {
-    this.userService.allowAccess(loginForm.value.username, loginForm.value.password)
-    .subscribe(res => {
-      this.letUserIn(res);
-    })
-  }
-
-  letUserIn(value: any) {
-    if(!value.token || !value.role) {
-      return;
-    }
-    let date = new Date();
-    this.cookie.delete(this.cookieName);
-    this.cookie.delete(this.cookieRole);
-    date.setHours(date.getHours() + 2);
-    this.cookie.set(this.cookieName, value.token, date);
-    this.cookie.set(this.cookieRole, value.role, date);
-    if(value.role == "manager" || value.role == "warehouse" || value.role == "sales") {
-      this.router.navigate([`/${value.role}`]);
-    }
+    this.userService.sigin(loginForm.value.username, loginForm.value.password)
+      .subscribe((res: any) => {
+        this.authService.signin(res, true);
+      })
   }
 
 }

@@ -1,7 +1,7 @@
-import * as dotenv from "dotenv";
+// import * as dotenv from "dotenv";
 
-dotenv.config();
+// dotenv.config();
 
 export const CONSTANTS = {
-    API_URL: process.env.API_URL
+    API_URL: "http://localhost:3000",
 };

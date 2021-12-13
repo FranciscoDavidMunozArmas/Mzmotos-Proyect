@@ -3,18 +3,15 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard } from './auth/auth.guard';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { LoginComponent } from './components/login/login.component';
-import { SalesmanComponent } from './components/salesman/salesman.component';
-import { WarehouseComponent } from './components/warehouse/warehouse.component';
-import { ManagerComponent } from './components/manager/manager.component';
+
+//Components
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { AgendaComponent } from './components/agenda/agenda.component';
-import { CatalogueComponent } from './components/catalogue/catalogue.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { AgendaCardComponent } from './components/agenda-card/agenda-card.component';
 import { ClockComponent } from './components/clock/clock.component';
@@ -26,7 +23,14 @@ import { SearchComponent } from './components/search/search.component';
 import { NotifyComponent } from './components/notify/notify.component';
 import { ClientproductComponent } from './components/clientproduct/clientproduct.component';
 import { ClientsComponent } from './components/clients/clients.component';
-import { TokenInterceptorService } from './services/token-interceptor.service';
+
+//Pages
+import { LoginComponent } from './pages/login/login.component';
+import { SalesmanComponent } from './pages/salesman/salesman.component';
+import { WarehouseComponent } from './pages/warehouse/warehouse.component';
+import { ManagerComponent } from './pages/manager/manager.component';
+import { AgendaComponent } from './pages/agenda/agenda.component';
+import { CatalogueComponent } from './pages/catalogue/catalogue.component';
 
 @NgModule({
   declarations: [

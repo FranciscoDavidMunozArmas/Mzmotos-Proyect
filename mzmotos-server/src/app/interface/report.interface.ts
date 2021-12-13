@@ -5,6 +5,7 @@ export interface Report extends Document {
     reportid: string,
     employee: string,
     date: Date,
+    view: boolean,
 }
 
 export const reportConverter = {
@@ -14,6 +15,7 @@ export const reportConverter = {
             reportid: json.reportid,
             employee: json.employee,
             date: json.date,
+            view: json.view,
         }
     }
 }

@@ -10,8 +10,11 @@ const schema = new Schema({
         type: Date,
         default: Date.now
     },
+    view: {
+        type: Boolean,
+        default: false
+    },
     salesman: String,
-    customer: String,
     orderId: String,
 },
 {
@@ -22,7 +25,7 @@ const schema = new Schema({
 schema.pre<ReportOrder>('save', async function(next) {
     const data: any = this;
     const sequence = await getSequenceValue("reportorder_sequence");
-    data.orderId = formatUID(sequence);
+    data.reportid = formatUID(sequence);
     next();
 });
 

@@ -11,6 +11,7 @@ import productRouter from './app/routes/product.routes';
 import managerRouter from './app/routes/manager.routes';
 import warehouseRouter from './app/routes/warehouse.routes';
 import orderRouter from './app/routes/order.routes';
+import reportRouter from './app/routes/report.routes';
 
 const app = express();
 
@@ -31,5 +32,6 @@ app.use("/salesmen", salemanRouter);
 app.use("/managers", managerRouter);
 app.use("/warehouses", warehouseRouter);
 app.use("/orders", orderRouter);
+app.use("/reports", reportRouter);
 
 export default app;

@@ -10,6 +10,10 @@ const schema = new Schema({
         type: Date,
         default: Date.now
     },
+    view: {
+        type: Boolean,
+        default: false
+    },
     items: [{
         product: {
             productid: String,
@@ -35,7 +39,7 @@ const schema = new Schema({
 schema.pre<ReportInventory>('save', async function (next) {
     const data: any = this;
     const sequence = await getSequenceValue("reportinventory_sequence");
-    data.orderId = formatUID(sequence);
+    data.reportid = formatUID(sequence);
     next();
 });
 

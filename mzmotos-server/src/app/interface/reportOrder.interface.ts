@@ -1,10 +1,10 @@
-import { Order } from "./order.interface";
+import { Client, clientConverter } from "./client.interface";
+import { Order, orderConverter } from "./order.interface";
 import { Report, reportConverter } from "./report.interface";
 
 export interface ReportOrder extends Report {
     salesman: string,
-    customer: string,
-    orderId: number
+    orderId: string
 }
 
 export const reportOrderConverter = {
@@ -12,14 +12,13 @@ export const reportOrderConverter = {
         return {
             ...reportConverter.convertJSON(json),
             salesman: json.salesman,
-            customer: json.customer,
             orderId: json.orderId
         }
     },
     joinReportOrder: (report: ReportOrder, order: Order) => {
         return {
-            ...report,
-            ...order
+            ...reportOrderConverter.convertJSON(report),
+            ...orderConverter.convertJSON(order)
         }
     }
 }

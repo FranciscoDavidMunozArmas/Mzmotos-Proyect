@@ -1,17 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from '../interfaces/Product';
-import { Service } from './service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService extends Service{
+export class ProductService {
 
-  constructor(private http: HttpClient) { 
-    super();
-    super.expandURI("/products");
-  }
+  constructor(private http: HttpClient) { }
 
   getProducts() {
     return this.http.get<Product[]>(super.getURI());

@@ -1,18 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Service } from './service';
+import { CONSTANTS } from 'src/lib/constants';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService extends Service {
+export class UserService {
 
-  constructor(private http: HttpClient) {
-    super();
-    super.expandURI("/user");
-  }
+  constructor(private http: HttpClient) {}
 
   allowAccess(username: string, password: string) {
-    return this.http.post(`${super.getURI()}/access`, {username, password});
+    return this.http.post(`${CONSTANTS.URI_PATH}/signin`, {username, password});
   }
 }

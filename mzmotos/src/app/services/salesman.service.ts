@@ -1,43 +1,41 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CONSTANTS } from 'src/lib/constants';
 import { Salesman } from '../interfaces/Salesman';
-import { Service } from './service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SalesmanService extends Service {
+export class SalesmanService {
 
   constructor(private http: HttpClient) {
-    super();
-    super.expandURI("/salesmen")
   }
 
   getSalesmen() {
-    return this.http.get(super.getURI());
+    return this.http.get(`${CONSTANTS.URI_PATH}/salesmen`);
   }
 
   getSalesman(id: string) {
-    return this.http.get(`${super.getURI()}/${id}`);
+    return this.http.get(`${CONSTANTS.URI_PATH}/salesmen/${id}`);
   }
 
   getSalesmanbyName(username: string) {
-    return this.http.get<Salesman>(`${super.getURI()}/username/${username}`);
+    return this.http.get<Salesman>(`${CONSTANTS.URI_PATH}/salesmen/username/${username}`);
   }
 
   postSalesman(salesman: Salesman) {
-    return this.http.post(super.getURI(), salesman);
+    return this.http.post(`${CONSTANTS.URI_PATH}/salesmen`, salesman);
   }
 
   putSalesman(id: string, salesman: Salesman) {
-    return this.http.put(`${super.getURI()}/${id}`, salesman);
+    return this.http.put(`${CONSTANTS.URI_PATH}/salesmen/${id}`, salesman);
   }
 
   deleteSalesman(id: string) {
-    return this.http.delete(`${super.getURI()}/${id}`);
+    return this.http.delete(`${CONSTANTS.URI_PATH}/salesmen/${id}`);
   }
 
   deleteSalesmen() { 
-    return this.http.delete(super.getURI());
+    return this.http.delete(`${CONSTANTS.URI_PATH}/salesmen`);
   }
 }

@@ -1,19 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CONSTANTS } from 'src/lib/constants';
 import { Client } from '../interfaces/Client';
-import { Service } from './service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClientService extends Service {
+export class ClientService {
 
-  constructor(private http: HttpClient) {
-    super();
-    super.expandURI("/client");
-  }
+  constructor(private http: HttpClient) {}
 
   getClients() {
-    return this.http.get<Client[]>(super.getURI());
+    return this.http.get<Client[]>(`${CONSTANTS.URI_PATH}/clients`);
   }
 }

@@ -1,4 +1,5 @@
 import * as moment from "moment";
+import { CONSTANTS } from "src/lib/constants";
 import { Client, clientConverter } from "./Client";
 
 export class Appointment {
@@ -22,7 +23,7 @@ export const appointmentConverter = {
     toJSON: (appointment: Appointment): any => {
         return {
             client: clientConverter.toJSON(appointment.client),
-            date: moment(appointment.date).format("YYYY-MM-DD"),
+            date: moment(appointment.date).format(CONSTANTS.DATE_FORMAT),
             state: appointment.state,
             _id: appointment._id
         };

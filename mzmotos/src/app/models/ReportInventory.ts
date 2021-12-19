@@ -1,4 +1,5 @@
 import * as moment from "moment";
+import { CONSTANTS } from "src/lib/constants";
 import { Product, productConverter } from "./Product";
 import { Report } from "./Report";
 
@@ -49,7 +50,7 @@ export const reportInventoryConverter = {
         return {
             reportid: reportInventory.reportid,
             employee: reportInventory.employee,
-            date: moment(reportInventory.date).format("YYYY-MM-DD"),
+            date: moment(reportInventory.date).format(CONSTANTS.DATE_FORMAT),
             view: reportInventory.view,
             items: reportInventory.items.map(ProductItemConverter.toJSON),
             _id: reportInventory._id

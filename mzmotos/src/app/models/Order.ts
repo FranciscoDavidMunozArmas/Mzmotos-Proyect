@@ -1,4 +1,5 @@
 import * as moment from "moment";
+import { CONSTANTS } from "src/lib/constants";
 import { Client, clientConverter } from "./Client";
 import { Product, productConverter } from "./Product";
 
@@ -57,7 +58,7 @@ export const orderConverter = {
         return {
             orderId: order.orderId,
             salesman: order.salesman,
-            date: moment(order.date).format("YYYY-MM-DD"),
+            date: moment(order.date).format(CONSTANTS.DATE_FORMAT),
             client: clientConverter.toJSON(order.client),
             list: order.list.map(productOrderConverter.toJSON),
             total: order.total,

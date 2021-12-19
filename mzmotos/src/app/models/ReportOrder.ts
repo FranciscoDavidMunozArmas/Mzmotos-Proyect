@@ -1,4 +1,5 @@
 import * as moment from "moment";
+import { CONSTANTS } from "src/lib/constants";
 import { Report } from "./Report";
 
 export class ReportOrder extends Report{
@@ -20,7 +21,7 @@ export const reportOrderConverter = {
         return {
             reportid: reportOrder.reportid,
             employee: reportOrder.employee,
-            date: moment(reportOrder.date).format("YYYY-MM-DD"),
+            date: moment(reportOrder.date).format(CONSTANTS.DATE_FORMAT),
             view: reportOrder.view,
             orderId: reportOrder.orderId,
             salesman: reportOrder.salesman,

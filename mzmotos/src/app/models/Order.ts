@@ -1,3 +1,4 @@
+import * as moment from "moment";
 import { Client, clientConverter } from "./Client";
 import { Product, productConverter } from "./Product";
 
@@ -56,7 +57,7 @@ export const orderConverter = {
         return {
             orderId: order.orderId,
             salesman: order.salesman,
-            date: order.date.toDateString(),
+            date: moment(order.date).format("YYYY-MM-DD"),
             client: clientConverter.toJSON(order.client),
             list: order.list.map(productOrderConverter.toJSON),
             total: order.total,

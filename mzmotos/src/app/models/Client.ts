@@ -1,5 +1,3 @@
-import { Product } from "./Product";
-
 export class Client {
     _id?: string;
     RUC:string;

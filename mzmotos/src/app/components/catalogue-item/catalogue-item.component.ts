@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Product } from 'src/app/interfaces/Product';
+import { Product } from 'src/app/models/Product';
 
 @Component({
   selector: 'app-catalogue-item',

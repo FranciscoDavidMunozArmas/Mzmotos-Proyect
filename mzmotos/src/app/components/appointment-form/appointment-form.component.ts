@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import * as moment from 'moment';
-import { Appointment } from 'src/app/interfaces/Appointment';
-import { Client } from 'src/app/interfaces/Client';
+import { Appointment } from 'src/app/models/Appointment';
+import { Client } from 'src/app/models/Client';
 import { ClientService } from 'src/app/services/client.service';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Appointment } from 'src/app/interfaces/Appointment';
+import { Appointment } from 'src/app/models/Appointment';
 
 @Component({
   selector: 'app-agenda-card',

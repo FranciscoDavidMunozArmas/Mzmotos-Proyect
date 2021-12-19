@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as moment from "moment";
-import { Day } from 'src/app/interfaces/Day';
+import { Day } from 'src/app/models/Day';
 
 @Component({
   selector: 'app-calendar',

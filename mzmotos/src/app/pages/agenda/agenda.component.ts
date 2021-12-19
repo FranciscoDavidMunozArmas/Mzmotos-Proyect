@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Appointment } from 'src/app/interfaces/Appointment';
-import { Salesman } from 'src/app/interfaces/Salesman';
+import { Appointment } from 'src/app/models/Appointment';
+import { Salesman } from 'src/app/models/Salesman';
 
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';

@@ -1,4 +1,4 @@
-import { Client } from "./Client";
+import { Client, clientConverter } from "./Client";
 
 export class Appointment {
     _id?: string;
@@ -20,7 +20,7 @@ export const appointmentConverter = {
     },
     toJSON: (appointment: Appointment): any => {
         return {
-            client: appointment.client,
+            client: clientConverter.toJSON(appointment.client),
             date: appointment.date,
             state: appointment.state,
             _id: appointment._id

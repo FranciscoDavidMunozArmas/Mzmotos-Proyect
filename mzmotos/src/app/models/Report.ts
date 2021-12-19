@@ -5,10 +5,10 @@ export class Report {
     date: Date;
     view: boolean;
 
-    constructor(reportid: string, employee: string, date: Date, view: boolean, id?: string) {
+    constructor(reportid: string, employee: string, date: any, view: boolean, id?: string) {
         this.reportid = reportid;
         this.employee = employee;
-        this.date = date;
+        this.date = new Date(date);
         this.view = view;
         this._id = id;
     }

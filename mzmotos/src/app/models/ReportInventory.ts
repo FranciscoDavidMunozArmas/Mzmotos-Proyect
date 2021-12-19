@@ -1,3 +1,4 @@
+import * as moment from "moment";
 import { Product, productConverter } from "./Product";
 import { Report } from "./Report";
 
@@ -29,8 +30,13 @@ const ProductItemConverter = {
 export class ReportInventory extends Report{
     items: ProductItem[];
 
-    constructor(reportid: string, employee: string, date: Date, view: boolean, items: ProductItem[], id?: string) {
+    constructor(reportid: string, employee: string, date: any, view: boolean, items: any[], id?: string) {
         super(reportid, employee, date, view, id);
+        if (items) {
+            this.items = items.map(ProductItemConverter.fromJSON);
+        } else {
+            this.items = [];
+        }
         this.items = items;
     }
 }
@@ -43,7 +49,7 @@ export const reportInventoryConverter = {
         return {
             reportid: reportInventory.reportid,
             employee: reportInventory.employee,
-            date: reportInventory.date,
+            date: moment(reportInventory.date).format("YYYY-MM-DD"),
             view: reportInventory.view,
             items: reportInventory.items.map(ProductItemConverter.toJSON),
             _id: reportInventory._id

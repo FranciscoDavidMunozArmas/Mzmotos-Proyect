@@ -1,3 +1,4 @@
+import * as moment from "moment";
 import { Client, clientConverter } from "./Client";
 
 export class Appointment {
@@ -6,9 +7,9 @@ export class Appointment {
     date: Date;
     state: boolean;
 
-    constructor(client: Client, date: Date, state: boolean, id?: string) {
+    constructor(client: Client, date: any, state: boolean, id?: string) {
         this.client = client;
-        this.date = date;
+        this.date = new Date(date);
         this.state = state;
         this._id = id;
     }
@@ -21,7 +22,7 @@ export const appointmentConverter = {
     toJSON: (appointment: Appointment): any => {
         return {
             client: clientConverter.toJSON(appointment.client),
-            date: appointment.date,
+            date: moment(appointment.date).format("YYYY-MM-DD"),
             state: appointment.state,
             _id: appointment._id
         };

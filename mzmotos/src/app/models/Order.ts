@@ -4,8 +4,8 @@ import { Product, productConverter } from "./Product";
 class ProductOrder{
     product: Product;
     quantity: number;
-    constructor(product: Product, quantity: number){
-        this.product = productConverter.toJSON(product);
+    constructor(product: any, quantity: number){
+        this.product = productConverter.fromJSON(product);
         this.quantity = quantity;
     }
 }
@@ -16,7 +16,7 @@ const productOrderConverter = {
     },
     toJSON: (productOrder: ProductOrder): any => {
         return {
-            product: productOrder.product,
+            product: productConverter.toJSON(productOrder.product),
             quantity: productOrder.quantity
         };
     }
@@ -31,11 +31,11 @@ export class Order {
     list: ProductOrder[];
     total: number;
     state: boolean;
-    constructor(orderId: string, salesman: string, date: Date, client: Client, list: any[], total: number, state: boolean, id?: string) {
+    constructor(orderId: string, salesman: string, date: any, client: any, list: any[], total: number, state: boolean, id?: string) {
         this.orderId = orderId;
         this.salesman = salesman;
-        this.date = date;
-        this.client = client;
+        this.date = new Date(date);
+        this.client = clientConverter.fromJSON(client);
         if (list) {
             this.list = list.map(productOrderConverter.fromJSON);
         } else {
@@ -56,7 +56,7 @@ export const orderConverter = {
         return {
             orderId: order.orderId,
             salesman: order.salesman,
-            date: order.date,
+            date: order.date.toDateString(),
             client: clientConverter.toJSON(order.client),
             list: order.list.map(productOrderConverter.toJSON),
             total: order.total,

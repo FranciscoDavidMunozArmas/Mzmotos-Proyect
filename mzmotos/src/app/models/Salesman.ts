@@ -39,7 +39,7 @@ export const salesmanConverter = {
             address: salesman.address,
             phone: salesman.phone,
             email: salesman.email,
-            appointments: salesman.appointments,
+            appointments: salesman.appointments.map(appointmentConverter.toJSON),
             _id: salesman._id
         };
     }

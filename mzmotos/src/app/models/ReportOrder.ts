@@ -1,10 +1,11 @@
+import * as moment from "moment";
 import { Report } from "./Report";
 
 export class ReportOrder extends Report{
     salesman: string;
     orderId: string;
 
-    constructor(reportid: string, employee: string, date: Date, view: boolean, orderId: string, salesman: string, id?: string) {
+    constructor(reportid: string, employee: string, date: any, view: boolean, orderId: string, salesman: string, id?: string) {
         super(reportid, employee, date, view, id);
         this.salesman = salesman;
         this.orderId = orderId;
@@ -19,7 +20,7 @@ export const reportOrderConverter = {
         return {
             reportid: reportOrder.reportid,
             employee: reportOrder.employee,
-            date: reportOrder.date,
+            date: moment(reportOrder.date).format("YYYY-MM-DD"),
             view: reportOrder.view,
             orderId: reportOrder.orderId,
             salesman: reportOrder.salesman,

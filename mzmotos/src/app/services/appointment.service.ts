@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CONSTANTS } from 'src/lib/constants';
-import { Appointment } from '../models/Appointment';
+import { Appointment, appointmentConverter } from '../models/Appointment';
 import { Salesman } from '../models/Salesman';
 
 @Injectable({
@@ -20,11 +20,11 @@ export class AppointmentService {
   }
 
   postAppointment(salesmanid: string, appointment: Appointment) {
-    return this.http.post<Salesman>(`/${CONSTANTS.API_URL}/salesmen/appointments/${salesmanid}`, appointment);
+    return this.http.post<Salesman>(`/${CONSTANTS.API_URL}/salesmen/appointments/${salesmanid}`, appointmentConverter.toJSON(appointment));
   }
 
   putAppointment(salesmanid: string, appointmentid: string, appointment: Appointment) {
-    return this.http.put<Appointment[]>(`/${CONSTANTS.API_URL}/salesmen/appointments/${salesmanid}/${appointmentid}`, appointment);
+    return this.http.put<Appointment[]>(`/${CONSTANTS.API_URL}/salesmen/appointments/${salesmanid}/${appointmentid}`, appointmentConverter.toJSON(appointment));
   }
 
   deleteAppointment(salesmanid: string, appointmentid: string) {

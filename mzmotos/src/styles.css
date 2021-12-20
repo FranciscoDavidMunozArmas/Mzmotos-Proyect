@@ -2,6 +2,7 @@
     --primary-color: #f13030;
     --primary-white: #fff;
     --text-base-color: rgb(37, 37, 37);
+    --title-base-color: rgb(91, 91, 91);
 }
 
 * {
@@ -213,6 +214,18 @@ a:hover {
 .btn-primary:not(:disabled):not(.disabled):active:focus,
 .show>.btn-primary.dropdown-toggle:focus {
     box-shadow: 0px 0px 0.25rem #000;
+}
+
+.btn-inverted {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: none;
+}
+
+.btn-inverted:hover {
+    box-shadow: none;
+    font-weight: bold;
+    color: var(--primary-color);
 }
 
 .float-right-bottom {

@@ -3,6 +3,9 @@ import userSchema from '../schemas/user.schema';
 import bcryptjs from 'bcryptjs';
 import { userConverter } from '../interface/user.interface';
 import { tokenize } from '../../lib/token';
+import managerSchema from '../schemas/manager.schema';
+import salesmanSchema from '../schemas/salesman.schema';
+import warehouseSchema from '../schemas/warehouse.schema';
 
 const saltRounds = 10;
 
@@ -100,8 +103,25 @@ export const signin = async (req: Request, res: Response) => {
         if (user) {
             result = bcryptjs.compareSync(password, user?.password as string);
             if(result){
-                token = {token: user._id, role: user.role};
-                return res.status(200).json(tokenize(token));
+                if(user.role === "admin"){
+                    const data = await managerSchema.findOne({ userid: user._id });
+                    if(data){
+                        token = {token: user._id, user:data._id, role: user.role};
+                        return res.status(200).json(tokenize(token));
+                    }
+                } else if(user.role === "salesman"){
+                    const data = await salesmanSchema.findOne({ userid: user._id });
+                    if(data){
+                        token = {token: user._id, user:data._id, role: user.role};
+                        return res.status(200).json(tokenize(token));
+                    }
+                } else if (user.role === "warehouse"){
+                    const data = await warehouseSchema.findOne({ userid: user._id });
+                    if(data){
+                        token = {token: user._id, user:data._id, role: user.role};
+                        return res.status(200).json(tokenize(token));
+                    }
+                }
             }
         }
         return res.status(200).json(null);

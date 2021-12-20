@@ -15,27 +15,27 @@ export class SalesmanService {
     return this.http.get<any[]>(`${CONSTANTS.API_URL}/salesmen`);
   }
 
-  getSalesman(id: string) {
-    return this.http.get(`${CONSTANTS.API_URL}/salesmen/${id}`);
-  }
-
-  getSalesmanbyName(username: string) {
-    return this.http.get(`${CONSTANTS.API_URL}/salesmen/username/${username}`);
-  }
-
   postSalesman(salesman: Salesman) {
     return this.http.post(`${CONSTANTS.API_URL}/salesmen`, salesman);
   }
 
-  putSalesman(id: string, salesman: Salesman) {
-    return this.http.put(`${CONSTANTS.API_URL}/salesmen/${id}`, salesman);
-  }
-
-  deleteSalesman(id: string) {
-    return this.http.delete(`${CONSTANTS.API_URL}/salesmen/${id}`);
-  }
-
   deleteSalesmen() { 
     return this.http.delete(`${CONSTANTS.API_URL}/salesmen`);
+  }
+
+  getSalesmanByID(id: string) {
+    return this.http.get(`${CONSTANTS.API_URL}/salesmen/salesman/${id}`);
+  }
+
+  putSalesman(id: string, salesman: Salesman) {
+    return this.http.put(`${CONSTANTS.API_URL}/salesmen/salesman/${id}`, salesman);
+  }
+
+  deleteSalesmanByID(id: string) {
+    return this.http.delete(`${CONSTANTS.API_URL}/salesmen/salesman/${id}`);
+  }
+
+  getSalesmanbyUsername(username: string) {
+    return this.http.get(`${CONSTANTS.API_URL}/salesmen/username/${username}`);
   }
 }

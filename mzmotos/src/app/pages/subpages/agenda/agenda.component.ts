@@ -2,11 +2,12 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Appointment } from 'src/app/models/Appointment';
 import { Salesman, salesmanConverter } from 'src/app/models/Salesman';
+import { decode } from 'src/lib/token';
 
-import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { SalesmanService } from 'src/app/services/salesman.service';
 import { AppointmentService } from 'src/app/services/appointment.service';
+import { AuthService } from 'src/lib/auth.service';
 
 @Component({
   selector: 'app-agenda',
@@ -29,28 +30,19 @@ export class AgendaComponent implements OnInit {
   @ViewChild("allAppointmentsModal") allAppointmentsModal: ElementRef;
   @ViewChild("resultAppointment") resultAppointmentModal: ElementRef;
 
-
-  private cookieName: string = "logged-user";
-  private cookieRole: string = "role";
-
   constructor(private modalService: NgbModal,
-    private cookie: CookieService,
+    private auth: AuthService,
     private router: Router,
     private salesmanService: SalesmanService,
     private appointmentService: AppointmentService) { }
 
   ngOnInit(): void {
-    // const name = this.cookie.get(this.cookieName);
-    // const role = this.cookie.get(this.cookieRole);
-    // if (!name || !role) {
-    //   this.router.navigate(["/login"]);
-    // }
-    
-    // this.getSalesman(name);
+    const token = decode(this.auth.getToken());
+    console.log(this.getSalesman(token.user));
   }
 
-  getSalesman(name: string) {
-    this.salesmanService.getSalesmanbyName(name)
+  getSalesman(id: string) {
+    this.salesmanService.getSalesmanByID(id)
     .subscribe(res => {
       this.salesman = salesmanConverter.fromJSON(res);
       this.appointments = this.salesman.appointments;

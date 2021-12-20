@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import * as moment from 'moment';
-import { Appointment } from 'src/app/models/Appointment';
-import { Client } from 'src/app/models/Client';
+import { Appointment, appointmentConverter } from 'src/app/models/Appointment';
+import { Client, clientConverter } from 'src/app/models/Client';
 import { ClientService } from 'src/app/services/client.service';
+import { AuthService } from 'src/lib/auth.service';
 
 @Component({
   selector: 'app-appointment-form',
@@ -44,19 +45,20 @@ export class AppointmentFormComponent implements OnInit {
   getClients() {
     this.clientService.getClients()
     .subscribe(
-      res => {
-        this.clients = res;
+      (res) => {
+        this.clients = res.map(clientConverter.fromJSON);
         this.input.clientId = this.clients[0]._id;
-      }
+      }, (err) => console.log(err)
     )
   }
 
   submitForm(appointmentForm: NgForm) {
-    let appointment: Appointment;
+    let appointment = {};
     if(this.appointment) {
-      appointment = this.appointment;
-      appointment.client = this.clients.find((element: Client) => element._id === appointmentForm.value.client);
-      appointment.date = appointmentForm.value.date;
+      appointment = {
+        client: this.clients.find((element: Client) => element._id === appointmentForm.value.client),
+        date: appointmentForm.value.date
+      };
     } else {
       appointment = {
         client: this.clients.find((element: Client) => element._id === appointmentForm.value.client),
@@ -64,7 +66,7 @@ export class AppointmentFormComponent implements OnInit {
         state: false
       };
     }
-    this.saveEvent.emit(appointment);
+    this.saveEvent.emit(appointmentConverter.fromJSON(appointment));
   }
 
   cancelForm() {

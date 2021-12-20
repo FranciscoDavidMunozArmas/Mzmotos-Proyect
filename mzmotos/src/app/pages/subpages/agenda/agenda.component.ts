@@ -25,6 +25,8 @@ export class AgendaComponent implements OnInit {
   showMore: Boolean = false;
   selectedDay: string;
 
+  private token: any;
+
   @ViewChild("setAppointment") setAppointment: ElementRef;
   @ViewChild("searchBox") searchBox: ElementRef;
   @ViewChild("allAppointmentsModal") allAppointmentsModal: ElementRef;
@@ -37,8 +39,8 @@ export class AgendaComponent implements OnInit {
     private appointmentService: AppointmentService) { }
 
   ngOnInit(): void {
-    const token = decode(this.auth.getToken());
-    console.log(this.getSalesman(token.user));
+    this.token = decode(this.auth.getToken());
+    this.getSalesman(this.token.user);
   }
 
   getSalesman(id: string) {
@@ -52,7 +54,7 @@ export class AgendaComponent implements OnInit {
   }
 
   addAppointment(appointment: Appointment) {
-    this.appointmentService.postAppointment(this.salesman._id, appointment)
+    this.appointmentService.postAppointment(this.token.user, appointment)
     .subscribe(res => {
       this.salesman = res;
       this.appointments = this.salesman.appointments;
@@ -63,7 +65,7 @@ export class AgendaComponent implements OnInit {
   }
 
   removeAppointment(appointment: Appointment) {
-    this.appointmentService.deleteAppointment(this.salesman._id, appointment._id)
+    this.appointmentService.deleteAppointment(this.token.user, appointment._id)
     .subscribe(res => {
       this.appointments = this.salesman.appointments.filter((element: Appointment) => element._id !== appointment._id);
       this.setAppointmentDays();
@@ -73,7 +75,7 @@ export class AgendaComponent implements OnInit {
   }
 
   updateAppointement(appointment: Appointment) {
-    this.appointmentService.putAppointment(this.salesman._id, appointment._id, appointment)
+    this.appointmentService.putAppointment(this.token.user, appointment._id, appointment)
     .subscribe(
       res => {
         this.appointments = res;

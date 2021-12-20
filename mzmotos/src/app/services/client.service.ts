@@ -11,30 +11,30 @@ export class ClientService {
   constructor(private http: HttpClient) {}
 
   getClients() {
-    return this.http.get<any[]>(`/${CONSTANTS.API_URL}/clients`);
+    return this.http.get<any[]>(`${CONSTANTS.API_URL}/clients`);
   }
 
   postClient(client: Client) {
-    return this.http.post(`/${CONSTANTS.API_URL}/clients`, clientConverter.toJSON(client));
+    return this.http.post(`${CONSTANTS.API_URL}/clients`, clientConverter.toJSON(client));
   }
 
   deleteClients(id: string) {
-    return this.http.delete(`/${CONSTANTS.API_URL}/clients/${id}`);
+    return this.http.delete(`${CONSTANTS.API_URL}/clients/${id}`);
   }
 
   getClientByID(id: string) {
-    return this.http.get(`/${CONSTANTS.API_URL}/clients/client/${id}`);
+    return this.http.get(`${CONSTANTS.API_URL}/clients/client/${id}`);
   }
 
   putClientByID(id: string, client: Client) {
-    return this.http.put(`/${CONSTANTS.API_URL}/clients/client/${id}`, clientConverter.toJSON(client));
+    return this.http.put(`${CONSTANTS.API_URL}/clients/client/${id}`, clientConverter.toJSON(client));
   }
 
   deleteClientByID(id: string) {
-    return this.http.delete(`/${CONSTANTS.API_URL}/clients/client/${id}`);
+    return this.http.delete(`${CONSTANTS.API_URL}/clients/client/${id}`);
   }
 
   getClientsMany(many: string[]){
-    return this.http.post(`/${CONSTANTS.API_URL}/clients/many`, many);
+    return this.http.post(`${CONSTANTS.API_URL}/clients/many`, many);
   }
 }

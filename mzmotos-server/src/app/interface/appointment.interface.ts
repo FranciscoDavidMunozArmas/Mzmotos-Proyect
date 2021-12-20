@@ -5,7 +5,7 @@ export interface Appointment extends Document {
     _id?: string,
     date: Date,
     state: boolean,
-    client: string,
+    client: Client,
 }
 
 export const appointmentConverter = {
@@ -14,7 +14,7 @@ export const appointmentConverter = {
             _id: json._id,
             date: json.date,
             state: json.state,
-            client: json.client,
+            client: clientConverter.convertJSON(json.client),
         }
     },
 }

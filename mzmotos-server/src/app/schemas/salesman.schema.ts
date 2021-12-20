@@ -15,7 +15,12 @@ const schema = new Schema({
                 type: Boolean,
                 default: false
             },
-            client: String
+            client: {
+                RUC: String,
+                name: String,
+                address: String,
+                city: String
+            }
         }
     ]
 },

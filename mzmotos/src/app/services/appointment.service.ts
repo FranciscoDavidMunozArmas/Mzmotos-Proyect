@@ -12,27 +12,27 @@ export class AppointmentService {
   constructor(private http: HttpClient) {}
 
   getAppointments(salesmanid: string) {
-    return this.http.get(`/${CONSTANTS.API_URL}/salesmen/appointments/${salesmanid}`);
-  }
-
-  getAppointment(salesmanid: string, appointmentid: string) {
-    return this.http.get(`/${CONSTANTS.API_URL}/salesmen/appointments/${salesmanid}/${appointmentid}`);
+    return this.http.get(`${CONSTANTS.API_URL}/salesmen/appointments/${salesmanid}`);
   }
 
   postAppointment(salesmanid: string, appointment: Appointment) {
-    return this.http.post<Salesman>(`/${CONSTANTS.API_URL}/salesmen/appointments/${salesmanid}`, appointmentConverter.toJSON(appointment));
+    return this.http.post<Salesman>(`${CONSTANTS.API_URL}/salesmen/appointments/${salesmanid}`, appointmentConverter.toJSON(appointment));
+  }
+  
+  deleteAppointments(salesmanid: string) { 
+    return this.http.delete(`${CONSTANTS.API_URL}/salesmen/appointments/${salesmanid}`);
+  }
+
+  getAppointment(salesmanid: string, appointmentid: string) {
+    return this.http.get(`${CONSTANTS.API_URL}/salesmen/appointments/${salesmanid}/${appointmentid}`);
   }
 
   putAppointment(salesmanid: string, appointmentid: string, appointment: Appointment) {
-    return this.http.put<Appointment[]>(`/${CONSTANTS.API_URL}/salesmen/appointments/${salesmanid}/${appointmentid}`, appointmentConverter.toJSON(appointment));
+    return this.http.put<Appointment[]>(`${CONSTANTS.API_URL}/salesmen/appointments/${salesmanid}/${appointmentid}`, appointmentConverter.toJSON(appointment));
   }
 
   deleteAppointment(salesmanid: string, appointmentid: string) {
-    return this.http.delete(`/${CONSTANTS.API_URL}/salesmen/appointments/${salesmanid}/${appointmentid}`);
-  }
-
-  deleteClients(salesmanid: string) { 
-    return this.http.delete(`/${CONSTANTS.API_URL}/salesmen/appointments/${salesmanid}`);
+    return this.http.delete(`${CONSTANTS.API_URL}/salesmen/appointments/${salesmanid}/${appointmentid}`);
   }
 
 }

@@ -11,7 +11,7 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   getProducts() {
-    return this.http.get<Product[]>(`/${CONSTANTS.API_URL}/products`);
+    return this.http.get<Product[]>(`${CONSTANTS.API_URL}/products`);
   }
 
   postProduct(product: Product, file: File) {
@@ -20,15 +20,15 @@ export class ProductService {
     form.append('imagePart', file);
     form.append('price', product.price.toString());
     form.append('stock', product.stock.toString());
-    return this.http.post(`/${CONSTANTS.API_URL}/products`, form);
+    return this.http.post(`${CONSTANTS.API_URL}/products`, form);
   }
 
   deleteProducts() {
-    return this.http.delete(`/${CONSTANTS.API_URL}/products`);
+    return this.http.delete(`${CONSTANTS.API_URL}/products`);
   }
 
   getProductByID(id: string) {
-    return this.http.get<Product>(`/${CONSTANTS.API_URL}/products/${id}`);
+    return this.http.get<Product>(`${CONSTANTS.API_URL}/products/${id}`);
   }
 
   putProductByID(id: string, product: Product, file?: File) {
@@ -38,13 +38,13 @@ export class ProductService {
       form.append('imagePart', file);
       form.append('price', product.price.toString());
       form.append('stock', product.stock.toString());
-      return this.http.put(`/${CONSTANTS.API_URL}/products/${id}`, form);
+      return this.http.put(`${CONSTANTS.API_URL}/products/${id}`, form);
     } else {
-      return this.http.put(`/${CONSTANTS.API_URL}/products/${id}`, productConverter.toJSON(product));
+      return this.http.put(`${CONSTANTS.API_URL}/products/${id}`, productConverter.toJSON(product));
     }
   }
 
   deleteProductByID(id: string) {
-    return this.http.delete(`/${CONSTANTS.API_URL}/products/${id}`);
+    return this.http.delete(`${CONSTANTS.API_URL}/products/${id}`);
   }
 }

@@ -14,7 +14,7 @@ router.route("/signin")
 router.route("/password/:username")
     .post(UserController.updatePassword);
 
-router.route("/:id")
+router.route("/user/:id")
     .get(authUser, UserController.getUserById)
     .delete(authUser, UserController.deleteUserById);
 

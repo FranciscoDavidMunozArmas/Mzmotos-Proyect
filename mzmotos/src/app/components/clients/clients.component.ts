@@ -22,20 +22,7 @@ export class ClientsComponent implements OnInit {
     this.clientService.getClients()
       .subscribe(res => {
         this.clients = res;
-        this.getQuantity();
       })
-  }
-
-  getQuantity() {
-    this.qty = this.clients.map((element: Client) => {
-      const sample = element.products.map((element: any) => element.qty);
-      return (sample.length !== 0) ? sample.reduce((acc: any, curr: any) => acc + curr) : 0;
-    });
-
-    for(let [index, client] of this.clients.entries()) {
-      console.log(index);
-      console.log(client);
-    }
   }
 
 }

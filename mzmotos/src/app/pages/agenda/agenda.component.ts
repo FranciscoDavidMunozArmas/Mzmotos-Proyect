@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Appointment } from 'src/app/models/Appointment';
-import { Salesman } from 'src/app/models/Salesman';
+import { Salesman, salesmanConverter } from 'src/app/models/Salesman';
 
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
@@ -52,8 +52,8 @@ export class AgendaComponent implements OnInit {
   getSalesman(name: string) {
     this.salesmanService.getSalesmanbyName(name)
     .subscribe(res => {
-      this.salesman = res;
-      this.appointments = res.appointments;
+      this.salesman = salesmanConverter.fromJSON(res);
+      this.appointments = this.salesman.appointments;
       this.setAppointmentDays();
       this.setTodayAppointment(new Date());
     });

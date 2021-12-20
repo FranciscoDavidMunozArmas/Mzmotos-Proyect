@@ -29,8 +29,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { SalesmanComponent } from './pages/salesman/salesman.component';
 import { WarehouseComponent } from './pages/warehouse/warehouse.component';
 import { ManagerComponent } from './pages/manager/manager.component';
-import { AgendaComponent } from './pages/agenda/agenda.component';
-import { CatalogueComponent } from './pages/catalogue/catalogue.component';
+import { AgendaComponent } from './pages/subpages/agenda/agenda.component';
+import { CatalogueComponent } from './pages/subpages/catalogue/catalogue.component';
 
 @NgModule({
   declarations: [

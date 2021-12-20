@@ -12,7 +12,7 @@ export class SalesmanService {
   }
 
   getSalesmen() {
-    return this.http.get(`${CONSTANTS.API_URL}/salesmen`);
+    return this.http.get<any[]>(`${CONSTANTS.API_URL}/salesmen`);
   }
 
   getSalesman(id: string) {
@@ -20,7 +20,7 @@ export class SalesmanService {
   }
 
   getSalesmanbyName(username: string) {
-    return this.http.get<Salesman>(`${CONSTANTS.API_URL}/salesmen/username/${username}`);
+    return this.http.get(`${CONSTANTS.API_URL}/salesmen/username/${username}`);
   }
 
   postSalesman(salesman: Salesman) {

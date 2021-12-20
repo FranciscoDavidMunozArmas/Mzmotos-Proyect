@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/lib/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { decode } from 'src/lib/token';
 

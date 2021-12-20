@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/lib/auth.service';
 
 @Component({
   selector: 'app-navbar',

@@ -54,10 +54,10 @@ export const updateProduct = async (req: Request, res: Response) => {
         const { id } = req.params;
         const data = productConverter.convertJSON(req.body);
         data._id = id;
-        data.image = req.file?.path;
         const oldData = await productSchema.findById(id);
         if (oldData) {
-            if (oldData.image) {
+            if (oldData.image && req.file) {
+                data.image = req.file.path;
                 await unlinkFile(oldData.image);
             }
             const product = await productSchema.findByIdAndUpdate(id, data, { new: true });

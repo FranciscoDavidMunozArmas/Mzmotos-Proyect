@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 import { Appointment } from 'src/app/models/Appointment';
 
 @Component({
@@ -34,15 +35,8 @@ export class AgendaCardComponent implements OnInit {
   }
 
   setDate() {
-    let auxDate = new Date(this.appointment.date);
-    auxDate.setMonth(auxDate.getMonth() + 1);
-    let hour = (auxDate.getHours() < 10)? "0" + auxDate.getHours().toString():auxDate.getHours().toString();
-    let minutes = (auxDate.getMinutes() < 10)? "0" + auxDate.getMinutes().toString():auxDate.getMinutes().toString();
-    let date = (auxDate.getDate() < 10)? "0" + auxDate.getDate().toString():auxDate.getDate().toString();
-    let month = (auxDate.getMonth() < 10)? "0" + auxDate.getMonth().toString():auxDate.getMonth().toString();
-    let year = (auxDate.getFullYear() < 10)? "0" + auxDate.getFullYear().toString():auxDate.getFullYear().toString();
-
-    this.date = `${year}/${month}/${date}  ${hour}:${minutes}`
+    console.log(this.appointment.date);
+    this.date = moment(this.appointment.date).format("YYYY/MM/DD HH:mm");
   }
 
   showAgreeForm() {

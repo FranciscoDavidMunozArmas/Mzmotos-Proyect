@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-clock',
@@ -12,8 +13,6 @@ export class ClockComponent implements OnInit {
   seconds:string = "";
   dayTime:string = "";
   date:string = "";
-  month:string = "";
-  year:string = "";
 
   constructor() {
       setInterval(() => this.setTime(), 1000);
@@ -29,9 +28,7 @@ export class ClockComponent implements OnInit {
     this.minutes = (date.getMinutes() < 10)? "0" + date.getMinutes().toString():date.getMinutes().toString();
     this.seconds = (date.getSeconds() < 10)? "0" + date.getSeconds().toString():date.getSeconds().toString();
     this.dayTime = (date.getHours() < 12)? "AM":"PM";
-    this.date = (date.getDate() < 10)? "0" + date.getDate().toString():date.getDate().toString();
-    this.month = (date.getMonth() < 10)? "0" + date.getMonth().toString():date.getMonth().toString();
-    this.year = (date.getFullYear() < 10)? "0" + date.getFullYear().toString():date.getFullYear().toString();
+    this.date = moment(date).format("YYYY/MM/DD");
   }
 
 }

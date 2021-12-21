@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { SalesmanService } from 'src/app/services/salesman.service';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthService } from 'src/lib/auth.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-agenda',
@@ -100,11 +101,8 @@ export class AgendaComponent implements OnInit {
   }
 
   dateToString(date: Date): string {
-    let day = (date.getDate() < 10)? "0" + date.getDate().toString():date.getDate().toString();
-    let month = (date.getMonth() < 10)? "0" + date.getMonth().toString():date.getMonth().toString();
-    let year = (date.getFullYear() < 10)? "0" + date.getFullYear().toString():date.getFullYear().toString();
 
-    return `${year}/${month}/${day}`
+    return moment(date).format('YYYY/MM/DD');
   }
 
   setAppointmentDays() {

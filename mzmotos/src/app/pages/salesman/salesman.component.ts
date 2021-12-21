@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { NavPath } from 'src/app/interface/navpath';
 import { AuthService } from 'src/lib/auth.service';
 import { decode } from 'src/lib/token';
 
@@ -11,11 +11,18 @@ import { decode } from 'src/lib/token';
 })
 export class SalesmanComponent implements OnInit {
 
-  paths: string[] = []
+  paths: NavPath[] = []
 
   constructor(private auth: AuthService, private router: Router) {
-    this.paths.push("Agenda");
-    this.paths.push("Catalogo");
+
+    this.paths.push({
+      route: "agenda",
+      icon: "far fa-calendar",
+    });
+    this.paths.push({
+      route: "catalogo",
+      icon: "fas fa-shopping-bag"
+    });
   }
 
   ngOnInit(): void {

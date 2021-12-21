@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { NavPath } from 'src/app/interface/navpath';
 import { AuthService } from 'src/lib/auth.service';
 
 @Component({
@@ -10,13 +11,12 @@ import { AuthService } from 'src/lib/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
-  @Input() paths: string[] = [];
-  isCollapsed: boolean = true;
+  @Input() paths: NavPath[] = [];
 
   constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.paths= this.paths.map((element: string) => element.toLowerCase());
+
   }
 
   logout() {

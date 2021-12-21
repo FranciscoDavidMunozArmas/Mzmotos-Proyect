@@ -101,7 +101,6 @@ export class AgendaComponent implements OnInit {
   }
 
   dateToString(date: Date): string {
-
     return moment(date).format('YYYY/MM/DD');
   }
 
@@ -116,8 +115,10 @@ export class AgendaComponent implements OnInit {
   search(text: string) {
     this.resultAppointments = [];
     const regexRUC = /^[0-9]{13}$/;
+    const regexCI = /^[0-9]{10}$/;
     const regexDate = /^(?:[0-9]{2})?[0-9]{2}[-/][0-3]?[0-9][-/][0-3]?[0-9][\s*-\s*](?:[0-9]{2})?[0-9]{2}[-/][0-3]?[0-9][-/][0-3]?[0-9]$/;
-    if(text.match(regexRUC)) {
+    console.log(regexRUC)
+    if(regexRUC.test(text) || regexCI.test(text)) {
       this.appointments.forEach((element: Appointment) => {
         if(element.client.RUC === text){
           this.resultAppointments.push(element);
@@ -142,8 +143,6 @@ export class AgendaComponent implements OnInit {
     }
     this.modalClose();
     this.showResultAppointment();
-    console.log(this.resultAppointments.length);
-    console.log(this.resultAppointments);
   }
 
   showResultAppointment(){

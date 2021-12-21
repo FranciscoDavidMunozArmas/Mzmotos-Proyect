@@ -27,7 +27,6 @@ export class AgendaCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.setDate();
-    console.log(this.disableDelete)
   }
 
   ngOnChange() {
@@ -35,7 +34,6 @@ export class AgendaCardComponent implements OnInit {
   }
 
   setDate() {
-    console.log(this.appointment.date);
     this.date = moment(this.appointment.date).format("YYYY/MM/DD HH:mm");
   }
 

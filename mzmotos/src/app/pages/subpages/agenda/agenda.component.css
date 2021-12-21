@@ -15,10 +15,6 @@
     transition: all .3s ease;
 }
 
-.agenda-card div:hover {
-    transform: translate3d(1rem, 0, 0);
-}
-
 .appointment-btn-badge {
     position: relative;
 }

@@ -15,3 +15,12 @@ button {
 .card-body {
     cursor: pointer;
 }
+
+.container {
+    text-align: left;
+}
+
+.container p {
+    margin: 0;
+    padding: 0;
+}

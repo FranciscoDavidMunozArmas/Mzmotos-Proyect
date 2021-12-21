@@ -25,13 +25,20 @@ export class AppointmentFormComponent implements OnInit {
   }
 
   clients: Client[] = []
+  selectedClient: Client = {
+    _id: "",
+    name: "",
+    RUC: "",
+    address: "",
+    city: "",
+  };
   constructor(private clientService: ClientService) { }
 
   ngOnInit(): void {
     this.getClients();
     this.input.date = moment(new Date).format("YYYY-MM-DDTHH:MM");
     if(this.appointment) {
-      this.input.clientId = this.appointment.client._id;
+      this.selectedClient = this.appointment.client;
       this.input.date = moment(this.appointment.date).format("YYYY-MM-DDTHH:MM");
     }
     if(this.date) {
@@ -54,19 +61,25 @@ export class AppointmentFormComponent implements OnInit {
 
   submitForm(appointmentForm: NgForm) {
     let appointment = {};
-    if(this.appointment) {
-      appointment = {
-        client: this.clients.find((element: Client) => element._id === appointmentForm.value.client),
-        date: appointmentForm.value.date
-      };
-    } else {
-      appointment = {
-        client: this.clients.find((element: Client) => element._id === appointmentForm.value.client),
-        date: appointmentForm.value.date,
-        state: false
-      };
+    if(this.selectedClient.name !== "") {
+      if(this.appointment) {
+        appointment = {
+          client: clientConverter.toJSON(this.selectedClient),
+          date: appointmentForm.value.date
+        };
+      } else {
+        appointment = {
+          client: clientConverter.toJSON(this.selectedClient),
+          date: appointmentForm.value.date,
+          state: false
+        };
+      }
+      this.saveEvent.emit(appointmentConverter.fromJSON(appointment));
     }
-    this.saveEvent.emit(appointmentConverter.fromJSON(appointment));
+  }
+
+  selectClient(client: Client) {
+    this.selectedClient = client;
   }
 
   cancelForm() {

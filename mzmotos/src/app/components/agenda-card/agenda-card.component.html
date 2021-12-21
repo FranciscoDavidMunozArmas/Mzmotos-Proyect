@@ -2,14 +2,8 @@
     <div class="d-flex">
         <div class="card-body" (click)="showAppointmentForm()">
             <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <div class="container">
-                            <p>{{appointment.client.name}}</p>
-                            <p>{{date}}</p>
-                        </div>
-                    </div>
-                </div>
+                <h4>{{appointment.client.name}}</h4>
+                <p>{{date}}</p>
             </div>
         </div>
         <div class="btn-group">

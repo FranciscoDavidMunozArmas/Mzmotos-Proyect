@@ -1,17 +1,70 @@
-<div class="product-container my-4 mx-2" (click)="showItem()">
-    <div class="product-image">
-        <img [src]="product.image" alt="">
+<div class="relative my-4 mx-2">
+    <div class="row">
+        <div class="col">
+            <div class="product-container" (click)="showItem()">
+                <img [src]="imagePath" alt="">
+                <div class="inner-shadow radious"></div>
+                <div class="product-label" *ngIf="!showDetails">
+                    <div class="product-name my-2">
+                        <span><h5>{{product.name}}</h5></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div [class]="!showDetails ? 'hidden' : 'col'">
+            <div class="product-detail-container my-auto">
+                <div class="mx-3 my-5">
+                    <div class="row">
+                        <div class="col">
+                            <div class="product-title">
+                                <h5>{{product.name}}</h5>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="product-price">
+                                <h5>{{product.price}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-details">
+                        <p class="details">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero fugiat optio repudiandae doloribus ut! Reiciendis sed sint sit, voluptatem fugit veritatis soluta blanditiis dolores nemo, quas praesentium alias laboriosam doloribus.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="product-detail">
-        <div class="product-name my-2">
-            <span>{{product.name}}</span>
+
+    <div *ngIf="enableSelection">
+        <div class="absolute left bottom icon">
+            <div *ngIf="selectedProduct; then bookmarkFill; else bookmarkUnfill"></div>
         </div>
-        <div class="product-footer">
-            <span class="price">$ {{formatNumber()}}</span>
-        </div>
+    </div>
+
+    <div class="absolute right bottom">
+        <div *ngIf="showDetails; then chevronLeft; else chevronRight"></div>
     </div>
 </div>
 
+<ng-template #chevronRight>
+    <app-float-button icon="fas fa-chevron-right" (eventFunction)="toggleDetails()"></app-float-button>
+</ng-template>
+
+
+<ng-template #chevronLeft>
+    <app-float-button icon="fas fa-chevron-left" (eventFunction)="toggleDetails()"></app-float-button>
+</ng-template>
+
+<ng-template #bookmarkFill>
+    <button class="borderless bg-transparent" (click)="toggleSelected()">
+        <span class="fas fa-bookmark"></span>
+    </button>
+</ng-template>
+
+<ng-template #bookmarkUnfill>
+    <button class="borderless bg-transparent" (click)="toggleSelected()">
+        <span class="far fa-bookmark"></span>
+    </button>
+</ng-template>
 
 <ng-template #item let-modal>
     <div class="d-flex">

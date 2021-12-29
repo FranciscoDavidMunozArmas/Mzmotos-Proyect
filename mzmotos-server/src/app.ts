@@ -1,6 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import * as path from 'path';
 
 import config from './lib/constants';
 
@@ -33,5 +34,7 @@ app.use("/managers", managerRouter);
 app.use("/warehouses", warehouseRouter);
 app.use("/orders", orderRouter);
 app.use("/reports", reportRouter);
+
+app.use("/uploads/products", express.static(path.resolve('uploads/products')));
 
 export default app;

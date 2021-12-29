@@ -1,14 +1,17 @@
 <div class="container-fluid pt-4">
     <div class="item-container">
         <div class="fadeIn" *ngFor="let product of products">
-            <app-catalogue-item [product]="product"></app-catalogue-item>
+            <div class="mx-2">
+                <app-catalogue-item [product]="product"></app-catalogue-item>
+            </div>
         </div>
     </div>
 </div>
 
-<div class="float-right-bottom">
+<div class="float-right-bottom fadeIn">
     <div class="d-flex flex-column">
-        <app-float-button icon="fa fa-search"></app-float-button>
         <app-float-button icon="fas fa-clipboard-list"></app-float-button>
+        <app-float-button icon="fa fa-search"></app-float-button>
+        <app-float-button icon="fa fa-plus"></app-float-button>
     </div>
 </div>

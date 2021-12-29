@@ -1,3 +1,14 @@
+<div class="float-right-bottom fadeIn">
+    <div class="d-flex flex-column ">
+        <app-float-button (eventFunction)="showSearchBox() " icon="fa fa-search "></app-float-button>
+        <div class="appointment-btn-badge">
+            <span class="badge badge-pill badge-primary">{{appointments.length}}</span>
+            <app-float-button (eventFunction)="showAllAppointmentsModal() " icon="fas fa-clipboard-list"></app-float-button>
+        </div>
+        <app-float-button (eventFunction)="showSetAppointmentModal() "></app-float-button>
+    </div>
+</div>
+
 <div class="container-fluid p-4">
     <div class="row">
         <div class="col-xl fadeIn">
@@ -23,17 +34,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="float-right-bottom ">
-    <div class="d-flex flex-column ">
-        <app-float-button (eventFunction)="showSearchBox() " icon="fa fa-search "></app-float-button>
-        <div class="appointment-btn-badge">
-            <span class="badge badge-pill badge-primary">{{appointments.length}}</span>
-            <app-float-button (eventFunction)="showAllAppointmentsModal() " icon="fas fa-clipboard-list"></app-float-button>
-        </div>
-        <app-float-button (eventFunction)="showSetAppointmentModal() "></app-float-button>
     </div>
 </div>
 

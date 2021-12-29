@@ -15,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   input = {
     username: "",
-    password: ""
+    password: "",
+    keepLog: false,
   }
 
   private cookieName: string = "logged-user";
@@ -30,13 +31,18 @@ export class LoginComponent implements OnInit {
   }
 
   onChange(value: any) {
-    this.input = { ... this.input, [value.name]: value.value };
+    console.log();
+    if(value.type === 'checkbox') {
+      this.input = { ... this.input, [value.name]: value.checked };
+    } else {
+      this.input = { ... this.input, [value.name]: value.value };
+    }
   }
 
   submitUser(loginForm: NgForm) {
     this.userService.sigin(loginForm.value.username, loginForm.value.password)
       .subscribe((res: any) => {
-        this.authService.signin(res, false);
+        this.authService.signin(res, this.input.keepLog);
         const token = decode(res);
         this.router.navigate([`/${token.role}`]);
       })

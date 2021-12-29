@@ -1,4 +1,9 @@
 <div class="container-fluid pt-4">
+    <div *ngIf="!!selectedClient">
+        <div class="client-selection fadeIn">
+            {{ selectedClient.name }}
+        </div>
+    </div>
     <div class="item-container">
         <div class="fadeIn" *ngFor="let product of products">
             <div class="mx-2">

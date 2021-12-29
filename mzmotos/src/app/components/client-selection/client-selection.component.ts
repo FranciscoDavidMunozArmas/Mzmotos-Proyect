@@ -3,11 +3,11 @@ import { Client, clientConverter } from 'src/app/models/Client';
 import { ClientService } from 'src/app/services/client.service';
 
 @Component({
-  selector: 'app-selection',
-  templateUrl: './selection.component.html',
-  styleUrls: ['./selection.component.css']
+  selector: 'app-client-selection',
+  templateUrl: './client-selection.component.html',
+  styleUrls: ['./client-selection.component.css']
 })
-export class SelectionComponent implements OnInit {
+export class ClientSelectionComponent implements OnInit {
 
   @Output() closeEvent = new EventEmitter<any>();
 

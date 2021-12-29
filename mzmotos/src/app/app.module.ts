@@ -31,7 +31,7 @@ import { WarehouseComponent } from './pages/warehouse/warehouse.component';
 import { ManagerComponent } from './pages/manager/manager.component';
 import { AgendaComponent } from './pages/subpages/agenda/agenda.component';
 import { CatalogueComponent } from './pages/subpages/catalogue/catalogue.component';
-import { SelectionComponent } from './components/selection/selection.component';
+import { ClientSelectionComponent } from './components/client-selection/client-selection.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +54,7 @@ import { SelectionComponent } from './components/selection/selection.component';
     NotifyComponent,
     ClientproductComponent,
     ClientsComponent,
-    SelectionComponent
+    ClientSelectionComponent
   ],
   imports: [
     BrowserModule,

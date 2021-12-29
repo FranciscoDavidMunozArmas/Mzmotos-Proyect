@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SelectionComponent } from './selection.component';
+import { ClientSelectionComponent } from './client-selection.component';
 
-describe('SelectionComponent', () => {
-  let component: SelectionComponent;
-  let fixture: ComponentFixture<SelectionComponent>;
+describe('ClientSelectionComponent', () => {
+  let component: ClientSelectionComponent;
+  let fixture: ComponentFixture<ClientSelectionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SelectionComponent ]
+      declarations: [ ClientSelectionComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SelectionComponent);
+    fixture = TestBed.createComponent(ClientSelectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

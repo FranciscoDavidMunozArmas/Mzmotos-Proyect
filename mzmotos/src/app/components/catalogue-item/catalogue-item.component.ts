@@ -13,7 +13,6 @@ export class CatalogueItemComponent implements OnInit {
   @Input() product: Product;
   @Input() enableSelection: boolean;
   @Output() eventSelection = new EventEmitter<any>();
-  @ViewChild("item") item: ElementRef;
 
   imagePath: string = "";
   showDetails: boolean = false;
@@ -40,10 +39,6 @@ export class CatalogueItemComponent implements OnInit {
 
   formatNumber(): string {
     return this.product.price.toLocaleString(undefined, {minimumFractionDigits: 2});
-  }
-
-  showItem(){
-    this.triggerModal(this.item)
   }
 
   triggerModal(content: any) {

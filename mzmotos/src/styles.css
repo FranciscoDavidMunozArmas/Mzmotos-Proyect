@@ -75,15 +75,19 @@ a:hover {
 }
 
 .h-screen {
-    height: 100vh;
+    height: 100vh !important;
 }
 
 .h-full {
-    height: 100%;
+    height: 100% !important;
 }
 
 .w-full {
-    width: 100%;
+    width: 100% !important;
+}
+
+.w-screen {
+    width: 100vh !important;
 }
 
 .position-fixed {
@@ -116,6 +120,14 @@ a:hover {
 
 .hidden {
     display: none;
+}
+
+.scroll-y-auto {
+    overflow-y: auto;
+}
+
+.scroll-x-auto {
+    overflow-x: auto;
 }
 
 .inner-shadow {

@@ -1,7 +1,7 @@
 <div class="relative my-4 mx-2">
     <div class="row">
         <div class="col">
-            <div class="product-container" (click)="showItem()">
+            <div class="product-container">
                 <img [src]="imagePath" alt="">
                 <div class="inner-shadow radious"></div>
                 <div class="product-label" *ngIf="!showDetails">
@@ -65,26 +65,4 @@
     <button class="borderless bg-transparent" (click)="toggleSelected()">
         <span class="far fa-bookmark"></span>
     </button>
-</ng-template>
-
-<ng-template #item let-modal>
-    <div class="d-flex">
-        <a class="btn close-btn " (click)="modalClose() "><span class="fa fa-times "></span></a>
-    </div>
-    <div class="container mb-4">
-        <div class="row">
-            <div class="col-md">
-                <div class="product-image">
-                    <img [src]="product.image" alt="">
-                </div>
-            </div>
-            <div class="col-sm">
-                <div class="container">
-                    <span>{{product.name}}</span>
-                    <br>
-                    <span>$ {{formatNumber()}}</span>
-                </div>
-            </div>
-        </div>
-    </div>
 </ng-template>

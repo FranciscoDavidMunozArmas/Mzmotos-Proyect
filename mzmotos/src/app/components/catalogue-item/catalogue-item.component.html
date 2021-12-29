@@ -1,7 +1,7 @@
 <div class="relative my-4 mx-2">
     <div class="row">
         <div class="col">
-            <div class="product-container">
+            <div class="product-container z-index-1">
                 <img [src]="imagePath" alt="">
                 <div class="inner-shadow radious"></div>
                 <div class="product-label" *ngIf="!showDetails">
@@ -13,7 +13,7 @@
             </div>
         </div>
         <div [class]="!showDetails ? 'hidden' : 'col'">
-            <div class="product-detail-container my-auto">
+            <div class="product-detail-container my-auto fadeInLeft">
                 <div class="mx-3 my-5">
                     <div class="row">
                         <div class="col">
@@ -36,12 +36,12 @@
     </div>
 
     <div *ngIf="enableSelection">
-        <div class="absolute left bottom icon">
+        <div class="absolute left bottom icon z-index-1">
             <div *ngIf="selectedProduct; then bookmarkFill; else bookmarkUnfill"></div>
         </div>
     </div>
 
-    <div class="absolute right bottom">
+    <div class="absolute right bottom z-index-1">
         <div *ngIf="showDetails; then chevronLeft; else chevronRight"></div>
     </div>
 </div>

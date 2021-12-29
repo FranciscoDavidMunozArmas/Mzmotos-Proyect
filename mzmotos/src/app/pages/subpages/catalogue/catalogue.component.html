@@ -2,20 +2,33 @@
     <div class="item-container">
         <div class="fadeIn" *ngFor="let product of products">
             <div class="mx-2">
-                <app-catalogue-item [product]="product"></app-catalogue-item>
+                <app-catalogue-item [product]="product" [enableSelection]="!!selectedClient"></app-catalogue-item>
             </div>
         </div>
     </div>
 </div>
 
-<div class="float-right-bottom fadeIn">
-    <div class="d-flex flex-column">
-        <app-float-button icon="fas fa-clipboard-list"></app-float-button>
-        <app-float-button icon="fa fa-search"></app-float-button>
-        <app-float-button icon="fa fa-plus" (eventFunction)="showSelectionModal()"></app-float-button>
+<div *ngIf="!selectedClient; then normalButtonSet; else orderButtonSet"></div>
+
+<ng-template #normalButtonSet>
+    <div class="float-right-bottom fadeIn">
+        <div class="d-flex flex-column">
+            <app-float-button icon="fas fa-clipboard-list"></app-float-button>
+            <app-float-button icon="fa fa-search"></app-float-button>
+            <app-float-button icon="fa fa-plus" (eventFunction)="showSelectionModal()"></app-float-button>
+        </div>
     </div>
-</div>
+</ng-template>
+
+<ng-template #orderButtonSet>
+    <div class="float-right-bottom fadeIn">
+        <div class="d-flex flex-column">
+            <app-float-button icon="fas fa-times" (eventFunction)="unselectClient()"></app-float-button>
+            <app-float-button icon="fas fa-check"></app-float-button>
+        </div>
+    </div>
+</ng-template>
 
 <ng-template #setSelection let-modal>
-    <app-client-selection (closeEvent)="modalClose()"></app-client-selection>
+    <app-client-selection (closeEvent)="modalClose()" (handleSelection)="handleClientSelection($event)"></app-client-selection>
 </ng-template>

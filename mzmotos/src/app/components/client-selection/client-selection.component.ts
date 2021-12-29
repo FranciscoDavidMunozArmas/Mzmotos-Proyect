@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Client, clientConverter } from 'src/app/models/Client';
 import { ClientService } from 'src/app/services/client.service';
 
@@ -9,7 +9,9 @@ import { ClientService } from 'src/app/services/client.service';
 })
 export class ClientSelectionComponent implements OnInit {
 
+  @Input() selectedClient: Client;
   @Output() closeEvent = new EventEmitter<any>();
+  @Output() handleSelection = new EventEmitter<Client>();
 
   clients: Client[];
 
@@ -30,6 +32,11 @@ export class ClientSelectionComponent implements OnInit {
         this.clients = [];
       }
     });
+  }
+
+  handleSelectionClient(client: Client) {
+    this.selectedClient = client;
+    this.handleSelection.emit(client);
   }
 
   close() {

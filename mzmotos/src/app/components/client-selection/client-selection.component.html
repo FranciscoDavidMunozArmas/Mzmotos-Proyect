@@ -6,13 +6,13 @@
                     <app-search [placeholder]="'Buscar'" (cancelEvent)="close()"></app-search>
                     <div class="scroll-y-auto">
                         <div *ngFor="let client of clients">
-                            <div class="item-client">
+                            <div class="item-client pointer" (click)="handleSelectionClient(client)">
                                 <p>{{ client.name }}</p>
                                 <p>{{ client.address }}</p>
                             </div>
                         </div>
                         <div *ngFor="let client of clients">
-                            <div class="item-client">
+                            <div class="item-client pointer" (click)="handleSelectionClient(client)">
                                 <p>{{ client.name }}</p>
                                 <p>{{ client.address }}</p>
                             </div>

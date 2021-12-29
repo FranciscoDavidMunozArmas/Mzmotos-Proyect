@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col">
             <div class="product-container z-index-1">
-                <img [src]="imagePath" alt="">
+                <img [src]="imagePath" (error)="onErrorImage($event)" alt="">
                 <div class="inner-shadow radious"></div>
                 <div class="product-label" *ngIf="!showDetails">
                     <div class="product-name my-2">

@@ -33,6 +33,10 @@ export class CatalogueItemComponent implements OnInit {
     }
   }
 
+  onErrorImage(event: any) {
+    event.target.src = "../assets/images/non_image.png";
+  }
+
   toggleSelected() {
     this.selectedProduct = !this.selectedProduct;
   }

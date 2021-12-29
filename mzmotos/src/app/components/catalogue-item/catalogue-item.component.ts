@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Product } from 'src/app/models/Product';
 import { CONSTANTS } from 'src/lib/constants';
@@ -12,6 +12,7 @@ export class CatalogueItemComponent implements OnInit {
   
   @Input() product: Product;
   @Input() enableSelection: boolean;
+  @Output() eventSelection = new EventEmitter<any>();
   @ViewChild("item") item: ElementRef;
 
   imagePath: string = "";
@@ -22,11 +23,15 @@ export class CatalogueItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.imagePath = `${CONSTANTS.API_URL}/${this.product.image}`;
-    this.enableSelection = (this.enableSelection) ? this.enableSelection : false;
+    this.enableSelection = (this.enableSelection) ? true : false;
   }
 
   toggleDetails() {
     this.showDetails = !this.showDetails;
+
+    if(this.enableSelection) {
+      this.eventSelection.emit(this.product);
+    }
   }
 
   toggleSelected() {

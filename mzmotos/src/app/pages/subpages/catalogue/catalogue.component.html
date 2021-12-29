@@ -29,11 +29,15 @@
     <div class="float-right-bottom fadeIn">
         <div class="d-flex flex-column">
             <app-float-button icon="fas fa-times" (eventFunction)="unselectClient()"></app-float-button>
-            <app-float-button icon="fas fa-check"></app-float-button>
+            <app-float-button icon="fas fa-check" (eventFunction)="showAgreementModal()"></app-float-button>
         </div>
     </div>
 </ng-template>
 
 <ng-template #setSelection let-modal>
     <app-client-selection (closeEvent)="modalClose()" (handleSelection)="handleClientSelection($event)"></app-client-selection>
+</ng-template>
+
+<ng-template #agreement let-modal>
+    <app-agreement [text]="'¿Registrar pedido?'" (dismissEvent)="modalClose()" (agreeEvent)="handleAgreement()"></app-agreement>
 </ng-template>

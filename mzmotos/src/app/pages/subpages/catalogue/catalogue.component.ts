@@ -15,6 +15,7 @@ import { decode } from 'src/lib/token';
 export class CatalogueComponent implements OnInit {
 
   @ViewChild("setSelection") setSelection: ElementRef;
+  @ViewChild("agreement") agreementModal: ElementRef;
 
   products: Product[];
   selectedClient: Client;
@@ -48,8 +49,16 @@ export class CatalogueComponent implements OnInit {
     this.selectedClient = null;
   }
 
+  handleAgreement() {
+    this.unselectClient();
+  }
+
   showSelectionModal()  {
     this.triggerModal(this.setSelection);
+  }
+
+  showAgreementModal() {
+    this.triggerModal(this.agreementModal);
   }
 
   triggerModal(modal: any) {

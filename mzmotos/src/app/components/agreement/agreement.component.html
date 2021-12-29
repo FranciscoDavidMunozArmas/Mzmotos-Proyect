@@ -1,8 +1,10 @@
-<div class="d-flex flex-column justify-content-center mb-4">
-    <h4>{{text}}</h4>
+<div class="d-flex flex-column justify-content-center h-auto">
+    <div class="agree-label">
+        <h4>{{text}}</h4>
+    </div>
 
     <div class="btn-group">
-        <button class="btn btn-outline-primary" (click)="agree()">Aceptar</button>
-        <button class="btn btn-outline-danger" (click)="cancel()">Cancelar</button>
+        <button class="btn btn-agree btn-borderless" (click)="agree()">Aceptar</button>
+        <button class="btn btn-cancel btn-borderless" (click)="cancel()">Cancelar</button>
     </div>
 </div>

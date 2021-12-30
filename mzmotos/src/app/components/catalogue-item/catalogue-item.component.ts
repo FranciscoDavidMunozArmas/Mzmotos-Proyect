@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Product } from 'src/app/models/Product';
 import { CONSTANTS } from 'src/lib/constants';
@@ -8,17 +8,27 @@ import { CONSTANTS } from 'src/lib/constants';
   templateUrl: './catalogue-item.component.html',
   styleUrls: ['./catalogue-item.component.css']
 })
-export class CatalogueItemComponent implements OnInit {
+export class CatalogueItemComponent implements OnInit, OnChanges {
   
   @Input() product: Product;
   @Input() enableSelection: boolean;
-  @Output() eventSelection = new EventEmitter<any>();
+  @Output() handleSelection = new EventEmitter<any>();
+  @Output() handleUnselection = new EventEmitter<any>();
 
   imagePath: string = "";
   showDetails: boolean = false;
   selectedProduct: boolean = false;
+  counter: number = 0;
 
   constructor(private modalService: NgbModal) { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.enableSelection) {
+      this.showDetails = this.selectedProduct;
+    } else {
+      this.showDetails = false;
+    }
+  }
 
   ngOnInit(): void {
     this.imagePath = `${CONSTANTS.API_URL}/${this.product.image}`;
@@ -27,9 +37,17 @@ export class CatalogueItemComponent implements OnInit {
 
   toggleDetails() {
     this.showDetails = !this.showDetails;
+  }
 
+  toggleSelected() {
+    this.selectedProduct = !this.selectedProduct;
+    this.toggleDetails();
     if(this.enableSelection) {
-      this.eventSelection.emit(this.product);
+      if(this.selectedProduct) {
+        this.returnProduct();
+      } else {
+        this.handleUnselection.emit(this.product);
+      }
     }
   }
 
@@ -37,9 +55,26 @@ export class CatalogueItemComponent implements OnInit {
     event.target.src = "../assets/images/non_image.png";
   }
 
-  toggleSelected() {
-    this.selectedProduct = !this.selectedProduct;
+  addCounter() {
+    this.counter++;
+    this.returnProduct();
   }
+
+  removeCounter() {
+    this.counter--;
+    if(this.counter < 0) {
+      this.counter = 0;
+    }
+    this.returnProduct();
+  }
+
+  returnProduct() {
+    this.handleSelection.emit({
+      product: this.product,
+      quantity: this.counter
+    });
+  }
+
 
   formatNumber(): string {
     return this.product.price.toLocaleString(undefined, {minimumFractionDigits: 2});

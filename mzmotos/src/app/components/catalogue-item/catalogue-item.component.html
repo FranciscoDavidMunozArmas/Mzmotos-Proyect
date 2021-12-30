@@ -23,28 +23,32 @@
                         </div>
                         <div class="col">
                             <div class="product-price">
-                                <h5>$ {{product.price}}</h5>
+                                <div class="d-flex justify-content-center flex-column">
+                                    <h5>$ {{product.price}}</h5>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="product-details">
-                        <p class="details">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero fugiat optio repudiandae doloribus ut! Reiciendis sed sint sit, voluptatem fugit veritatis soluta blanditiis dolores nemo, quas praesentium alias laboriosam doloribus.</p>
+                        <div *ngIf="enableSelection; then orderDescription; else detailsDescription"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div *ngIf="enableSelection">
-        <div class="absolute left bottom icon z-index-1">
-            <div *ngIf="selectedProduct; then bookmarkFill; else bookmarkUnfill"></div>
-        </div>
-    </div>
-
     <div class="absolute right bottom z-index-1">
-        <div *ngIf="showDetails; then chevronLeft; else chevronRight"></div>
+        <div *ngIf="enableSelection; then selectionMode; else normalMode"></div>
     </div>
 </div>
+
+<ng-template #normalMode>
+    <div *ngIf="showDetails; then chevronLeft; else chevronRight"></div>
+</ng-template>
+
+<ng-template #selectionMode>
+    <div *ngIf="selectedProduct; then bookmarkFill; else bookmarkUnfill"></div>
+</ng-template>
 
 <ng-template #chevronRight>
     <app-float-button icon="fas fa-chevron-right" (eventFunction)="toggleDetails()"></app-float-button>
@@ -56,13 +60,29 @@
 </ng-template>
 
 <ng-template #bookmarkFill>
-    <button class="borderless bg-transparent" (click)="toggleSelected()">
-        <span class="fas fa-bookmark"></span>
-    </button>
+    <app-float-button icon="fas fa-bookmark" (eventFunction)="toggleSelected()"></app-float-button>
 </ng-template>
 
 <ng-template #bookmarkUnfill>
-    <button class="borderless bg-transparent" (click)="toggleSelected()">
-        <span class="far fa-bookmark"></span>
-    </button>
+    <app-float-button icon="far fa-bookmark" (eventFunction)="toggleSelected()"></app-float-button>
+</ng-template>
+
+
+<ng-template #detailsDescription>
+    <p class="details">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero fugiat optio repudiandae doloribus ut! Reiciendis sed sint sit, voluptatem fugit veritatis soluta blanditiis dolores nemo, quas praesentium alias laboriosam doloribus.</p>
+</ng-template>
+
+<ng-template #orderDescription>
+    <div class="d-flex flex-row justify-content-center h-full">
+        <button class="btn btn-borderless" (click)="removeCounter()">
+            <h5 class="fas fa-minus"></h5>
+        </button>
+        <h5 class="m-0 p-0 text-align-middle product-title">{{ counter }}</h5>
+        <button class="btn btn-borderless" (click)="addCounter()">
+            <h5 class="fas fa-plus"></h5>
+        </button>
+    </div>
+    <div class="total product-title">
+        <h5>Total: $ {{ counter * product.price }}</h5>
+    </div>
 </ng-template>

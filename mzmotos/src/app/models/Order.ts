@@ -34,7 +34,7 @@ export class Order {
     total: number;
     state: boolean;
     constructor(orderId: string, salesman: string, date: any, client: any, list: any[], total: number, state: boolean, id?: string) {
-        this.orderId = orderId;
+        this.orderId = (orderId) ? orderId : "";
         this.salesman = salesman;
         this.date = new Date(date);
         this.client = clientConverter.fromJSON(client);
@@ -46,7 +46,7 @@ export class Order {
         this.list = list;
         this.total = total;
         this.state = state;
-        this._id = id;
+        this._id = (id) ? id : "";
     }
 }
 

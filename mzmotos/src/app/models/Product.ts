@@ -7,7 +7,7 @@ export class Product {
     stock: number;
 
     constructor(productid: string, name: string, image: string, price: number, stock: number, id?: string) {
-        this.productid = productid;
+        this.productid = (productid) ? productid : "";
         this.name = name;
         this.image = image;
         this.price = price;

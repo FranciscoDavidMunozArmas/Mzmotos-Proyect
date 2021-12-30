@@ -2,12 +2,15 @@
     <div *ngIf="!!selectedClient">
         <div class="client-selection fadeIn">
             {{ selectedClient.name }}
+            <div class="absolute right mx-3">
+                $ {{ order.total }}
+            </div>
         </div>
     </div>
     <div class="item-container">
         <div class="fadeIn" *ngFor="let product of products">
             <div class="mx-2">
-                <app-catalogue-item [product]="product" [enableSelection]="!!selectedClient"></app-catalogue-item>
+                <app-catalogue-item (handleUnselection)="handleRemoveProductOrder($event)" (handleSelection)="handleAddProductOrder($event)" [product]="product" [enableSelection]="!!selectedClient"></app-catalogue-item>
             </div>
         </div>
     </div>

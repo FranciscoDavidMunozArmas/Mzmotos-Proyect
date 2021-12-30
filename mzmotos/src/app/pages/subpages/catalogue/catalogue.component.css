@@ -10,11 +10,10 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
     color: #fff;
-    background: rgba(0, 0, 0, 0.3);
+    background: #f1303093;
     border-radius: 0 0 15px 15px;
-    box-shadow: 0 0 5px rgb(0 0 0 / 30%);
+    box-shadow: 0 0 5px #f1303093;
     top: 3.5rem;
     left: 0;
     z-index: 10;

@@ -18,6 +18,7 @@ export class CatalogueComponent implements OnInit {
   @ViewChild("setSelection") setSelection: ElementRef;
   @ViewChild("agreement") agreementModal: ElementRef;
   @ViewChild("productSelectionList") productSelectionList: ElementRef;
+  @ViewChild("orderList") orderList: ElementRef;
 
   products: Product[];
   selectedClient: Client;
@@ -27,7 +28,7 @@ export class CatalogueComponent implements OnInit {
     list: [],
     total: 0
   };
-  private token: any;
+  token: any;
 
   constructor(
     private service: ProductService,
@@ -109,6 +110,10 @@ export class CatalogueComponent implements OnInit {
   
   showProductSelectionList() {
     this.triggerModal(this.productSelectionList);
+  }
+
+  showOrderList() {
+    this.triggerModal(this.orderList);
   }
 
   triggerModal(modal: any) {

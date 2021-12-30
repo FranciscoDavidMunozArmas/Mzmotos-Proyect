@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Order, orderConverter } from 'src/app/models/Order';
+import { Product, productConverter } from 'src/app/models/Product';
 import { OrderService } from 'src/app/services/order.service';
 
 @Component({
@@ -10,7 +12,7 @@ export class OrderContainerComponent implements OnInit {
 
   @Input() salesmanId: string;
 
-  showProducts: boolean = false;
+  orders: Order[];
 
   constructor(
     private service: OrderService
@@ -18,17 +20,15 @@ export class OrderContainerComponent implements OnInit {
 
   ngOnInit(): void {
     this.getOrders();
+    this.orders = [];
   }
 
   getOrders() {
     this.service.getOrdersBySalesman(this.salesmanId)
     .subscribe(res => {
-      console.log(res);
+      this.orders = res.map(orderConverter.fromJSON);
+      console.log(this.orders);
     });
-  }
-
-  toggleShowProducts() {
-    this.showProducts = !this.showProducts;
   }
 
 }

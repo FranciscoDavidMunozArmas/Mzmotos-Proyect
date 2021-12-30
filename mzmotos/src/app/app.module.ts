@@ -34,6 +34,7 @@ import { CatalogueComponent } from './pages/subpages/catalogue/catalogue.compone
 import { ClientSelectionComponent } from './components/client-selection/client-selection.component';
 import { ProductItemComponent } from './components/product-item/product-item.component';
 import { OrderContainerComponent } from './components/order-container/order-container.component';
+import { OrderItemComponent } from './components/order-item/order-item.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { OrderContainerComponent } from './components/order-container/order-cont
     ClientsComponent,
     ClientSelectionComponent,
     ProductItemComponent,
-    OrderContainerComponent
+    OrderContainerComponent,
+    OrderItemComponent
   ],
   imports: [
     BrowserModule,

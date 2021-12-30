@@ -1,33 +1,5 @@
 <div class="container">
-    <div class="row title-container">
-        <div class="col">
-            <h5>Client</h5>
-            <p>Date</p>
-        </div>
-        <div class="col">
-            <h5>ITEMS: 20</h5>
-        </div>
-    </div>
-
-    <!-- <div class="">
-        <div *ngFor="let product of products"></div>
-    </div> -->
-
-    <div class="row footer-container">
-        <div class="d-flex justify-content-center w-full">
-            <div *ngIf="showProducts; then chevronDown; else chevronUp"></div>
-        </div>
+    <div *ngFor="let order of orders">
+        <app-order-item [order]="order"></app-order-item>
     </div>
 </div>
-
-<ng-template #chevronUp>
-    <button class="btn btn-borderless" (click)="toggleShowProducts()">
-        <span class="fas fa-chevron-up"></span>
-    </button>
-</ng-template>
-
-<ng-template #chevronDown>
-    <button class="btn btn-borderless" (click)="toggleShowProducts()">
-        <span class="fas fa-chevron-down"></span>
-    </button>
-</ng-template>

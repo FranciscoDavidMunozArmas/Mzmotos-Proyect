@@ -99,7 +99,7 @@ export class CatalogueComponent implements OnInit {
   }
 
   handleAgreement() {
-    console.log(this.order);
+    this.order.salesman = this.token.token;
     this.orderService.postOrder(orderConverter.fromJSON(this.order))
     .subscribe(res => {
       this.unselectClient();

@@ -14,6 +14,7 @@ export class ClientSelectionComponent implements OnInit {
   @Output() handleSelection = new EventEmitter<Client>();
 
   clients: Client[];
+  searchResults: Client[];
 
   constructor(
     private service: ClientService,
@@ -31,7 +32,27 @@ export class ClientSelectionComponent implements OnInit {
       } else {
         this.clients = [];
       }
+      this.searchResults = this.clients;
     });
+  }
+
+  searchClient(text: string) {
+    const regexRUC = /^[0-9]{13}$/;
+    const regexCI = /^[0-9]{10}$/;
+    this.searchResults = [];
+    if(regexRUC.test(text) || regexCI.test(text)) {
+      this.clients.forEach((element: Client) => {
+        if(element.RUC === text){
+          this.searchResults.push(element);
+        }
+      });
+    } else {
+      this.searchResults = this.clients.filter((element: Client) => element.name === text)
+    }
+  }
+
+  cancelSearch() {
+    this.searchResults = this.clients;
   }
 
   handleSelectionClient(client: Client) {

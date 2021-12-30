@@ -17,6 +17,7 @@ export class CatalogueComponent implements OnInit {
 
   @ViewChild("setSelection") setSelection: ElementRef;
   @ViewChild("agreement") agreementModal: ElementRef;
+  @ViewChild("productSelectionList") productSelectionList: ElementRef;
 
   products: Product[];
   selectedClient: Client;
@@ -104,6 +105,10 @@ export class CatalogueComponent implements OnInit {
 
   showAgreementModal() {
     this.triggerModal(this.agreementModal);
+  }
+  
+  showProductSelectionList() {
+    this.triggerModal(this.productSelectionList);
   }
 
   triggerModal(modal: any) {

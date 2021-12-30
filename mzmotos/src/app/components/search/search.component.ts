@@ -25,6 +25,7 @@ export class SearchComponent implements OnInit {
   }
 
   cancel() {
+    this.text = "";
     this.cancelEvent.emit();
   }
 

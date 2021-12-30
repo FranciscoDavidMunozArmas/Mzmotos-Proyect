@@ -18,7 +18,7 @@ export class CatalogueItemComponent implements OnInit, OnChanges {
   imagePath: string = "";
   showDetails: boolean = false;
   selectedProduct: boolean = false;
-  counter: number = 0;
+  counter: number = 1;
 
   constructor(private modalService: NgbModal) { }
 
@@ -62,8 +62,8 @@ export class CatalogueItemComponent implements OnInit, OnChanges {
 
   removeCounter() {
     this.counter--;
-    if(this.counter < 0) {
-      this.counter = 0;
+    if(this.counter < 1) {
+      this.counter = 1;
     }
     this.returnProduct();
   }

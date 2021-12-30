@@ -18,6 +18,7 @@ export const getOrders = async (req: Request, res: Response) => {
 export const createOrder = async (req: Request, res: Response) => {
     try {
         const data = orderConverter.convertJSON(req.body);
+        data.date = new Date();
         data.total = data.list
             .map((item: any) => {
                 return item.product.price * item.quantity;

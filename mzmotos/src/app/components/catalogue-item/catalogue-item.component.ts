@@ -24,7 +24,8 @@ export class CatalogueItemComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if(this.enableSelection) {
-      this.showDetails = this.selectedProduct;
+      this.showDetails = false;
+      this.selectedProduct = false;
     } else {
       this.showDetails = false;
     }

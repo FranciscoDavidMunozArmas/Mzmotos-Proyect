@@ -46,7 +46,7 @@ export class Order {
         this.list = list;
         this.total = total;
         this.state = state;
-        this._id = (id) ? id : "";
+        this._id = id;
     }
 }
 

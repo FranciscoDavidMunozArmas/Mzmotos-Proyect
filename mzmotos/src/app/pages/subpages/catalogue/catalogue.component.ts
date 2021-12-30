@@ -2,8 +2,9 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Client, clientConverter } from 'src/app/models/Client';
-import { Order } from 'src/app/models/Order';
+import { Order, orderConverter } from 'src/app/models/Order';
 import { Product, productConverter } from 'src/app/models/Product';
+import { OrderService } from 'src/app/services/order.service';
 import { ProductService } from 'src/app/services/product.service';
 import { AuthService } from 'src/lib/auth.service';
 import { decode } from 'src/lib/token';
@@ -32,6 +33,7 @@ export class CatalogueComponent implements OnInit {
 
   constructor(
     private service: ProductService,
+    private orderService: OrderService,
     private auth: AuthService,
     private modalService: NgbModal) { }
 
@@ -97,7 +99,13 @@ export class CatalogueComponent implements OnInit {
   }
 
   handleAgreement() {
-    this.unselectClient();
+    console.log(this.order);
+    this.orderService.postOrder(orderConverter.fromJSON(this.order))
+    .subscribe(res => {
+      this.unselectClient();
+      this.modalClose();
+      this.initvalues();
+    });
   }
 
   showSelectionModal() {
@@ -122,6 +130,15 @@ export class CatalogueComponent implements OnInit {
 
   modalClose() {
     this.modalService.dismissAll();
+  }
+
+  initvalues() {
+    this.order = {
+      salesman: "",
+      client: null,
+      list: [],
+      total: 0
+    };
   }
 
 }

@@ -22,10 +22,6 @@ jobs:
       run: |
         yarn global add tslint typescript
 
-    - name: Navigate to your sources folder
-      run: |
-        cd path/to/project
-
     - name: Generate a basic configuration file
       run: |
         tslint --init

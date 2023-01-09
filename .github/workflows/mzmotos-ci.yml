@@ -1,0 +1,45 @@
+name: pmzmotos-ci
+
+on:
+  push:
+    branches:
+    - "**"
+
+  pull_request:
+    branches:
+    - "**"
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 5
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install the global CLI and its peer dependency
+      run: |
+        yarn global add tslint typescript
+
+    - name: Navigate to your sources folder
+      run: |
+        cd path/to/project
+
+    - name: Generate a basic configuration file
+      run: |
+        tslint --init
+
+    - name: Lint TypeScript source globs
+      run: |
+        tslint -c tslint.json 'src/**/*.ts'
+
+    - name: Unit test
+      run: |
+        echo Unit test
+
+    - name: Build coverage file
+      run: |
+        pytest --cache-clear --cov=app/test/ --cov-fail-under=80 > pytest-coverage.txt
+    - name: Comment coverage
+      uses: coroo/pytest-coverage-commentator@v1.0.2

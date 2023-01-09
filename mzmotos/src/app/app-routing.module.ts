@@ -10,6 +10,11 @@ import { LoginComponent } from './pages/login/login.component';
 import { ManagerComponent } from './pages/manager/manager.component';
 import { CatalogueComponent } from './pages/subpages/catalogue/catalogue.component';
 import { WarehouseComponent } from './pages/warehouse/warehouse.component';
+import { UserComponent } from './pages/subpages/user/user.component';
+import { ClientComponent } from './pages/subpages/client/client.component';
+import { ManagerReportInventoriesComponent } from './pages/subpages/manager-report-inventories/manager-report-inventories.component';
+import { ManagerReportSalesComponent } from './pages/subpages/manager-report-sales/manager-report-sales.component';
+import { ProductComponent } from './pages/subpages/product/product.component';
 
 const routes: Routes = [
   {
@@ -44,12 +49,46 @@ const routes: Routes = [
   {
     path: 'warehouse',
     component: WarehouseComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    children:[
+      {
+        path:"product",
+        component:ProductComponent
+      },
+      {
+        path: '',
+        redirectTo: 'product',
+        pathMatch: 'full'
+      }
+    ]
   },
   {
     path: 'admin',
     component: ManagerComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'user',
+        component: UserComponent
+      },
+      {
+        path: 'client',
+        component: ClientComponent
+      },
+      {
+        path: 'inventory',
+        component: ManagerReportInventoriesComponent
+      },
+      {
+        path: 'order',
+        component: ManagerReportSalesComponent
+      },
+      {
+        path: '',
+        redirectTo: 'user',
+        pathMatch: 'full'
+      }
+    ]
   },
   {
     path: '**',

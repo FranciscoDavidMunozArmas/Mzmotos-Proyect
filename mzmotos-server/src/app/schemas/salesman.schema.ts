@@ -3,6 +3,7 @@ import { Salesman } from "../interface/salesman.interface";
 
 const schema = new Schema({
     userid: String,
+    ci: String,
     name: String,
     surname: String,
     address: String,
@@ -19,7 +20,9 @@ const schema = new Schema({
                 RUC: String,
                 name: String,
                 address: String,
-                city: String
+                city: String,
+                phone: String,
+                email: String
             }
         }
     ]

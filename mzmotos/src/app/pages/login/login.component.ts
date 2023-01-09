@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/lib/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { decode } from 'src/lib/token';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { BACK_BUTTON_NAME, ERROR_MESSAGE, ERROR_MESSAGE_CONFIRM_PASSWORD, ERROR_MESSAGE_PASWORD_LENGTH, ERROR_TITLE, HINT_CONFIRM_PASSWORD, HINT_PASSWORD, HINT_USERNAME, KEEP_LOG_NAME, LOGIN_BUTTON_NAME, LOGIN_NAME, NEXT_BUTTON_NAME, RESET_PASSWORD_NAME, SAVE_BUTTON_NAME, SUCCESS_MESSAGE_MODIFY, SUCCESS_TITLE, WRITE_PASSWORD_NAME, WRITE_USERNAME_NAME } from 'src/lib/strings';
 
 @Component({
   selector: 'app-login',
@@ -13,26 +16,54 @@ import { decode } from 'src/lib/token';
 })
 export class LoginComponent implements OnInit {
 
+  hint = {
+    username: HINT_USERNAME,
+    password: HINT_PASSWORD,
+    confirm: HINT_CONFIRM_PASSWORD,
+  }
+
+  ui = {
+    login: LOGIN_NAME,
+    forgetPassword: RESET_PASSWORD_NAME,
+    keepLogged: KEEP_LOG_NAME,
+    loginButton: LOGIN_BUTTON_NAME,
+    writeUsername: WRITE_USERNAME_NAME,
+    writePassword: WRITE_PASSWORD_NAME,
+    backButton: BACK_BUTTON_NAME,
+    nextButton: NEXT_BUTTON_NAME,
+    saveButton: SAVE_BUTTON_NAME
+  }
+
   input = {
     username: "",
     password: "",
     keepLog: false,
   }
 
-  private cookieName: string = "logged-user";
-  private cookieRole: string = "role";
+  forgetPasswordInput = {
+    username: "",
+    newPassword: "",
+    confirmPassword: "",
+  }
+
+  stepCounter: number = 1;
+
+  loading: boolean = false;
+
+  @ViewChild("forgetPassword") forgetPassword: ElementRef;
 
   constructor(
     private userService: UserService,
     private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private modalService: NgbModal,
+    private toast: ToastrService) { }
 
   ngOnInit(): void {
   }
 
   onChange(value: any) {
-    console.log();
-    if(value.type === 'checkbox') {
+    if (value.type === 'checkbox') {
       this.input = { ... this.input, [value.name]: value.checked };
     } else {
       this.input = { ... this.input, [value.name]: value.value };
@@ -40,12 +71,104 @@ export class LoginComponent implements OnInit {
   }
 
   submitUser(loginForm: NgForm) {
-    this.userService.sigin(loginForm.value.username, loginForm.value.password)
+    this.loading = true;
+    this.userService.signin(loginForm.value.username, loginForm.value.password)
       .subscribe((res: any) => {
-        this.authService.signin(res, this.input.keepLog);
-        const token = decode(res);
-        this.router.navigate([`/${token.role}`]);
-      })
+        if (res) {
+          this.authService.signin(res, this.input.keepLog);
+          const token = decode(res);
+          this.loading = false;
+          this.router.navigate([`/${token.role}`]);
+        } else {
+          this.toast.error(ERROR_MESSAGE, ERROR_TITLE, {
+            timeOut: 3000,
+          });
+        }
+      }, (error: any) => {
+        this.toast.error(ERROR_MESSAGE, ERROR_TITLE, {
+          timeOut: 3000,
+        });
+        this.loading = false;
+      });
+    this.loading = false;
+  }
+
+  increaseStep() {
+    this.stepCounter++;
+  }
+
+  decreaseStep() {
+    this.stepCounter--;
+    if (this.stepCounter < 1) {
+      this.stepCounter = 1;
+    }
+  }
+
+  onSubmitForgetPassword(forgetPasswordForm: NgForm) {
+    this.loading = true;
+    if (this.stepCounter === 1) {
+      this.forgetPasswordInput.username = forgetPasswordForm.value.username;
+      this.checkUserExist(this.forgetPasswordInput.username);
+      this.loading = false;
+    } else if (this.stepCounter === 2) {
+      this.forgetPasswordInput.newPassword = forgetPasswordForm.value.password;
+      this.forgetPasswordInput.confirmPassword = forgetPasswordForm.value.confirm;
+      if (!this.checkPassword(this.forgetPasswordInput.newPassword, this.forgetPasswordInput.confirmPassword)) {
+        this.loading = false;
+        return;
+      }
+      this.userService.updatePassword(this.forgetPasswordInput.username, this.forgetPasswordInput.newPassword)
+        .subscribe((res: any) => {
+          this.toast.success(SUCCESS_MESSAGE_MODIFY, SUCCESS_TITLE,
+            {
+              timeOut: 3000,
+            });
+          this.loading = false;
+          this.modalClose();
+        });
+    }
+  }
+
+  checkUserExist(username: string) {
+    this.userService.getUserByUsername(username)
+      .subscribe((res: any) => {
+        if (!res._id) {
+          this.toast.error(ERROR_MESSAGE, ERROR_TITLE, {
+            timeOut: 3000,
+          });
+          this.stepCounter = 1;
+        } else {
+          this.increaseStep();
+        }
+      });
+  }
+
+  checkPassword(password: string, confirmPassword: string) {
+    if (password !== confirmPassword) {
+      this.toast.error(ERROR_MESSAGE_CONFIRM_PASSWORD, ERROR_TITLE, {
+        timeOut: 3000,
+      });
+      return false;
+    }
+    if (password.length < 6) {
+      this.toast.error(ERROR_MESSAGE_PASWORD_LENGTH, ERROR_TITLE, {
+        timeOut: 3000,
+      });
+      return false;
+    }
+    return true;
+  }
+
+  showForgetPassword() {
+    this.triggerModal(this.forgetPassword);
+  }
+
+  triggerModal(content: any) {
+    this.modalService.open(content).result;
+  }
+
+  modalClose() {
+    this.modalService.dismissAll();
   }
 
 }

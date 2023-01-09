@@ -9,6 +9,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastContainerModule, ToastrModule } from 'ngx-toastr';
 
 //Components
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -35,6 +37,18 @@ import { ClientSelectionComponent } from './components/client-selection/client-s
 import { ProductItemComponent } from './components/product-item/product-item.component';
 import { OrderContainerComponent } from './components/order-container/order-container.component';
 import { OrderItemComponent } from './components/order-item/order-item.component';
+import { ClientComponent } from './pages/subpages/client/client.component';
+import { UserComponent } from './pages/subpages/user/user.component';
+import { ManagerReportInventoriesComponent } from './pages/subpages/manager-report-inventories/manager-report-inventories.component';
+import { ManagerReportSalesComponent } from './pages/subpages/manager-report-sales/manager-report-sales.component';
+import { CardDataComponent } from './components/card-data/card-data.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
+import { ClientFormComponent } from './components/client-form/client-form.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import { ProductsComponent } from './components/products/products.component';
+import { ProductSelectionComponent } from './components/product-selection/product-selection.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
+import { ProductComponent } from './pages/subpages/product/product.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +74,19 @@ import { OrderItemComponent } from './components/order-item/order-item.component
     ClientSelectionComponent,
     ProductItemComponent,
     OrderContainerComponent,
-    OrderItemComponent
+    OrderItemComponent,
+    ClientComponent,
+    UserComponent,
+    ManagerReportInventoriesComponent,
+    ManagerReportSalesComponent,
+    CardDataComponent,
+    UserFormComponent,
+    ClientFormComponent,
+    LoadingComponent,
+    ProductsComponent,
+    ProductSelectionComponent,
+    ProductFormComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +94,9 @@ import { OrderItemComponent } from './components/order-item/order-item.component
     FontAwesomeModule,
     NgbModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     AuthGuard,

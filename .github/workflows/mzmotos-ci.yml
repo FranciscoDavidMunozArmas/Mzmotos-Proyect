@@ -1,0 +1,35 @@
+name: pmzmotos-ci
+
+on:
+  push:
+    branches:
+    - "**"
+
+  pull_request:
+    branches:
+    - "**"
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 5
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install the global CLI and its peer dependency
+      run: |
+        yarn global add tslint typescript
+
+    - name: Generate a basic configuration file
+      run: |
+        tslint --init
+
+    - name: Lint TypeScript source globs
+      run: |
+        tslint -c tslint.json 'src/**/*.ts'
+
+    - name: Unit test
+      run: |
+        echo Unit test

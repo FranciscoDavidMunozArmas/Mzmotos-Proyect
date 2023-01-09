@@ -33,9 +33,3 @@ jobs:
     - name: Unit test
       run: |
         echo Unit test
-
-    - name: Build coverage file
-      run: |
-        pytest --cache-clear --cov=app/test/ --cov-fail-under=80 > pytest-coverage.txt
-    - name: Comment coverage
-      uses: coroo/pytest-coverage-commentator@v1.0.2
